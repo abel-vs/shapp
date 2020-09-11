@@ -1,11 +1,12 @@
+import 'package:Shapp/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   @override
@@ -27,27 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedFontSize: 10,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-            backgroundColor: Color.fromRGBO(183, 248, 219, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket),
-            title: Text("Lijst"),
-            backgroundColor: Color.fromRGBO(80, 167, 194, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            title: Text("Meer"),
-            backgroundColor: Color.fromRGBO(120, 167, 180, 1),
-          ),
-        ],
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -61,11 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 prefixIcon: Icon(
                   Icons.search,
                   color: Colors.black,
-                ),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.close),
-                  color: Colors.black,
-                  onPressed: () => print("Clear search Bar"),
                 ),
                 border: new OutlineInputBorder(
                   borderSide: BorderSide(color: Theme.of(context).primaryColor),
