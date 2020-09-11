@@ -7,9 +7,6 @@ import 'bottom_navigation.dart';
 
 class TabNavigatorRoutes {
   static const String ROOT = '/';
-  static const String HOME = '/home';
-  static const String CART = '/cart';
-  static const String MORE = '/more';
 }
 
 class TabNavigator extends StatelessWidget {
@@ -34,9 +31,6 @@ class TabNavigator extends StatelessWidget {
 
     return {
       TabNavigatorRoutes.ROOT: (context) => rootPage,
-      TabNavigatorRoutes.HOME: (context) => HomePage(),
-      TabNavigatorRoutes.CART: (context) => CartPage(),
-      TabNavigatorRoutes.MORE: (context) => MorePage(),
     };
   }
 
