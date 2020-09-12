@@ -1,3 +1,5 @@
+import 'package:Shapp/navigation/tab_navigator.dart';
+import 'package:Shapp/screens/search_page.dart';
 import 'package:Shapp/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -32,22 +34,27 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
-            TextField(
-              autofocus: false,
-              enableSuggestions: true,
-              autocorrect: true,
-              decoration: InputDecoration(
-                hintText: "Zoek een product",
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black,
+            InkWell(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Zoek een product",
+                  enabled: false,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  border: new OutlineInputBorder(
+                    borderRadius:
+                        const BorderRadius.all(const Radius.circular(50.0)),
+                  ),
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 ),
-                border: new OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                  borderRadius:
-                      const BorderRadius.all(const Radius.circular(50.0)),
+              ),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(),
                 ),
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               ),
             ),
           ],
