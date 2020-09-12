@@ -4,7 +4,8 @@ class MorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("More")),
+      appBar: AppBar(title: Text("Meer"),),
+      body: Center(child: Text("Meer")),
     );
   }
 }

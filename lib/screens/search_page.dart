@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
     if (_isSearching) {
       return <Widget>[
         (_searchQueryController == null || _searchQueryController.text.isEmpty)
-            ? IconButton(icon: Icon(Icons.camera_alt), onPressed: () => print("Open QR scan"),)
+            ? Container()
             : IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () =>  _clearSearchQuery(),
