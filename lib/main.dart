@@ -1,3 +1,5 @@
+import 'package:Shapp/screens/search_page.dart';
+
 import 'navigation/app.dart';
 import 'screens/intro_page.dart';
 import 'screens/more_page.dart';

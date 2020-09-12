@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 
 import 'bottom_navigation.dart';
 
-class TabNavigatorRoutes {
-  static const String ROOT = '/';
-}
-
 class TabNavigator extends StatelessWidget {
   TabNavigator({this.navigatorKey, this.tabItem});
 
   final GlobalKey<NavigatorState> navigatorKey;
   final TabItem tabItem;
 
-  Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     var rootPage;
     switch (tabItem) {
       case TabItem.HOME:
@@ -29,21 +26,12 @@ class TabNavigator extends StatelessWidget {
         break;
     }
 
-    return {
-      TabNavigatorRoutes.ROOT: (context) => rootPage,
-    };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final routeBuilders = _routeBuilders(context);
-
     return Navigator(
       key: navigatorKey,
-      initialRoute: TabNavigatorRoutes.ROOT,
+      initialRoute: '/',
       onGenerateRoute: (routeSettings) {
         return MaterialPageRoute(
-          builder: (context) => routeBuilders[routeSettings.name](context),
+          builder: (context) => rootPage,
         );
       },
     );
