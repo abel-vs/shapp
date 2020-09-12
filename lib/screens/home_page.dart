@@ -1,6 +1,4 @@
-import 'package:Shapp/navigation/tab_navigator.dart';
 import 'package:Shapp/screens/search_page.dart';
-import 'package:Shapp/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
