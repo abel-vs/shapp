@@ -1,4 +1,5 @@
 import 'package:Shapp/screens/search_page.dart';
+import 'file:///C:/Users/abelv/Shapp/Projects/shapp/lib/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,14 +29,17 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            InkWell(
+      body: Stack(
+        children: <Widget>[
+          MapScreen(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: InkWell(
               borderRadius: BorderRadius.all(const Radius.circular(50.0)),
               child: TextField(
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
                   hintText: "Zoek een product",
                   enabled: false,
                   prefixIcon: Icon(
@@ -56,8 +60,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
 //      backgroundColor:,
     );
