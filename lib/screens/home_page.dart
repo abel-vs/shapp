@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             InkWell(
+              borderRadius: BorderRadius.all(const Radius.circular(50.0)),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Zoek een product",
