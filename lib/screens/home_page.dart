@@ -1,3 +1,4 @@
+import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,14 +29,17 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            InkWell(
+      body: Stack(
+        children: <Widget>[
+          MapPage(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: InkWell(
               borderRadius: BorderRadius.all(const Radius.circular(50.0)),
               child: TextField(
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
                   hintText: "Zoek een product",
                   enabled: false,
                   prefixIcon: Icon(
@@ -56,8 +60,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
 //      backgroundColor:,
     );
