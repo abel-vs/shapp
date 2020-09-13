@@ -1,5 +1,5 @@
+import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/search_page.dart';
-import 'file:///C:/Users/abelv/Shapp/Projects/shapp/lib/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: <Widget>[
-          MapScreen(),
+          MapPage(),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: InkWell(
