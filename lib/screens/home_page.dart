@@ -53,8 +53,7 @@ class _HomePageState extends State<HomePage> {
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                 ),
               ),
-              onTap: () => Navigator.push(
-                context,
+              onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SearchPage(),
                 ),

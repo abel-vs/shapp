@@ -22,6 +22,20 @@ class MorePage extends StatelessWidget {
               ),
             ),
           ),
+          ListTile(
+              leading: Icon(
+                Icons.share,
+                color: Colors.black,
+              ),
+              title: Text("Spread the love"),
+              onTap: () => print("Share")),
+          ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.black,
+              ),
+              title: Text("Instellingen"),
+              onTap: () => print("Settings")),
         ],
       ),
     );
