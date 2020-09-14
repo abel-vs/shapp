@@ -27,7 +27,9 @@ class _IntroPageState extends State<IntroPage> {
             children: <Widget>[
               IntroInfo('assets/images/basket.png', 'Find whatever you need',
                   'You can search through all products offered by partnered stores.'),
-              IntroInfo('assets/images/supermarket_location.png', 'Clear information',
+              IntroInfo(
+                  'assets/images/supermarket_location.png',
+                  'Clear information',
                   'You can find all information you need, such as price, availability, allergies, and much more.'),
               IntroInfo('assets/images/map.png', 'Go get it',
                   'You can easily view which stores have the product you selected.'),
@@ -103,11 +105,7 @@ class _IntroPageState extends State<IntroPage> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
                           ),
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()));
-                          },
+                          onPressed: () => Navigator.of(context).pop(),
                         ),
                 ],
               ),
