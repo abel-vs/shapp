@@ -1,5 +1,6 @@
 import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/search_page.dart';
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: "Zoek een product",
+                  hintText: AppLocalizations.of(context).translate("search_product"),
                   enabled: false,
                   prefixIcon: Icon(
                     Icons.search,
