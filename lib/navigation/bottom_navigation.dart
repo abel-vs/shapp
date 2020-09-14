@@ -1,3 +1,4 @@
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem { HOME, CART, MORE }
@@ -16,15 +17,15 @@ class BottomNavigation extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text("Home"),
+          label: AppLocalizations.of(context).translate("home"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.shopping_basket),
-          title: Text("Lijst"),
+          label: AppLocalizations.of(context).translate("list"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.more_horiz),
-          title: Text("Meer"),
+          label: AppLocalizations.of(context).translate("more"),
         ),
       ],
       onTap: (index) => onSelectTab(
