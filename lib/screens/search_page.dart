@@ -1,3 +1,4 @@
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SearchPageState extends State<SearchPage> {
                   strokeWidth: 2,
                 ),
               ),
-        title: _isSearching ? _buildSearchField() : Text("Wut"),
+        title: _isSearching ? _buildSearchField() : Container(),
         actions: _buildActions(),
       ),
       body: Center(child: Text("Search dat shit boii")),
@@ -34,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
       controller: _searchQueryController,
       autofocus: true,
       decoration: InputDecoration(
-        hintText: "Zoek een product",
+        hintText: AppLocalizations.of(context).translate("search_product"),
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.white30),
       ),
