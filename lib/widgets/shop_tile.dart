@@ -13,7 +13,7 @@ class ShopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
+    return InkWell(
       child: Card(
         elevation: 5,
         child: Padding(
