@@ -52,6 +52,18 @@ flutter:
     - assets/images/basket.png
     - assets/images/map.png
     - assets/images/supermarket_location.png
+    - assets/images/shops/boutique.png
+    - assets/images/shops/supermarket.png
+    - assets/images/shops/cafe.png
+    - assets/images/shops/restaurant.png
+    - assets/images/shops/delicatessen.png
+    - assets/images/shops/jewelry.png
+    - assets/images/shops/electronics_shop.png
+    - assets/images/shops/pet_shop.png
+    - assets/images/shops/stationery.png
+    - assets/images/shops/toy_store.png
+    - assets/images/shops/repair_services.png
+    - assets/images/shops/barber_shop.png
     - assets/lang/en.json
     - assets/lang/nl.json
 

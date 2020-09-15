@@ -1,5 +1,6 @@
 import 'package:Shapp/screens/intro_page.dart';
 import 'package:Shapp/screens/settings_page.dart';
+import 'package:Shapp/screens/shops_page.dart';
 import 'package:flutter/material.dart';
 
 class MorePage extends StatelessWidget {
@@ -40,6 +41,18 @@ class MorePage extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SettingsPage(),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            title: Text("Winkels"),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ShopsPage(),
               ),
             ),
           ),
