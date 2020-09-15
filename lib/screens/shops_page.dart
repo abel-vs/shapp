@@ -16,7 +16,6 @@ class ShopsPage extends StatelessWidget {
             SliverAppBar(
               title: SearchBar(),
               centerTitle: true,
-              leading: Container(),
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
