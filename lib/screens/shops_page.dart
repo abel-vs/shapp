@@ -9,13 +9,24 @@ class ShopsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Winkels"),
       ),
-      body: Column(
-        children: [
-          SearchBar(),
-          Expanded(
-            child: GridView.count(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: SearchBar(),
+              centerTitle: true,
+              leading: Container(),
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              floating: true,
+              pinned: false,
+              snap: false,
+              toolbarHeight: 100,
+            ),
+            SliverGrid.count(
               crossAxisCount: 2,
-              padding: EdgeInsets.all(10),
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
               children: [
@@ -48,8 +59,8 @@ class ShopsPage extends StatelessWidget {
                     image: "assets/images/shops/electronics_shop.png"),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

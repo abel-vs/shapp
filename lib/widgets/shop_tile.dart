@@ -15,7 +15,7 @@ class ShopTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Card(
-        elevation: 5,
+        elevation: 2,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

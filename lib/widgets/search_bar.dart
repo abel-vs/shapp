@@ -9,30 +9,34 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: InkWell(
-        borderRadius: BorderRadius.all(const Radius.circular(50.0)),
+    return InkWell(
+      borderRadius: BorderRadius.all(const Radius.circular(50.0)),
+      child: Material(
+        elevation: 10,
+        borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
         child: TextField(
+          enabled: false,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            hintText: AppLocalizations.of(context).translate("search_product"),
-            enabled: false,
+            hintText:
+                AppLocalizations.of(context).translate("search_product"),
+            disabledBorder: OutlineInputBorder(
+              borderRadius:
+                  const BorderRadius.all(const Radius.circular(50.0)),
+              borderSide: BorderSide(color: Colors.transparent),
+            ),
             prefixIcon: Icon(
               Icons.search,
               color: Colors.black,
             ),
-            border: new OutlineInputBorder(
-              borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
-            ),
             contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           ),
         ),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => SearchPage(),
-          ),
+      ),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => SearchPage(),
         ),
       ),
     );
