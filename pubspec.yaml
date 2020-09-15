@@ -32,6 +32,7 @@ dependencies:
   google_maps_flutter: ^0.5.32
   location: ^3.0.2
 
+  share: ^0.6.5
 
 dev_dependencies:
   flutter_test:

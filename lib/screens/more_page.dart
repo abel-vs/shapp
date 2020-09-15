@@ -1,6 +1,7 @@
 import 'package:Shapp/screens/intro_page.dart';
 import 'package:Shapp/screens/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class MorePage extends StatelessWidget {
   @override
@@ -29,7 +30,8 @@ class MorePage extends StatelessWidget {
               color: Colors.black,
             ),
             title: Text("Spread the love"),
-            onTap: () => print("Share"),
+            onTap: () => Share.share('Hey! Shoppen was nog nooit zo makkelijk als nu!',
+                subject: 'Shapp'),
           ),
           ListTile(
             leading: Icon(
