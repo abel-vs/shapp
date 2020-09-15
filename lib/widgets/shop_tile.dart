@@ -1,4 +1,5 @@
 import 'package:Shapp/screens/search_page.dart';
+import 'package:Shapp/screens/shop_branch_page.dart';
 import 'package:flutter/material.dart';
 
 class ShopTile extends StatelessWidget {
@@ -35,7 +36,7 @@ class ShopTile extends StatelessWidget {
       ),
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => SearchPage(),
+          builder: (context) => ShopBranchPage(),
         ),
       ),
       borderRadius: BorderRadius.all(const Radius.circular(4.0)),
