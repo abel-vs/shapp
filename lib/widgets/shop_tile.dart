@@ -1,7 +1,7 @@
+import 'package:Shapp/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class ShopTile extends StatelessWidget {
-
   final String title;
   final String image;
 
@@ -33,6 +33,13 @@ class ShopTile extends StatelessWidget {
           ),
         ),
       ),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => SearchPage(),
+        ),
+      ),
+      borderRadius: BorderRadius.all(const Radius.circular(4.0)),
+      splashColor: Theme.of(context).primaryColor,
     );
   }
 }
