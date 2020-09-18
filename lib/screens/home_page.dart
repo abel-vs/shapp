@@ -1,6 +1,7 @@
 import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/search_page.dart';
 import 'package:Shapp/services/app_localizations.dart';
+import 'package:Shapp/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +35,7 @@ class _HomePageState extends State<HomePage> {
           MapPage(),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: InkWell(
-              borderRadius: BorderRadius.all(const Radius.circular(50.0)),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: AppLocalizations.of(context).translate("search_product"),
-                  enabled: false,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  border: new OutlineInputBorder(
-                    borderRadius:
-                        const BorderRadius.all(const Radius.circular(50.0)),
-                  ),
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                ),
-              ),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(),
-                ),
-              ),
-            ),
+            child: SearchBar(),
           ),
         ],
       ),
@@ -67,3 +43,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
