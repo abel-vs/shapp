@@ -14,12 +14,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text("Shapp"),
+        actions: [IconButton(icon: Icon(Icons.shopping_basket_outlined), onPressed: () => print("Yeet"), )],
       ),
       body: Stack(
         children: <Widget>[
-          MapPage(),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: SearchBar(),
