@@ -10,25 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Shapp"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Theme.of(context).primaryColor,
-                Theme.of(context).accentColor,
-              ],
-            ),
-          ),
-        ),
       ),
       body: Stack(
         children: <Widget>[
@@ -43,4 +30,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

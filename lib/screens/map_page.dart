@@ -32,6 +32,7 @@ class MapPageState extends State<MapPage> {
         onMapCreated: _onMapCreated,
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.white,
           onPressed: _animateToUser,
           child: Icon(Icons.gps_fixed),
       ),

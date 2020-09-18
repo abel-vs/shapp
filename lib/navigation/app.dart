@@ -12,7 +12,9 @@ class AppState extends State<App> {
   TabItem _currentTab = TabItem.HOME;
   Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {
     TabItem.HOME: GlobalKey<NavigatorState>(),
-    TabItem.CART: GlobalKey<NavigatorState>(),
+    TabItem.PRODUCTS: GlobalKey<NavigatorState>(),
+    TabItem.SHOPS: GlobalKey<NavigatorState>(),
+    TabItem.MAP: GlobalKey<NavigatorState>(),
     TabItem.MORE: GlobalKey<NavigatorState>(),
   };
 
@@ -46,7 +48,9 @@ class AppState extends State<App> {
       child: Scaffold(
         body: Stack(children: <Widget>[
           _buildOffstageNavigator(TabItem.HOME),
-          _buildOffstageNavigator(TabItem.CART),
+          _buildOffstageNavigator(TabItem.PRODUCTS),
+          _buildOffstageNavigator(TabItem.SHOPS),
+          _buildOffstageNavigator(TabItem.MAP),
           _buildOffstageNavigator(TabItem.MORE),
         ]),
         bottomNavigationBar: BottomNavigation(
