@@ -1,4 +1,6 @@
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:Shapp/widgets/search_bar.dart';
+import 'package:Shapp/widgets/shop_card.dart';
 import 'package:Shapp/widgets/shop_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +10,7 @@ class ShopsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Winkels"),
+        title: Text(AppLocalizations.of(context).translate("shops")),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -24,6 +26,39 @@ class ShopsPage extends StatelessWidget {
               pinned: false,
               snap: false,
               toolbarHeight: 100,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Favoriete Winkels",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                height: 150.0,
+                child: ListView(
+                  padding: EdgeInsets.all(8),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ShopCard(),
+                    ShopCard(),
+                    ShopCard(),
+                    ShopCard(),
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Categorien",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
             ),
             SliverGrid.count(
               crossAxisCount: 2,
@@ -67,3 +102,4 @@ class ShopsPage extends StatelessWidget {
     );
   }
 }
+

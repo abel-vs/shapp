@@ -1,6 +1,10 @@
 {
   "home": "Home",
+  "products": "Products",
+  "shops": "Shops",
+  "map": "Map",
   "list": "List",
   "more": "More",
-  "search_product": "Search a product"
+  "search_product": "Search a product",
+  "search_shop": "Search a shop"
 }
