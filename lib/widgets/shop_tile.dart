@@ -28,7 +28,7 @@ class ShopTile extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(this.title),
+                child: Text(this.title, style: Theme.of(context).textTheme.subtitle1,),
               ),
             ],
           ),

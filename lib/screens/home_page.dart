@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: <Widget>[
-          MapPage(),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: SearchBar(),
