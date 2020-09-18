@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'navigation/app.dart';
-import 'screens/cart_page.dart';
+import 'screens/products_page.dart';
 import 'screens/home_page.dart';
 import 'screens/intro_page.dart';
 import 'screens/more_page.dart';
@@ -16,11 +16,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shapp',
+
+      debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         // Define the default brightness and colors.
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          textTheme: TextTheme(
+            headline6: TextStyle(
+              color: Color.fromRGBO(87, 190, 146, 1),
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+          ),
+        ),
         brightness: Brightness.light,
-        primaryColor: Color.fromRGBO(80, 167, 194, 1),
-        accentColor: Color.fromRGBO(183, 248, 219, 1),
+        primaryColor: Color.fromRGBO(87, 190, 146, 1),
+        accentColor: Color.fromRGBO(87, 190, 146, 1),
 
         // Define the default font family.
         fontFamily: 'Abel',
@@ -37,7 +50,7 @@ class MyApp extends StatelessWidget {
       home: App(),
       routes: <String, WidgetBuilder>{
         '/home': (context) => HomePage(),
-        '/cart': (context) => CartPage(),
+        '/cart': (context) => ProductsPage(),
         '/more': (context) => MorePage(),
         '/intro': (context) => IntroPage(),
       },

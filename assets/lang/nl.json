@@ -1,6 +1,10 @@
 {
   "home": "Home",
+  "products": "Producten",
+  "shops": "Winkels",
+  "map": "Kaart",
   "list": "Lijst",
   "more": "Meer",
-  "search_product": "Zoek een product"
+  "search_product": "Zoek een product",
+  "search_shop": "Zoek een winkel"
 }

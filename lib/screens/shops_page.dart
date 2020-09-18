@@ -7,6 +7,7 @@ class ShopsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text("Winkels"),
       ),
       body: Padding(
@@ -33,7 +34,8 @@ class ShopsPage extends StatelessWidget {
                     title: "Allerhande",
                     image: "assets/images/shops/stationery.png"),
                 ShopTile(
-                    title: "Kleding", image: "assets/images/shops/boutique.png"),
+                    title: "Kleding",
+                    image: "assets/images/shops/boutique.png"),
                 ShopTile(
                     title: "Supermarkt",
                     image: "assets/images/shops/supermarket.png"),
@@ -49,7 +51,8 @@ class ShopsPage extends StatelessWidget {
                     title: "Delicatessen",
                     image: "assets/images/shops/delicatessen.png"),
                 ShopTile(
-                    title: "Sieraden", image: "assets/images/shops/jewelry.png"),
+                    title: "Sieraden",
+                    image: "assets/images/shops/jewelry.png"),
                 ShopTile(
                     title: "Speelgoed",
                     image: "assets/images/shops/toy_store.png"),
