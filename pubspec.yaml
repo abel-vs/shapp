@@ -67,6 +67,7 @@ flutter:
     - assets/images/shops/barber_shop.png
     - assets/lang/en.json
     - assets/lang/nl.json
+    - assets/images/AlbertHeijnXL.jpg
 
   fonts:
     - family: Abel
