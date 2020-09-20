@@ -15,8 +15,8 @@ class ShopCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 150,
+              Flexible(
+                flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,24 +58,28 @@ class ShopCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image(
-                      image: AssetImage("assets/images/AlbertHeijnXL.jpg"),
+              Flexible(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image(
+                        height:150,
+                        image: AssetImage("assets/images/AlbertHeijnXL.jpg"),
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: IconButton(
-                      splashRadius: 10,
-                      icon: Icon(Icons.favorite, color: Theme.of(context).primaryColor,),
-                      onPressed: () => print("Not a favorite anymore"),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: IconButton(
+                        splashRadius: 10,
+                        icon: Icon(Icons.favorite, color: Theme.of(context).primaryColor,),
+                        onPressed: () => print("Not a favorite anymore"),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

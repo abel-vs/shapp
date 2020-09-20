@@ -65,6 +65,7 @@ flutter:
     - assets/images/shops/toy_store.png
     - assets/images/shops/repair_services.png
     - assets/images/shops/barber_shop.png
+    - assets/images/shops/shop_background.png
     - assets/lang/en.json
     - assets/lang/nl.json
     - assets/images/AlbertHeijnXL.jpg

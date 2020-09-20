@@ -1,4 +1,5 @@
 import 'package:Shapp/widgets/search_bar.dart';
+import 'package:Shapp/widgets/shop_card.dart';
 import 'package:Shapp/widgets/shop_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -8,32 +9,46 @@ class ShopBranchPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          title: Text('SliverAppBar'),
-//            centerTitle: true,
-//            backgroundColor: Colors.transparent,
-          expandedHeight: 200.0,
-//          floating: true,
+          title: Text('Supermarkt'),
+          centerTitle: true,
           pinned: true,
-          snap: false,
+          expandedHeight: 150.0,
+          floating: true,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset('assets/images/shops/supermarket.png', fit: BoxFit.fitHeight),
+            background: Container(
+              child: Stack(
+                children: [
+                  Positioned(
+                      bottom: 1,
+                      left: 1,
+                      right: 1,
+                      child: Opacity(
+                        opacity: 0.7,
+                        child: Image.asset(
+                            "assets/images/shops/shop_background.png"),
+                      )),
+                  Positioned(
+                    left: 1,
+                    right: 1,
+                    bottom: 1,
+                    child: Image.asset(
+                      'assets/images/shops/supermarket.png',
+                      height: 100,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              Container(color: Colors.red, height: 150.0),
-              Container(color: Colors.purple, height: 150.0),
-              Container(color: Colors.green, height: 150.0),
-              Container(color: Colors.red, height: 150.0),
-              Container(color: Colors.purple, height: 150.0),
-              Container(color: Colors.green, height: 150.0),
-              Container(color: Colors.red, height: 150.0),
-              Container(color: Colors.purple, height: 150.0),
-              Container(color: Colors.green, height: 150.0),
-              Container(color: Colors.red, height: 150.0),
-              Container(color: Colors.purple, height: 150.0),
-              Container(color: Colors.green, height: 150.0),
+              ShopCard(),
+              ShopCard(),
+              ShopCard(),
+              ShopCard(),
+              ShopCard(),
             ],
           ),
         ),
