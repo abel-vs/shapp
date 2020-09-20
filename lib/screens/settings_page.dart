@@ -7,41 +7,40 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Instellingen"),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: Icon(
-              Icons.language,
-              color: Theme.of(context).primaryColor,
+      body: ListTileTheme(
+        iconColor: Theme.of(context).primaryColor,
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(
+                Icons.language,
+              ),
+              title: Text("Taal"),
             ),
-            title: Text("Taal"),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.wb_sunny,
-              color: Theme.of(context).primaryColor,
-            ),
-            title: Text("Donkere Modus"),
-            trailing: Switch(
-              value: false,
+            ListTile(
+              leading: Icon(
+                Icons.wb_sunny,
+              ),
+              title: Text("Donkere Modus"),
+              trailing: Switch(
+                value: false,
 
+              ),
             ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.notifications,
-              color: Theme.of(context).primaryColor,
+            ListTile(
+              leading: Icon(
+                Icons.notifications,
+              ),
+              title: Text("Meldingen"),
             ),
-            title: Text("Meldingen"),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.info_outline,
-              color: Theme.of(context).primaryColor,
+            ListTile(
+              leading: Icon(
+                Icons.info_outline,
+              ),
+              title: Text("Over de app"),
             ),
-            title: Text("Over de app"),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

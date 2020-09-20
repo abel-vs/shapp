@@ -11,54 +11,53 @@ class MorePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Meer"),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: Icon(
-              Icons.help,
-              color: Colors.black,
-            ),
-            title: Text("Hoe te gebruiken"),
-            onTap: () => Navigator.of(context, rootNavigator: true).push(
-              MaterialPageRoute(
-                builder: (context) => IntroPage(),
+      body: ListTileTheme(
+        iconColor: Theme.of(context).primaryColor,
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(
+                Icons.help,
+              ),
+              title: Text("Hoe te gebruiken"),
+              onTap: () => Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute(
+                  builder: (context) => IntroPage(),
+                ),
               ),
             ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.share,
-              color: Colors.black,
+            ListTile(
+              leading: Icon(
+                Icons.share,
+              ),
+              title: Text("Spread the love"),
+              onTap: () => Share.share('Hey! Shoppen was nog nooit zo makkelijk als nu!',
+                  subject: 'Shapp'),
             ),
-            title: Text("Spread the love"),
-            onTap: () => Share.share('Hey! Shoppen was nog nooit zo makkelijk als nu!',
-                subject: 'Shapp'),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            title: Text("Instellingen"),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SettingsPage(),
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+              ),
+              title: Text("Instellingen"),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SettingsPage(),
+                ),
               ),
             ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              color: Colors.black,
-            ),
-            title: Text("Winkels"),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ShopsPage(),
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+              ),
+              title: Text("Winkels"),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ShopsPage(),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
