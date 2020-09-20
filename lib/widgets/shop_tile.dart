@@ -39,7 +39,7 @@ class ShopTile extends StatelessWidget {
           builder: (context) => ShopBranchPage(),
         ),
       ),
-      borderRadius: BorderRadius.all(const Radius.circular(4.0)),
+      borderRadius: BorderRadius.all(const Radius.circular(5.0)),
       splashColor: Theme.of(context).primaryColor,
     );
   }

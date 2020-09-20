@@ -55,7 +55,7 @@ class ShopsPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  "Categorien",
+                  "Categorieën",
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
