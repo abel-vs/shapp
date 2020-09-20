@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(AppLocalizations.of(context).translate("map")),),
       body: GoogleMap(
         zoomControlsEnabled: false,
         initialCameraPosition: Delft,
