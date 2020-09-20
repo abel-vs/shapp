@@ -10,6 +10,7 @@ class ShopCard extends StatelessWidget {
     return InkWell(
       child: Card(
         child: Container(
+          height:150,
           width: 300,
           padding: EdgeInsets.all(8),
           child: Row(
@@ -19,21 +20,13 @@ class ShopCard extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
                         Text(
                           "Albert Heijn XL",
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                         Text("Supermarkt"),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                        Spacer(),
                         Row(
                           children: [
                             Flexible(
@@ -55,9 +48,7 @@ class ShopCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ],
                 ),
-              ),
               Flexible(
                 flex: 1,
                 child: Stack(
