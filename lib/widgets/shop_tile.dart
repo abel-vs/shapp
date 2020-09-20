@@ -36,7 +36,7 @@ class ShopTile extends StatelessWidget {
       ),
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => ShopBranchPage(),
+          builder: (context) => ShopBranchPage(title, image),
         ),
       ),
       borderRadius: BorderRadius.all(const Radius.circular(5.0)),

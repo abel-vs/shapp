@@ -1,13 +1,19 @@
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:Shapp/widgets/shop_card.dart';
 import 'package:flutter/material.dart';
 
 class ShopBranchPage extends StatelessWidget {
+  final String branch;
+  final String image;
+
+  ShopBranchPage(this.branch, this.image);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          title: Text('Supermarkt'),
+          title: Text(branch),
           centerTitle: true,
           pinned: true,
           expandedHeight: 150.0,
@@ -30,7 +36,7 @@ class ShopBranchPage extends StatelessWidget {
                     right: 1,
                     bottom: 1,
                     child: Image.asset(
-                      'assets/images/shops/supermarket.png',
+                      image,
                       height: 100,
                     ),
                   ),
