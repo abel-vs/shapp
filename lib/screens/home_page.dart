@@ -1,3 +1,4 @@
+import 'package:Shapp/screens/cart_page.dart';
 import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/search_page.dart';
 import 'package:Shapp/services/app_localizations.dart';
@@ -20,7 +21,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_basket_outlined),
-            onPressed: () => print("Yeet"),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CartPage(),
+              ),
+            ),
           )
         ],
       ),
