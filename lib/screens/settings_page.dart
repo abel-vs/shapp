@@ -1,3 +1,4 @@
+import 'package:Shapp/screens/about_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -24,7 +25,6 @@ class SettingsPage extends StatelessWidget {
               title: Text("Donkere Modus"),
               trailing: Switch(
                 value: false,
-
               ),
             ),
             ListTile(
@@ -32,12 +32,6 @@ class SettingsPage extends StatelessWidget {
                 Icons.notifications,
               ),
               title: Text("Meldingen"),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info_outline,
-              ),
-              title: Text("Over de app"),
             ),
           ],
         ),

@@ -6,5 +6,10 @@
   "list": "Lijst",
   "more": "Meer",
   "search_product": "Zoek een product",
-  "search_shop": "Zoek een winkel"
+  "search_shop": "Zoek een winkel",
+  "about_app": "Over de app",
+  "app_version": "App versie 0.0",
+  "general_conditions": "Algemene voorwaarden",
+  "privacy_policy": "Privacybeleid",
+  "cookie_policy": "Cookiebeleid"
 }
