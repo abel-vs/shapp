@@ -17,6 +17,25 @@ class SettingsPage extends StatelessWidget {
                 Icons.language,
               ),
               title: Text("Taal"),
+              onTap: () => showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text("Check 123"),
+                  content: Text("Choose your damn language mate"),
+                  actions: [
+                    FlatButton(
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true).pop(),
+                      child: Text("Cancel"),
+                    ),
+                    FlatButton(
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true).pop(),
+                      child: Text("Confirm"),
+                    ),
+                  ],
+                ),
+              ),
             ),
             ListTile(
               leading: Icon(
