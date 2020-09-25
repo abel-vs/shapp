@@ -12,6 +12,9 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  static const Color OCEAN_GREEN = Color.fromRGBO(87, 190, 146, 1);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,15 +28,15 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           textTheme: TextTheme(
             headline6: TextStyle(
-              color: Color.fromRGBO(87, 190, 146, 1),
+              color: OCEAN_GREEN,
               fontWeight: FontWeight.bold,
               fontSize: 24,
             ),
           ),
         ),
         brightness: Brightness.light,
-        primaryColor: Color.fromRGBO(87, 190, 146, 1),
-        accentColor: Color.fromRGBO(87, 190, 146, 1),
+        primaryColor: OCEAN_GREEN,
+        accentColor: OCEAN_GREEN,
 
         // Define the default font family.
         fontFamily: 'Abel',
@@ -42,12 +45,17 @@ class MyApp extends StatelessWidget {
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Color.fromRGBO(87, 190, 146, 1),
+            color: OCEAN_GREEN,
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
+          headline4: TextStyle(
+            color: OCEAN_GREEN,
+            fontWeight: FontWeight.bold,
+            fontSize: 32,
+          ),
           subtitle2: TextStyle(
-            color: Color.fromRGBO(87, 190, 146, 1),
+            color: OCEAN_GREEN,
             fontSize: 18,
           ),
         ),

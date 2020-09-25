@@ -1,16 +1,17 @@
+import 'package:Shapp/models/shop.dart';
+import 'package:Shapp/screens/shop_page.dart';
 import 'package:flutter/material.dart';
 
 class ShopCard extends StatelessWidget {
-  const ShopCard({
-    Key key,
-  }) : super(key: key);
+  final Shop shop = new Shop("id", "Albert Heijn XL", "Supermarket", "Delft",
+      "Martinus Nijhofflaan", 7, "assets/images/AlbertHeijnXL.jpg");
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       child: Card(
         child: Container(
-          height:150,
+          height: 150,
           width: 300,
           padding: EdgeInsets.all(8),
           child: Row(
@@ -21,34 +22,34 @@ class ShopCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                        Text(
-                          "Albert Heijn XL",
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                        Text("Supermarkt"),
-                        Spacer(),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Text(
-                                "Martinus Nijhofflaan",
-                                overflow: TextOverflow.fade,
-                                softWrap: false,
-                              ),
-                            ),
-                            Text(
-                              "  " + "7",
-                            ),
-                          ],
+                    Text(
+                      shop.name,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    Text(shop.type),
+                    Spacer(),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            shop.street,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                          ),
                         ),
                         Text(
-                          "Delft",
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
+                          "  " + shop.houseNumber.toString(),
                         ),
                       ],
                     ),
+                    Text(
+                      shop.city,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                    ),
+                  ],
                 ),
+              ),
               Flexible(
                 flex: 1,
                 child: Stack(
@@ -56,8 +57,8 @@ class ShopCard extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image(
-                        height:150,
-                        image: AssetImage("assets/images/AlbertHeijnXL.jpg"),
+                        height: 150,
+                        image: AssetImage(shop.image),
                       ),
                     ),
                     Positioned(
@@ -65,7 +66,10 @@ class ShopCard extends StatelessWidget {
                       right: 0,
                       child: IconButton(
                         splashRadius: 10,
-                        icon: Icon(Icons.favorite, color: Theme.of(context).primaryColor,),
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Theme.of(context).primaryColor,
+                        ),
                         onPressed: () => print("Not a favorite anymore"),
                       ),
                     ),
@@ -77,7 +81,11 @@ class ShopCard extends StatelessWidget {
         ),
         elevation: 4,
       ),
-      onTap: () => print("Shop Card Tapped!"),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ShopPage(shop: shop),
+        ),
+      ),
       borderRadius: BorderRadius.all(const Radius.circular(5.0)),
       splashColor: Theme.of(context).primaryColor,
     );
