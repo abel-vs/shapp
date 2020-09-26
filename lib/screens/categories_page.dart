@@ -1,5 +1,7 @@
 import 'package:Shapp/screens/products_page.dart';
 import 'package:Shapp/screens/shops_page.dart';
+import 'package:Shapp/services/app_localizations.dart';
+import 'package:Shapp/widgets/basket_button.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -9,11 +11,12 @@ class CategoriesPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Categories"),
+          title: Text(AppLocalizations.of(context).translate("categories")),
+          actions: [BasketButton()],
           bottom: TabBar(
             tabs: [
-              Tab(text: "Products",),
-              Tab(text: "Shops",),
+              Tab(text: AppLocalizations.of(context).translate("products")),
+              Tab(text: AppLocalizations.of(context).translate("shops")),
             ],
             indicatorColor: Theme.of(context).primaryColor,
           ),

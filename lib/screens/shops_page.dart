@@ -8,12 +8,7 @@ import 'package:flutter/material.dart';
 class ShopsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(AppLocalizations.of(context).translate("shops")),
-      ),
-      body: CustomScrollView(
+    return CustomScrollView(
         slivers: [
           SliverAppBar(
             title: SearchBar(),
@@ -42,7 +37,6 @@ class ShopsPage extends StatelessWidget {
               ),
             ),
           ),
-          SliverTitle(title: "Categorieën"),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             sliver: SliverGrid.count(
@@ -83,7 +77,6 @@ class ShopsPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
     );
   }
 }
