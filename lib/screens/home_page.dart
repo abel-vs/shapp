@@ -1,8 +1,5 @@
-import 'package:Shapp/screens/map_page.dart';
-import 'package:Shapp/screens/search_page.dart';
-import 'package:Shapp/services/app_localizations.dart';
+import 'package:Shapp/widgets/basket_button.dart';
 import 'package:Shapp/widgets/search_bar.dart';
-import 'package:Shapp/widgets/shop_card.dart';
 import 'package:Shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
 
@@ -17,12 +14,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Shapp"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_basket_outlined),
-            onPressed: () => print("Yeet"),
-          )
-        ],
+        actions: [BasketButton()],
       ),
       body: CustomScrollView(
         slivers: [
@@ -54,20 +46,27 @@ class _HomePageState extends State<HomePage> {
 
   SliverToBoxAdapter _buildScrollView() {
     return SliverToBoxAdapter(
-            child: Container(
-              height: 150.0,
-              child: ListView(
-                padding: EdgeInsets.all(8),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Card(child: Placeholder(fallbackWidth: 300,)),
-                  Card(child: Placeholder(fallbackWidth: 300,)),
-                  Card(child: Placeholder(fallbackWidth: 300,)),
-                ],
-              ),
-            ),
-          );
+      child: Container(
+        height: 150.0,
+        child: ListView(
+          padding: EdgeInsets.all(8),
+          scrollDirection: Axis.horizontal,
+          children: [
+            Card(
+                child: Placeholder(
+              fallbackWidth: 300,
+            )),
+            Card(
+                child: Placeholder(
+              fallbackWidth: 300,
+            )),
+            Card(
+                child: Placeholder(
+              fallbackWidth: 300,
+            )),
+          ],
+        ),
+      ),
+    );
   }
 }
-
-

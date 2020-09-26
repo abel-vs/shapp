@@ -1,3 +1,4 @@
+import 'package:Shapp/widgets/basket_button.dart';
 import 'package:Shapp/widgets/search_bar.dart';
 import 'package:Shapp/widgets/shop_tile.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,10 @@ class ProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Producten")),
+      appBar: AppBar(
+        title: Text("Producten"),
+        actions: [BasketButton()],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: CustomScrollView(

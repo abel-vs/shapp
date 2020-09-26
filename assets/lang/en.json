@@ -5,6 +5,13 @@
   "map": "Map",
   "list": "List",
   "more": "More",
+  "basket": "Basket",
+  "feedback": "Feedback",
   "search_product": "Search a product",
-  "search_shop": "Search a shop"
+  "search_shop": "Search a shop",
+  "about_app": "About the app",
+  "app_version": "App version 0.0",
+  "general_conditions": "General Conditions",
+  "privacy_policy": "Privacy Policy",
+  "cookie_policy": "Cookie Policy"
 }

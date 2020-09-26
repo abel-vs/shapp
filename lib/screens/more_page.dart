@@ -1,3 +1,5 @@
+import 'package:Shapp/screens/about_page.dart';
+import 'package:Shapp/screens/feedback_page.dart';
 import 'package:Shapp/screens/intro_page.dart';
 import 'package:Shapp/screens/settings_page.dart';
 import 'package:Shapp/screens/shop_page.dart';
@@ -37,7 +39,7 @@ class MorePage extends StatelessWidget {
               title: Text("Feedback"),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ShopPage(),
+                  builder: (context) => FeedbackPage(),
                 ),
               ),
             ),
@@ -58,7 +60,7 @@ class MorePage extends StatelessWidget {
               title: Text("Over de app"),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ShopPage(),
+                  builder: (context) => AboutPage(),
                 ),
               ),
             ),

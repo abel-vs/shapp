@@ -1,3 +1,4 @@
+import 'package:Shapp/screens/about_page.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -16,6 +17,25 @@ class SettingsPage extends StatelessWidget {
                 Icons.language,
               ),
               title: Text("Taal"),
+              onTap: () => showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text("Check 123"),
+                  content: Text("Choose your damn language mate"),
+                  actions: [
+                    FlatButton(
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true).pop(),
+                      child: Text("Cancel"),
+                    ),
+                    FlatButton(
+                      onPressed: () =>
+                          Navigator.of(context, rootNavigator: true).pop(),
+                      child: Text("Confirm"),
+                    ),
+                  ],
+                ),
+              ),
             ),
             ListTile(
               leading: Icon(
@@ -24,7 +44,6 @@ class SettingsPage extends StatelessWidget {
               title: Text("Donkere Modus"),
               trailing: Switch(
                 value: false,
-
               ),
             ),
             ListTile(
@@ -32,12 +51,6 @@ class SettingsPage extends StatelessWidget {
                 Icons.notifications,
               ),
               title: Text("Meldingen"),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info_outline,
-              ),
-              title: Text("Over de app"),
             ),
           ],
         ),
