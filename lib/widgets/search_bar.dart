@@ -1,10 +1,12 @@
 import 'package:Shapp/screens/search_page.dart';
-import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
+  final String text;
+
   const SearchBar({
     Key key,
+    this.text,
   }) : super(key: key);
 
   @override
@@ -19,11 +21,9 @@ class SearchBar extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            hintText:
-                AppLocalizations.of(context).translate("search_product"),
+            hintText: text,
             disabledBorder: OutlineInputBorder(
-              borderRadius:
-                  const BorderRadius.all(const Radius.circular(50.0)),
+              borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
               borderSide: BorderSide(color: Colors.transparent),
             ),
             prefixIcon: Icon(

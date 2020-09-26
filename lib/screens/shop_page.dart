@@ -121,11 +121,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(
             height: appBarSize < kToolbarHeight ? kToolbarHeight : appBarSize,
             child: AppBar(
-//              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: IconThemeData(color: Colors.white),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {},
               ),
+              actions: [IconButton(icon: Icon(Icons.favorite_border), onPressed: (){})],
               flexibleSpace: Opacity(
                 opacity: hideTitleWhenExpanded ? percent : 0.0,
                 child: Container(
@@ -156,7 +157,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        shop.name,
+                        shop.name.toUpperCase(),
                         style: Theme.of(context).textTheme.headline4,
                       ),
                       Text(shop.type),

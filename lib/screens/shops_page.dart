@@ -11,7 +11,7 @@ class ShopsPage extends StatelessWidget {
     return CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: SearchBar(),
+            title: SearchBar(text: AppLocalizations.of(context).translate("search_shop")),
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
@@ -21,22 +21,22 @@ class ShopsPage extends StatelessWidget {
             snap: false,
             toolbarHeight: 100,
           ),
-          SliverTitle(title: "Favoriete Winkels"),
-          SliverToBoxAdapter(
-            child: Container(
-              height: 150.0,
-              child: ListView(
-                padding: EdgeInsets.all(8),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ShopCard(),
-                  ShopCard(),
-                  ShopCard(),
-                  ShopCard(),
-                ],
-              ),
-            ),
-          ),
+//          SliverTitle(title: "Favoriete Winkels"),
+//          SliverToBoxAdapter(
+//            child: Container(
+//              height: 150.0,
+//              child: ListView(
+//                padding: EdgeInsets.all(8),
+//                scrollDirection: Axis.horizontal,
+//                children: [
+//                  ShopCard(),
+//                  ShopCard(),
+//                  ShopCard(),
+//                  ShopCard(),
+//                ],
+//              ),
+//            ),
+//          ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             sliver: SliverGrid.count(
