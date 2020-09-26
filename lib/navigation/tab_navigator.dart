@@ -1,3 +1,4 @@
+import 'package:Shapp/screens/categories_page.dart';
 import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/products_page.dart';
 import 'package:Shapp/screens/home_page.dart';
@@ -21,7 +22,7 @@ class TabNavigator extends StatelessWidget {
         rootPage = HomePage();
         break;
       case TabItem.PRODUCTS:
-        rootPage = ProductsPage();
+        rootPage = CategoriesPage();
         break;
       case TabItem.SHOPS:
         rootPage = ShopsPage();
