@@ -1,7 +1,7 @@
 import 'package:Shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-enum TabItem { HOME, PRODUCTS, SHOPS, MAP, MORE }
+enum TabItem { HOME, SEARCH, FAVORITES, MAP, MORE }
 
 class BottomNavigation extends StatelessWidget {
   BottomNavigation({this.currentTab, this.onSelectTab});
@@ -14,21 +14,23 @@ class BottomNavigation extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: currentTab.index,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
           label: AppLocalizations.of(context).translate("home"),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
-          label: AppLocalizations.of(context).translate("products"),
+          label: AppLocalizations.of(context).translate("search"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: AppLocalizations.of(context).translate("shops"),
+          icon: Icon(Icons.favorite_border),
+          label: AppLocalizations.of(context).translate("favorites"),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.map),
+          icon: Icon(Icons.location_on_outlined),
           label: AppLocalizations.of(context).translate("map"),
         ),
         BottomNavigationBarItem(
