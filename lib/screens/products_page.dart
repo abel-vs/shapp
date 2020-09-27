@@ -27,9 +27,9 @@ class ProductsPage extends StatelessWidget {
             child: ListView.builder(
                 padding: EdgeInsets.all(8),
                 scrollDirection: Axis.horizontal,
-                itemCount: Categories().categories.length,
+                itemCount: Categories().productCategories.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryTile(category: Categories().categories[index],);
+                  return CategoryTile(category: Categories().productCategories[index],);
                 }
             ),
           ),

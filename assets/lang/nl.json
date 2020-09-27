@@ -32,5 +32,9 @@
   "sports":  "Sport",
   "florist":  "Florist",
   "fruits":  "Fruit en Groenten",
-  "fish": "Vis"
+  "fish": "Vis",
+  "food": "Eten",
+  "drinks": "Drank",
+  "beauty":  "Schoonheid",
+  "health": "Verzorging"
 }

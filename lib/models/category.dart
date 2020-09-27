@@ -7,7 +7,7 @@ class Category {
 
 class Categories {
 
-  get categories {
+  get shopCategories {
     return [
       supermarket,
       clothing,
@@ -60,4 +60,13 @@ class Categories {
       Category(name: "fruits", image: "assets/images/shops/fruit_shop.png");
   final fish =
       Category(name: "fish", image: "assets/images/shops/fish_shop.png");
+
+  get productCategories{
+    return [food, drinks, health, beauty];
+  }
+
+  final food = Category(name: "food", image:"assets/images/products/basket.png");
+  final drinks = Category(name: "drinks", image:"assets/images/products/drinks.png");
+  final health = Category(name: "health", image:"assets/images/products/health.png");
+  final beauty = Category(name: "beauty", image:"assets/images/products/cosmetics.png");
 }
