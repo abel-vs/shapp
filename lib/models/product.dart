@@ -1,18 +1,19 @@
 import 'dart:core';
 
-import 'opening_hour.dart';
+import 'package:Shapp/models/category.dart';
 
-class Product{
+class Product {
   final String id;
   final String name;
   final String image;
-  final String category;
+  final Category category;
   final double price;
   final Map<String, dynamic> productInformation;
-  final List<OpeningHour> openingHours;
 
   Product(this.id, this.name, this.image, this.category, this.price,
-      this.productInformation, this.openingHours);
+      this.productInformation);
+}
 
-
+class Products{
+  final product1 = Product("id", "name", "assets/images/AlbertHeijnXL.jpg", Categories().health, 4.20, {"Coolness": 999});
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ShopCard extends StatelessWidget {
   final Shop shop = new Shop("id", "Albert Heijn XL", "Supermarket", "Delft",
-      "Martinus Nijhofflaan", 7, "assets/images/AlbertHeijnXL.jpg");
+      "Martinus Nijhofflaan", 7, "assets/images/AlbertHeijnXL.jpg", null);
 
   @override
   Widget build(BuildContext context) {

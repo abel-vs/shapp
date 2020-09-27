@@ -1,5 +1,7 @@
 {
   "home": "Home",
+  "search": "Search",
+  "favorites": "Favorites",
   "products": "Products",
   "shops": "Shops",
   "map": "Map",
@@ -32,6 +34,10 @@
   "sports":  "Sports",
   "florist":  "Florist",
   "fruits":  "Fruits",
-  "fish": "Fish"
+  "fish": "Fish",
+  "food": "Food",
+  "drinks": "Drink",
+  "beauty":  "Schoonheid",
+  "health": "Healthcare"
 
 }

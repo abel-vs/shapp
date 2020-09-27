@@ -1,9 +1,8 @@
 import 'package:Shapp/screens/categories_page.dart';
-import 'package:Shapp/screens/map_page.dart';
-import 'package:Shapp/screens/products_page.dart';
+import 'package:Shapp/screens/favorites_page.dart';
 import 'package:Shapp/screens/home_page.dart';
+import 'package:Shapp/screens/map_page.dart';
 import 'package:Shapp/screens/more_page.dart';
-import 'package:Shapp/screens/shops_page.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation.dart';
@@ -21,11 +20,11 @@ class TabNavigator extends StatelessWidget {
       case TabItem.HOME:
         rootPage = HomePage();
         break;
-      case TabItem.PRODUCTS:
+      case TabItem.SEARCH:
         rootPage = CategoriesPage();
         break;
-      case TabItem.SHOPS:
-        rootPage = ShopsPage();
+      case TabItem.FAVORITES:
+        rootPage = FavoritesPage();
         break;
       case TabItem.MAP:
         rootPage = MapPage();
