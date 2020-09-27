@@ -1,4 +1,3 @@
-import 'package:Shapp/widgets/basket_button.dart';
 import 'package:Shapp/widgets/search_bar.dart';
 import 'package:Shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Shapp"),
-        actions: [BasketButton()],
       ),
       body: CustomScrollView(
         slivers: [
