@@ -34,6 +34,10 @@
   "sports":  "Sports",
   "florist":  "Florist",
   "fruits":  "Fruits",
-  "fish": "Fish"
+  "fish": "Fish",
+  "food": "Food",
+  "drinks": "Drink",
+  "beauty":  "Schoonheid",
+  "health": "Healthcare"
 
 }
