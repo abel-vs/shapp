@@ -1,3 +1,5 @@
+import 'package:Shapp/models/product.dart';
+import 'package:Shapp/widgets/product_tile.dart';
 import 'package:Shapp/widgets/search_bar.dart';
 import 'package:Shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
@@ -50,18 +52,12 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.all(8),
           scrollDirection: Axis.horizontal,
           children: [
-            Card(
-                child: Placeholder(
-              fallbackWidth: 300,
-            )),
-            Card(
-                child: Placeholder(
-              fallbackWidth: 300,
-            )),
-            Card(
-                child: Placeholder(
-              fallbackWidth: 300,
-            )),
+            ProductTile(product: Products().product1,),
+            ProductTile(product: Products().product1,),
+            ProductTile(product: Products().product1,),
+            ProductTile(product: Products().product1,),
+            ProductTile(product: Products().product1,),
+            ProductTile(product: Products().product1,),
           ],
         ),
       ),

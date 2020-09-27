@@ -14,24 +14,24 @@ class ProductTile extends StatelessWidget {
     return InkWell(
       child: Card(
         elevation: 2,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Flexible(
+        child: Column(
+          children: [
+            Flexible(
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
                 child: Image(
                   image: AssetImage(product.image),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  product.name,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                product.name,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       onTap: () {},
