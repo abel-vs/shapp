@@ -1,5 +1,5 @@
 class Shop{
-  final String id; //The ID of the queue
+  final String id;
   final String name;
   final String type;
   final String city;

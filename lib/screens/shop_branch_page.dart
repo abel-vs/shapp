@@ -1,19 +1,19 @@
+import 'package:Shapp/models/category.dart';
 import 'package:Shapp/services/app_localizations.dart';
 import 'package:Shapp/widgets/shop_card.dart';
 import 'package:flutter/material.dart';
 
 class ShopBranchPage extends StatelessWidget {
-  final String branch;
-  final String image;
+  final Category category;
 
-  ShopBranchPage(this.branch, this.image);
+  const ShopBranchPage({Key key, this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          title: Text(branch),
+          title: Text(AppLocalizations.of(context).translate(category.name)),
           centerTitle: true,
           pinned: true,
           expandedHeight: 150.0,
@@ -22,21 +22,12 @@ class ShopBranchPage extends StatelessWidget {
             background: Container(
               child: Stack(
                 children: [
-//                  Positioned(
-//                      bottom: 1,
-//                      left: 1,
-//                      right: 1,
-//                      child: Opacity(
-//                        opacity: 0.7,
-//                        child: Image.asset(
-//                            "assets/images/shops/shop_background.png"),
-//                      )),
                   Positioned(
                     left: 1,
                     right: 1,
                     bottom: 1,
                     child: Image.asset(
-                      image,
+                      category.image,
                       height: 100,
                     ),
                   ),
