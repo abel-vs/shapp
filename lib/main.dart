@@ -73,6 +73,27 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
+        darkTheme: ThemeData(
+          appBarTheme: AppBarTheme(
+              color: Colors.black12,
+              textTheme: TextTheme(
+                headline6: TextStyle(
+                  color: OCEAN_GREEN,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+            iconTheme: IconThemeData(color: OCEAN_GREEN)
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.black38,
+            elevation: 0,
+          ),
+          brightness: Brightness.dark,
+          primaryColor: OCEAN_GREEN,
+          accentColor: OCEAN_GREEN,
+        ),
+
         /// Navigation
         home: App(),
         routes: <String, WidgetBuilder>{
