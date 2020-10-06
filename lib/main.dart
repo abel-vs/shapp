@@ -92,6 +92,23 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primaryColor: OCEAN_GREEN,
           accentColor: OCEAN_GREEN,
+
+          textTheme: TextTheme(
+            headline6: TextStyle(
+              color: OCEAN_GREEN,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+            headline4: TextStyle(
+              color: OCEAN_GREEN,
+              fontWeight: FontWeight.bold,
+              fontSize: 32,
+            ),
+            subtitle2: TextStyle(
+              color: OCEAN_GREEN,
+              fontSize: 18,
+            ),
+          ),
         ),
 
         /// Navigation
