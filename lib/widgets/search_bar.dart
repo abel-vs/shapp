@@ -20,6 +20,7 @@ class SearchBar extends StatelessWidget {
           enabled: false,
           decoration: InputDecoration(
             filled: true,
+            fillColor: Theme.of(context).cardColor,
             hintText: text,
             disabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
