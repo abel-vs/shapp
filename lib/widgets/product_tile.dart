@@ -18,7 +18,7 @@ class ProductTile extends StatelessWidget {
           children: [
             Flexible(
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
                 child: Image(
                   image: AssetImage(product.image),
                 ),

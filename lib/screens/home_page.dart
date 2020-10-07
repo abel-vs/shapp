@@ -1,4 +1,5 @@
 import 'package:Shapp/models/product.dart';
+import 'package:Shapp/services/app_localizations.dart';
 import 'package:Shapp/widgets/product_tile.dart';
 import 'package:Shapp/widgets/search_bar.dart';
 import 'package:Shapp/widgets/sliver_title.dart';
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: SearchBar(),
+            title: SearchBar(text: AppLocalizations.of(context).translate("search_product"),),
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
