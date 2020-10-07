@@ -43,6 +43,7 @@ ThemeData lightTheme = ThemeData(
 
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
+  hintColor: Colors.black,
 
   // Define the default font family.
   fontFamily: 'Abel',

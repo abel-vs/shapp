@@ -20,25 +20,24 @@ class SearchBar extends StatelessWidget {
           enabled: false,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
             hintText: text,
             disabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
               borderSide: BorderSide(color: Colors.transparent),
             ),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Colors.black,
+            prefixIcon: Icon(Icons.search,
+              color: Theme.of(context).textTheme.bodyText1.color,
             ),
             contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           ),
         ),
       ),
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => SearchPage(),
-        ),
-      ),
+      onTap: () =>
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SearchPage(),
+            ),
+          ),
     );
   }
 }
