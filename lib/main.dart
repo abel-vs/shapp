@@ -1,5 +1,6 @@
 import 'package:Shapp/services/auth.dart';
 import 'package:Shapp/services/database.dart';
+import 'package:Shapp/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +18,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  static const Color OCEAN_GREEN = Color.fromRGBO(87, 190, 146, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -34,82 +34,9 @@ class MyApp extends StatelessWidget {
 
         debugShowCheckedModeBanner: false,
 
-        theme: ThemeData(
-          // Define the default brightness and colors.
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-            textTheme: TextTheme(
-              headline6: TextStyle(
-                color: OCEAN_GREEN,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          brightness: Brightness.light,
-          primaryColor: OCEAN_GREEN,
-          accentColor: OCEAN_GREEN,
+        theme: lightTheme,
 
-          // Define the default font family.
-          fontFamily: 'Abel',
-
-          // Define the default TextTheme. Use this to specify the default
-          // text styling for headlines, titles, bodies of text, and more.
-          textTheme: TextTheme(
-            headline6: TextStyle(
-              color: OCEAN_GREEN,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-            headline4: TextStyle(
-              color: OCEAN_GREEN,
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-            ),
-            subtitle2: TextStyle(
-              color: OCEAN_GREEN,
-              fontSize: 18,
-            ),
-          ),
-        ),
-
-        darkTheme: ThemeData(
-          appBarTheme: AppBarTheme(
-              color: Colors.black12,
-              textTheme: TextTheme(
-                headline6: TextStyle(
-                  color: OCEAN_GREEN,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            iconTheme: IconThemeData(color: OCEAN_GREEN)
-          ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.black38,
-            elevation: 0,
-          ),
-          brightness: Brightness.dark,
-          primaryColor: OCEAN_GREEN,
-          accentColor: OCEAN_GREEN,
-
-          textTheme: TextTheme(
-            headline6: TextStyle(
-              color: OCEAN_GREEN,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-            headline4: TextStyle(
-              color: OCEAN_GREEN,
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-            ),
-            subtitle2: TextStyle(
-              color: OCEAN_GREEN,
-              fontSize: 18,
-            ),
-          ),
-        ),
+        darkTheme: darkTheme,
 
         /// Navigation
         home: App(),
