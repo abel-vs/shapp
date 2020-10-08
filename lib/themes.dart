@@ -39,11 +39,13 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 
+  bottomNavigationBarTheme:
+      BottomNavigationBarThemeData(backgroundColor: Colors.white),
+
   brightness: Brightness.light,
 
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-  hintColor: Colors.black,
 
   // Define the default font family.
   fontFamily: 'Abel',
@@ -55,7 +57,7 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   appBarTheme: AppBarTheme(
-      color: EERIE_BLACK,
+    color: EERIE_BLACK,
     textTheme: TextTheme(
       headline6: TextStyle(
         color: OCEAN_GREEN,
@@ -66,22 +68,15 @@ ThemeData darkTheme = ThemeData(
     ),
     iconTheme: IconThemeData(color: OCEAN_GREEN),
   ),
-
-    primaryTextTheme: TextTheme(
-      bodyText1: TextStyle(color: Colors.white)
-    ),
-
+  primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: EERIE_BLACK,
     elevation: 0,
   ),
-
   brightness: Brightness.dark,
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-  focusColor: Colors.white,
 
-  bottomAppBarColor: Colors.yellow,
   fontFamily: 'Abel',
   textTheme: textTheme,
 );
