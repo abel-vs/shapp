@@ -1,23 +1,26 @@
+import 'package:Shapp/screens/landing_page.dart';
 import 'package:Shapp/services/auth.dart';
 import 'package:Shapp/services/database.dart';
 import 'package:Shapp/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'navigation/app.dart';
 import 'screens/products_page.dart';
 import 'screens/home_page.dart';
 import 'screens/intro_page.dart';
 import 'screens/more_page.dart';
 import 'services/app_localizations.dart';
 
-void main() => runApp(MyApp());
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
         darkTheme: darkTheme,
 
         /// Navigation
-        home: App(),
+        home: LandingPage(),
         routes: <String, WidgetBuilder>{
           '/home': (context) => HomePage(),
           '/cart': (context) => ProductsPage(),
