@@ -40,9 +40,9 @@ class ShopPage extends StatelessWidget {
               child: ListView.builder(
                 padding: EdgeInsets.all(8),
                 scrollDirection: Axis.horizontal,
-                  itemCount: Categories().shopCategories.length,
+                  itemCount: shopCategories.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CategoryTile(category: Categories().shopCategories[index],);
+                    return CategoryTile(category: shopCategories[index],);
                   }
               ),
             ),

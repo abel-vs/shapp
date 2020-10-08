@@ -31,9 +31,9 @@ class ShopsPage extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                return CategoryTile(category: Categories().shopCategories[index]);
+                return CategoryTile(category: shopCategories.entries.elementAt(index).value);
               },
-              childCount: Categories().shopCategories.length,
+              childCount: shopCategories.length,
             ),
           ),
         ),

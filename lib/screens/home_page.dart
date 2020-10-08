@@ -22,7 +22,9 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: SearchBar(text: AppLocalizations.of(context).translate("search_product"),),
+            title: SearchBar(
+              text: AppLocalizations.of(context).translate("search_product"),
+            ),
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
@@ -54,13 +56,15 @@ class _HomePageState extends State<HomePage> {
         height: 150.0,
         child: StreamBuilder<List<Product>>(
           stream: database.productsStream(),
-          builder: (context, snapshot) => ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ProductTile(product: snapshot.data.elementAt(index));
-            },
-          ),
+          builder: (context, snapshot) => snapshot.hasData
+              ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ProductTile(product: snapshot.data.elementAt(index));
+                  },
+                )
+              : Center(child: CircularProgressIndicator()),
         ),
       ),
     );

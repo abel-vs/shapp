@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Shapp/models/product.dart';
 import 'package:Shapp/services/firebase_path.dart';
 
@@ -12,9 +14,16 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<List<Product>> productsStream() {
-    return _service.collectionStream(path: FirebasePath.products(), builder: (data, documentID) {
-      return Product(id: documentID, name: data['name'], imageURL: data['image'], category: data['category'], price: 69, info: data['info']);
-    });
+    return _service.collectionStream(
+        path: FirebasePath.products(),
+        builder: (data, documentID) {
+          return Product(
+              id: documentID,
+              name: data['name'],
+              image: data['image'],
+              category: data['category'],
+              price: 69,
+              info: data['info']);
+        });
   }
-
 }
