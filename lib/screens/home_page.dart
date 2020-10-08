@@ -1,9 +1,11 @@
 import 'package:Shapp/models/product.dart';
 import 'package:Shapp/services/app_localizations.dart';
+import 'package:Shapp/services/database.dart';
 import 'package:Shapp/widgets/product_tile.dart';
 import 'package:Shapp/widgets/search_bar.dart';
 import 'package:Shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,20 +48,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   SliverToBoxAdapter _buildScrollView() {
+    final database = Provider.of<Database>(context);
     return SliverToBoxAdapter(
       child: Container(
         height: 150.0,
-        child: ListView(
-          padding: EdgeInsets.all(8),
-          scrollDirection: Axis.horizontal,
-          children: [
-            ProductTile(product: Products().product1,),
-            ProductTile(product: Products().product1,),
-            ProductTile(product: Products().product1,),
-            ProductTile(product: Products().product1,),
-            ProductTile(product: Products().product1,),
-            ProductTile(product: Products().product1,),
-          ],
+        child: StreamBuilder<List<Product>>(
+          stream: database.productsStream(),
+          builder: (context, snapshot) => ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return ProductTile(product: snapshot.data.elementAt(index));
+            },
+          ),
         ),
       ),
     );

@@ -19,9 +19,7 @@ class ProductTile extends StatelessWidget {
             Flexible(
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
-                child: Image(
-                  image: AssetImage(product.image),
-                ),
+                child: Image(image: NetworkImage(product.imageURL)),
               ),
             ),
             Padding(
