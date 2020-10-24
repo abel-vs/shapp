@@ -11,13 +11,7 @@ class CategoriesPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context).translate("categories")),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: AppLocalizations.of(context).translate("products")),
-              Tab(text: AppLocalizations.of(context).translate("shops")),
-            ],
-            indicatorColor: Theme.of(context).primaryColor,
-          ),
+          bottom: _buildTabBar(context),
         ),
         body: TabBarView(
           children: [
@@ -26,6 +20,20 @@ class CategoriesPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  TabBar _buildTabBar(BuildContext context) {
+    return TabBar(
+      labelStyle: TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w300),
+      tabs: [
+        Tab(text: AppLocalizations.of(context).translate("products")),
+        Tab(text: AppLocalizations.of(context).translate("shops")),
+      ],
+      indicatorColor: Theme.of(context).primaryColor,
+      labelColor: Theme.of(context).primaryColor,
+      unselectedLabelColor: Colors.grey,
     );
   }
 }

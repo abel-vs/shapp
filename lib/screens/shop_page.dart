@@ -1,13 +1,12 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shapp/models/category.dart';
 import 'package:shapp/models/shop.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/widgets/search_bar.dart';
-import 'package:shapp/widgets/category_tile.dart';
 import 'package:shapp/widgets/sliver_header.dart';
 import 'package:shapp/widgets/sliver_shop_header.dart';
 import 'package:shapp/widgets/sliver_title.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class ShopPage extends StatelessWidget {
   final Shop shop;
