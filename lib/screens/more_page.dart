@@ -1,9 +1,7 @@
-import 'package:Shapp/screens/about_page.dart';
-import 'package:Shapp/screens/feedback_page.dart';
-import 'package:Shapp/screens/intro_page.dart';
-import 'package:Shapp/screens/settings_page.dart';
-import 'package:Shapp/screens/shop_page.dart';
-import 'package:Shapp/screens/shops_page.dart';
+import 'package:shapp/screens/about_page.dart';
+import 'package:shapp/screens/feedback_page.dart';
+import 'package:shapp/screens/intro_page.dart';
+import 'package:shapp/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 

@@ -1,4 +1,4 @@
-import 'package:Shapp/navigation/app.dart';
+import 'package:shapp/navigation/app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

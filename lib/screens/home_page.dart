@@ -1,9 +1,9 @@
-import 'package:Shapp/models/product.dart';
-import 'package:Shapp/services/app_localizations.dart';
-import 'package:Shapp/services/database.dart';
-import 'package:Shapp/widgets/product_tile.dart';
-import 'package:Shapp/widgets/search_bar.dart';
-import 'package:Shapp/widgets/sliver_title.dart';
+import 'package:shapp/models/product.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/services/database.dart';
+import 'package:shapp/widgets/product_tile.dart';
+import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

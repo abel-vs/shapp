@@ -1,4 +1,4 @@
-import 'package:Shapp/services/app_localizations.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem { HOME, SEARCH, FAVORITES, MAP, MORE }

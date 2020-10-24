@@ -1,7 +1,5 @@
-import 'package:Shapp/widgets/intro_info.dart';
+import 'package:shapp/widgets/intro_info.dart';
 import 'package:flutter/material.dart';
-
-import 'home_page.dart';
 
 class IntroPage extends StatefulWidget {
   @override

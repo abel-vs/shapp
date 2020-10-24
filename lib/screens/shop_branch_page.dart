@@ -1,7 +1,6 @@
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/services/app_localizations.dart';
-import 'package:Shapp/themes.dart';
-import 'package:Shapp/widgets/shop_card.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/shop_card.dart';
 import 'package:flutter/material.dart';
 
 class ShopBranchPage extends StatelessWidget {

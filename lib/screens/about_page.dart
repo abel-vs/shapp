@@ -1,5 +1,4 @@
-import 'package:Shapp/navigation/tab_navigator.dart';
-import 'package:Shapp/services/app_localizations.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {

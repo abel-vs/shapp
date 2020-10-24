@@ -1,9 +1,8 @@
 import 'dart:developer';
 
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/models/product.dart';
-import 'package:Shapp/services/firebase_path.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/models/product.dart';
+import 'package:shapp/services/firebase_path.dart';
 
 import 'firestore_service.dart';
 

@@ -1,4 +1,4 @@
-import 'package:Shapp/navigation/tab_navigator.dart';
+import 'package:shapp/navigation/tab_navigator.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation.dart';

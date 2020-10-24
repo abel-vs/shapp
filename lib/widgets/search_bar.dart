@@ -1,4 +1,4 @@
-import 'package:Shapp/screens/search_page.dart';
+import 'package:shapp/screens/search_page.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
