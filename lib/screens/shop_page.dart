@@ -42,7 +42,7 @@ class ShopPage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                   itemCount: shopCategories.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CategoryTile(category: shopCategories[index],);
+                    return CategoryTile(category: shopCategories.entries.elementAt(index).value);
                   }
               ),
             ),
