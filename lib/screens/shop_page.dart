@@ -27,24 +27,24 @@ class ShopPage extends StatelessWidget {
               shop: shop,
             ),
           ),
-          SliverHeader(
-              widget: SearchBar(
-                  text:
-                      AppLocalizations.of(context).translate("search_product")),
-              height: 100),
-          SliverTitle(
-              title: AppLocalizations.of(context).translate("categories")),
+          SliverHeader(widget: SearchBar(text: AppLocalizations.of(context).translate("search_product")), height: 100),
+          SliverTitle(title: AppLocalizations.of(context).translate("categories")),
           SliverToBoxAdapter(
             child: Container(
-              height: 150.0,
+              height: 50,
               child: ListView.builder(
-                padding: EdgeInsets.all(8),
-                scrollDirection: Axis.horizontal,
-                  itemCount: shopCategories.length,
+                  padding: EdgeInsets.all(8),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: productCategories.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CategoryTile(category: shopCategories.entries.elementAt(index).value);
-                  }
-              ),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Chip(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        label: Text(AppLocalizations.of(context).translate(productCategories.entries.elementAt(index).value.name)),
+                      ),
+                    );
+                  }),
             ),
           ),
           SliverTitle(title: AppLocalizations.of(context).translate("deals")),
