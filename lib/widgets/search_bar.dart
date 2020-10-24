@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   final String text;
 
+  static const double RADIUS = 5;
+
   const SearchBar({
     Key key,
     this.text,
@@ -12,10 +14,10 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.all(const Radius.circular(50.0)),
+      borderRadius: BorderRadius.all(const Radius.circular(RADIUS)),
       child: Material(
         elevation: 10,
-        borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
+        borderRadius: const BorderRadius.all(const Radius.circular(RADIUS)),
         child: TextField(
           enabled: false,
           decoration: InputDecoration(
@@ -23,7 +25,7 @@ class SearchBar extends StatelessWidget {
             fillColor: Theme.of(context).cardColor,
             hintText: text,
             disabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(const Radius.circular(50.0)),
+              borderRadius: const BorderRadius.all(const Radius.circular(RADIUS)),
               borderSide: BorderSide(color: Colors.transparent),
             ),
             prefixIcon: Icon(Icons.search,

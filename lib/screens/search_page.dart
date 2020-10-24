@@ -1,5 +1,6 @@
 import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:shapp/widgets/filter_sheet.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -47,11 +48,15 @@ class _SearchPageState extends State<SearchPage> {
   List<Widget> _buildActions() {
     if (_isSearching) {
       return <Widget>[
+        IconButton(
+          icon: Icon(Icons.filter_list),
+          onPressed: () => _showFilterBottomSheet(context),
+        ),
         (_searchQueryController == null || _searchQueryController.text.isEmpty)
             ? Container()
             : IconButton(
                 icon: const Icon(Icons.clear),
-                onPressed: () =>  _clearSearchQuery(),
+                onPressed: () => _clearSearchQuery(),
               ),
       ];
     }
@@ -65,8 +70,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _startSearch() {
-    ModalRoute.of(context)
-        .addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
+    ModalRoute.of(context).addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
 
     setState(() {
       _isSearching = true;
@@ -92,5 +96,16 @@ class _SearchPageState extends State<SearchPage> {
       _searchQueryController.clear();
       updateSearchQuery("");
     });
+  }
+
+  void _showFilterBottomSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (BuildContext context) {
+          return FilterSheet();
+        });
   }
 }
