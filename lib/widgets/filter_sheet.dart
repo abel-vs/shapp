@@ -1,7 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shapp/models/category.dart';
 import 'package:shapp/services/app_localizations.dart';
-import 'package:shapp/widgets/product_tile.dart';
+
+enum SortingOrder {
+  RELEVANCE,
+  PRICE_ASCENDING,
+  PRICE_DESCENDING,
+  ALPHABET_ASCENDING,
+  ALPHABET_DESCENDING,
+}
 
 class FilterSheet extends StatefulWidget {
   @override
@@ -10,19 +19,50 @@ class FilterSheet extends StatefulWidget {
 
 class _FilterSheetState extends State<FilterSheet> {
   static const double MAX = 100;
-  RangeValues selectedRange = RangeValues(0, MAX);
+  RangeValues selectedPriceRange = RangeValues(0, MAX);
+
+  Set<Category> selectedCategories = Set();
+
+  SortingOrder sortingOrder = SortingOrder.RELEVANCE;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Wrap(
-        children: <Widget>[
-          _buildTitle(context),
-          _buildPrice(context),
-          buildCategories(),
-        ],
-      ),
+    return Wrap(
+      children: <Widget>[
+        buildTitle(context),
+        buildPrice(context),
+        buildCategories(),
+        buildSortingOrder()
+      ],
     );
+  }
+
+  ListTile buildSortingOrder() {
+    return ListTile(
+          title: Text("Sorteren op"),
+          subtitle: Column(
+            children: [
+              buildSortingOrderOption("Relevance", SortingOrder.RELEVANCE),
+              buildSortingOrderOption("Price (low to high)", SortingOrder.PRICE_ASCENDING),
+              buildSortingOrderOption("Price (high to low)", SortingOrder.PRICE_DESCENDING),
+              buildSortingOrderOption("Alphabetically (low to high)", SortingOrder.ALPHABET_ASCENDING),
+              buildSortingOrderOption("Alphabetically (low to high)", SortingOrder.ALPHABET_DESCENDING),
+            ],
+          ),
+        );
+  }
+
+  CheckboxListTile buildSortingOrderOption(String title, SortingOrder sortingOrder) {
+    return CheckboxListTile(
+              title: Text(title),
+              value: this.sortingOrder == sortingOrder,
+              onChanged: (selected) {
+                setState(() {
+                  this.sortingOrder = selected ? sortingOrder : SortingOrder.RELEVANCE;
+                });
+              },
+              controlAffinity: ListTileControlAffinity.leading,
+            );
   }
 
   ListTile buildCategories() {
@@ -37,7 +77,14 @@ class _FilterSheetState extends State<FilterSheet> {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Chip(
+                child: ChoiceChip(
+                  selected: selectedCategories.contains(productCategories.values.elementAt(index)),
+                  onSelected: (selected) {
+                    setState(() {
+                      Category category = productCategories.values.elementAt(index);
+                      selected ? selectedCategories.add(category) : selectedCategories.remove(category);
+                    });
+                  },
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   label: Text(
                       AppLocalizations.of(context).translate(productCategories.entries.elementAt(index).value.name)),
@@ -48,7 +95,7 @@ class _FilterSheetState extends State<FilterSheet> {
     );
   }
 
-  ListTile _buildTitle(BuildContext context) {
+  ListTile buildTitle(BuildContext context) {
     return ListTile(
       title: Text(
         'Filters',
@@ -58,18 +105,18 @@ class _FilterSheetState extends State<FilterSheet> {
     );
   }
 
-  ListTile _buildPrice(BuildContext context) {
+  ListTile buildPrice(BuildContext context) {
     return ListTile(
       title: Text(AppLocalizations.of(context).translate('price')),
       subtitle: RangeSlider(
-        values: selectedRange,
+        values: selectedPriceRange,
         onChanged: (RangeValues newRange) {
-          setState(() => selectedRange = newRange);
+          setState(() => selectedPriceRange = newRange);
         },
         min: 0,
         max: 100,
         divisions: 10,
-        labels: RangeLabels('€${selectedRange.start.toInt()}', '€${selectedRange.end.toInt()}'),
+        labels: RangeLabels('€${selectedPriceRange.start.toInt()}', '€${selectedPriceRange.end.toInt()}'),
         activeColor: Theme.of(context).primaryColor,
         inactiveColor: Theme.of(context).primaryColor.withOpacity(0.24),
       ),

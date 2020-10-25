@@ -101,6 +101,7 @@ class _SearchPageState extends State<SearchPage> {
   void _showFilterBottomSheet(context) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),

@@ -3,6 +3,29 @@ class Category {
   final String image;
 
   Category({this.name, this.image});
+
+  @override
+  String toString() {
+    return 'Category{name: $name, image: $image}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Category &&
+              runtimeType == other.runtimeType &&
+              name == other.name &&
+              image == other.image;
+
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      image.hashCode;
+
+
+
+
+
 }
 
 Map<String, Category> get shopCategories {
