@@ -1,5 +1,5 @@
-import 'package:Shapp/models/shop.dart';
-import 'package:Shapp/screens/shop_page.dart';
+import 'package:shapp/models/shop.dart';
+import 'package:shapp/screens/shop_page.dart';
 import 'package:flutter/material.dart';
 
 class ShopCard extends StatelessWidget {

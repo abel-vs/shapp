@@ -1,7 +1,7 @@
-import 'package:Shapp/screens/landing_page.dart';
-import 'package:Shapp/services/auth.dart';
-import 'package:Shapp/services/database.dart';
-import 'package:Shapp/themes.dart';
+import 'package:shapp/screens/landing_page.dart';
+import 'package:shapp/services/auth.dart';
+import 'package:shapp/services/database.dart';
+import 'package:shapp/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

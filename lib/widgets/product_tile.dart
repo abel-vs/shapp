@@ -1,4 +1,4 @@
-import 'package:Shapp/models/product.dart';
+import 'package:shapp/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductTile extends StatelessWidget {
@@ -19,9 +19,7 @@ class ProductTile extends StatelessWidget {
             Flexible(
               child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
-                child: Image(
-                  image: AssetImage(product.image),
-                ),
+                child: product.image,
               ),
             ),
             Padding(

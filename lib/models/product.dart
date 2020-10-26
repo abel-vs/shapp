@@ -1,19 +1,27 @@
 import 'dart:core';
 
-import 'package:Shapp/models/category.dart';
+import 'package:shapp/models/category.dart';
+import 'package:flutter/cupertino.dart';
 
 class Product {
   final String id;
   final String name;
-  final String image;
-  final Category category;
+  Image image;
+  Category category;
   final double price;
-  final Map<String, dynamic> productInformation;
+  final Map<String, dynamic> info;
 
-  Product(this.id, this.name, this.image, this.category, this.price,
-      this.productInformation);
-}
+  Product({this.id, this.name, String image, String category, this.price, this.info}) {
+    this.image = (image == null)
+        ? Image( image: AssetImage('assets/images/map.png'))
+        : Image(image: NetworkImage(image));
+    this.category = productCategories.containsKey(category) ? productCategories[category] : productCategories['none'];
+  }
 
-class Products{
-  final product1 = Product("id", "name", "assets/images/AlbertHeijnXL.jpg", Categories().health, 4.20, {"Coolness": 999});
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, image: $image, category: $category, price: $price, info: $info}';
+  }
+
+
 }

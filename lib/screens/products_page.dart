@@ -1,7 +1,7 @@
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/services/app_localizations.dart';
-import 'package:Shapp/widgets/search_bar.dart';
-import 'package:Shapp/widgets/category_tile.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/category_tile.dart';
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatelessWidget {
@@ -27,9 +27,9 @@ class ProductsPage extends StatelessWidget {
             child: ListView.builder(
                 padding: EdgeInsets.all(8),
                 scrollDirection: Axis.horizontal,
-                itemCount: Categories().productCategories.length,
+                itemCount: productCategories.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return CategoryTile(category: Categories().productCategories[index],);
+                  return CategoryTile(category: productCategories.entries.elementAt(index).value);
                 }
             ),
           ),

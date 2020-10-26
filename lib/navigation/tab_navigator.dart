@@ -1,8 +1,8 @@
-import 'package:Shapp/screens/categories_page.dart';
-import 'package:Shapp/screens/favorites_page.dart';
-import 'package:Shapp/screens/home_page.dart';
-import 'package:Shapp/screens/map_page.dart';
-import 'package:Shapp/screens/more_page.dart';
+import 'package:shapp/screens/categories_page.dart';
+import 'package:shapp/screens/favorites_page.dart';
+import 'package:shapp/screens/home_page.dart';
+import 'package:shapp/screens/map_page.dart';
+import 'package:shapp/screens/more_page.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_navigation.dart';

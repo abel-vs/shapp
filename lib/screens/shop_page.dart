@@ -1,11 +1,11 @@
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/models/shop.dart';
-import 'package:Shapp/services/app_localizations.dart';
-import 'package:Shapp/widgets/search_bar.dart';
-import 'package:Shapp/widgets/category_tile.dart';
-import 'package:Shapp/widgets/sliver_header.dart';
-import 'package:Shapp/widgets/sliver_shop_header.dart';
-import 'package:Shapp/widgets/sliver_title.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/models/shop.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/category_tile.dart';
+import 'package:shapp/widgets/sliver_header.dart';
+import 'package:shapp/widgets/sliver_shop_header.dart';
+import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,9 +40,9 @@ class ShopPage extends StatelessWidget {
               child: ListView.builder(
                 padding: EdgeInsets.all(8),
                 scrollDirection: Axis.horizontal,
-                  itemCount: Categories().shopCategories.length,
+                  itemCount: shopCategories.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return CategoryTile(category: Categories().shopCategories[index],);
+                    return CategoryTile(category: shopCategories[index],);
                   }
               ),
             ),

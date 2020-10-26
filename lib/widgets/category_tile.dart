@@ -1,6 +1,6 @@
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/screens/shop_branch_page.dart';
-import 'package:Shapp/services/app_localizations.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/screens/shop_branch_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoryTile extends StatelessWidget {

@@ -1,6 +1,6 @@
-import 'package:Shapp/screens/products_page.dart';
-import 'package:Shapp/screens/shops_page.dart';
-import 'package:Shapp/services/app_localizations.dart';
+import 'package:shapp/screens/products_page.dart';
+import 'package:shapp/screens/shops_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {

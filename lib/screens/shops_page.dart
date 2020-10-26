@@ -1,7 +1,7 @@
-import 'package:Shapp/models/category.dart';
-import 'package:Shapp/services/app_localizations.dart';
-import 'package:Shapp/widgets/search_bar.dart';
-import 'package:Shapp/widgets/category_tile.dart';
+import 'package:shapp/models/category.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/category_tile.dart';
 import 'package:flutter/material.dart';
 
 class ShopsPage extends StatelessWidget {
@@ -31,9 +31,9 @@ class ShopsPage extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                return CategoryTile(category: Categories().shopCategories[index]);
+                return CategoryTile(category: shopCategories.entries.elementAt(index).value);
               },
-              childCount: Categories().shopCategories.length,
+              childCount: shopCategories.length,
             ),
           ),
         ),
