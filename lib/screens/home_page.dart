@@ -35,36 +35,39 @@ class _HomePageState extends State<HomePage> {
             toolbarHeight: 100,
           ),
           SliverTitle(title: "Koop iemand een cadeautje"),
-          _buildScrollView(),
-          SliverTitle(title: "In de kijker"),
-          _buildScrollView(),
-          SliverTitle(title: "Voor jou"),
-          _buildScrollView(),
+          _buildScrollView('presents'),
           SliverTitle(title: "Populaire producten"),
-          _buildScrollView(),
+          _buildScrollView('popular_products'),
           SliverTitle(title: "Populaire winkels"),
-          _buildScrollView(),
+          _buildScrollView('popular_shops'),
         ],
       ),
     );
   }
 
-  SliverToBoxAdapter _buildScrollView() {
+
+  SliverToBoxAdapter _buildScrollView(String promotion) {
     final database = Provider.of<Database>(context);
     return SliverToBoxAdapter(
       child: Container(
         height: 150.0,
-        child: StreamBuilder<List<Product>>(
-          stream: database.productsStream(),
-          builder: (context, snapshot) => snapshot.hasData
-              ? ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return ProductTile(product: snapshot.data.elementAt(index));
-                  },
-                )
-              : Center(child: CircularProgressIndicator()),
+        child: StreamBuilder<List<Stream<Product>>>(
+          stream: database.promotedProductsStream(promotion), // Stream of the list of products
+          builder: (context, snapshot) => snapshot.connectionState == ConnectionState.active
+              ? snapshot.hasData
+                  ?
+//          Text('data')
+                  ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: snapshot.data // List<Stream<Product>>
+                          .map((productStream) => StreamBuilder(
+                              stream: productStream,
+                              builder: (context, snapshot) =>
+                                  snapshot.hasData ? ProductTile(product: snapshot.data) : Container()))
+                          .toList(),
+                    )
+                  : Center(child: Center(child: CircularProgressIndicator()))
+              : Center(child: Text("No Connection...")),
         ),
       ),
     );
