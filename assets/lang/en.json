@@ -10,6 +10,7 @@
   "basket": "Basket",
   "feedback": "Feedback",
   "categories": "Categories",
+  "price": "Price",
   "deals": "Deals",
   "search_product": "Search a product",
   "search_shop": "Search a shop",
@@ -37,7 +38,7 @@
   "fish": "Fish",
   "food": "Food",
   "drinks": "Drink",
-  "beauty":  "Schoonheid",
-  "health": "Healthcare"
+  "beauty":  "Beauty",
+  "health": "Health"
 
 }

@@ -23,5 +23,34 @@ class Product {
     return 'Product{id: $id, name: $name, image: $image, category: $category, price: $price, info: $info}';
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Product &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              name == other.name &&
+              image == other.image &&
+              category == other.category &&
+              price == other.price &&
+              info == other.info;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      image.hashCode ^
+      category.hashCode ^
+      price.hashCode ^
+      info.hashCode;
+
+
+
+
+
+
+
+
+
 
 }

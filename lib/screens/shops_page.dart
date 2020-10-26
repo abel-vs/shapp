@@ -10,8 +10,7 @@ class ShopsPage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
-          title: SearchBar(
-              text: AppLocalizations.of(context).translate("search_shop")),
+          title: SearchBar(text: AppLocalizations.of(context).translate("search_shop")),
           centerTitle: true,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
@@ -30,14 +29,13 @@ class ShopsPage extends StatelessWidget {
               crossAxisCount: 2,
             ),
             delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
+              (BuildContext context, int index) {
                 return CategoryTile(category: shopCategories.entries.elementAt(index).value);
               },
               childCount: shopCategories.length,
             ),
           ),
         ),
-
       ],
     );
   }
