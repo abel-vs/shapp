@@ -68,10 +68,7 @@ ThemeData darkTheme = ThemeData(
     iconTheme: IconThemeData(color: OCEAN_GREEN),
   ),
   primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: EERIE_BLACK,
-    elevation: 0,
-  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: EERIE_BLACK),
   brightness: Brightness.dark,
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,

@@ -33,14 +33,15 @@ class MapPageState extends State<MapPage> {
     rootBundle.loadString('assets/map_style_dark').then((string) {
       darkStyle = string;
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     _mapStyle = Theme.of(context).brightness == Brightness.dark ? darkStyle : lightStyle;
     setState(() {
-      mapController.setMapStyle(_mapStyle);
+      if (_mapStyle != null) {
+        mapController.setMapStyle(_mapStyle);
+      }
     });
 
     return Scaffold(

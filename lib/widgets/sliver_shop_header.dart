@@ -13,8 +13,7 @@ class SliverShopHeader extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final appBarSize = expandedHeight - shrinkOffset;
     final cardTopPosition = expandedHeight / 2 - shrinkOffset;
     final proportion = 2 - (expandedHeight / appBarSize);
@@ -32,9 +31,7 @@ class SliverShopHeader extends SliverPersistentHeaderDelegate {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {},
               ),
-              actions: [
-                IconButton(icon: Icon(Icons.favorite_border), onPressed: () {})
-              ],
+              actions: [IconButton(icon: Icon(Icons.favorite_border), onPressed: () {})],
               flexibleSpace: Opacity(
                 opacity: hideTitleWhenExpanded ? percent : 0.0,
                 child: Container(
@@ -45,9 +42,7 @@ class SliverShopHeader extends SliverPersistentHeaderDelegate {
                   ),
                 )),
               ),
-              title: Opacity(
-                  opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0,
-                  child: Text(shop.name)),
+              title: Opacity(opacity: hideTitleWhenExpanded ? 1.0 - percent : 1.0, child: Text(shop.name)),
             ),
           ),
           Positioned(
@@ -73,11 +68,7 @@ class SliverShopHeader extends SliverPersistentHeaderDelegate {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.location_on_outlined),
-                          Text(shop.street +
-                              " " +
-                              shop.houseNumber.toString() +
-                              ", " +
-                              shop.city)
+                          Text(shop.street + " " + shop.houseNumber.toString() + ", " + shop.city)
                         ],
                       ),
                       Chip(

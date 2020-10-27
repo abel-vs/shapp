@@ -40,7 +40,8 @@ class ShopPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Chip(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        label: Text(AppLocalizations.of(context).translate(productCategories.entries.elementAt(index).value.name)),
+                        label: Text(AppLocalizations.of(context)
+                            .translate(productCategories.entries.elementAt(index).value.name)),
                       ),
                     );
                   }),
