@@ -39,8 +39,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 
-  bottomNavigationBarTheme:
-      BottomNavigationBarThemeData(backgroundColor: Colors.white),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white),
 
   brightness: Brightness.light,
 
@@ -76,7 +75,6 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-
   fontFamily: 'Abel',
   textTheme: textTheme,
 );

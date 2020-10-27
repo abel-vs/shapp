@@ -57,6 +57,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/map_style_dark
+    - assets/map_style_light
     - assets/images/basket.png
     - assets/images/map.png
     - assets/images/supermarket_location.png
