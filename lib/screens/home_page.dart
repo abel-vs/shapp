@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   SliverToBoxAdapter _buildProductListView(Stream<List<Stream<Product>>> products) {
     return SliverToBoxAdapter(
       child: Container(
-        height: 150.0,
+        height: 200.0,
         child: StreamBuilder<List<Stream<Product>>>(
             stream: products, // Stream of the list of products
             builder: (context, snapshot) => snapshot.hasData

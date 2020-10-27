@@ -24,9 +24,22 @@ class ProductTile extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                product.name,
-                style: Theme.of(context).textTheme.subtitle1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.brand == null ? "brand" : product.brand,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Text(
+                    product.name,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Text(
+                    "€ " + product.price.toString(),
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ],
               ),
             ),
           ],

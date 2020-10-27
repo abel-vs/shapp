@@ -61,7 +61,7 @@ class SliverShopHeader extends SliverPersistentHeaderDelegate {
                     children: [
                       Text(
                         shop.name.toUpperCase(),
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                       Text(shop.type),
                       Row(

@@ -21,6 +21,7 @@ class FirestoreDatabase implements Database {
     return Product(
         id: documentID,
         name: data['name'],
+        brand: data['brand'],
         image: data['image'],
         category: data['category'],
         price: data['price'],

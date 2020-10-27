@@ -9,18 +9,32 @@ const Color JET_BLACK = Color(0xff333333);
 const Color EERIE_BLACK = Color(0xff222222);
 
 TextTheme textTheme = TextTheme(
-  headline6: TextStyle(
-    color: OCEAN_GREEN,
-    fontWeight: FontWeight.bold,
-    fontSize: 24,
-  ),
-  headline4: TextStyle(
+  headline1: TextStyle(
     color: OCEAN_GREEN,
     fontWeight: FontWeight.bold,
     fontSize: 32,
   ),
-  subtitle2: TextStyle(
+  headline2: TextStyle(
     color: OCEAN_GREEN,
+    fontWeight: FontWeight.bold,
+    fontSize: 24,
+  ),
+//  headline3: TextStyle(
+//    color: OCEAN_GREEN,
+//    fontWeight: FontWeight.bold,
+//    fontSize: 24,
+//  ),
+//  headline4: TextStyle(
+//  color: OCEAN_GREEN,
+//  fontWeight: FontWeight.bold,
+//  fontSize: 32,
+//),
+  headline5: TextStyle(
+    color: OCEAN_GREEN,
+    fontSize: 18,
+  ),
+  headline6: TextStyle(
+    fontWeight: FontWeight.bold,
     fontSize: 18,
   ),
 );
