@@ -11,43 +11,81 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Card(
+        child: Container(
+            width: 150,
+            child: Column(
+              children: [
+                Container(height: 150, child: buildImage()),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    alignment: Alignment.bottomLeft,
+                    child: buildInfo(context),
+                  ),
+                )
+              ],
+            )));
     return InkWell(
       child: Card(
         elevation: 2,
-        child: Column(
-          children: [
-            Flexible(
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
-                child: product.image,
+        child: Container(
+          width: 150,
+          child: Column(
+            children: [
+              Container(
+                height: 100,
+                child: buildImage(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.brand == null ? "brand" : product.brand,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  Text(
-                    product.name,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Text(
-                    "€ " + product.price.toString(),
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
+              Container(
+                height: 100,
+                padding: const EdgeInsets.all(8.0),
+                child: buildInfo(context),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       onTap: () {},
       borderRadius: BorderRadius.all(const Radius.circular(5.0)),
       splashColor: Theme.of(context).primaryColor,
+    );
+  }
+
+  Column buildInfo(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          product.brand == null ? "brand" : product.brand,
+          style: Theme.of(context).textTheme.bodyText1,
+          maxLines: 1,
+        ),
+        Text(
+          product.name,
+          style: Theme.of(context).textTheme.headline6,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+        Spacer(),
+        Text(
+          product.price.toString(),
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ],
+    );
+  }
+
+  ClipRRect buildImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
+      child: Image.network(
+        product.image,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, progress) {
+          return progress == null ? child : Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:shapp/models/product.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
@@ -50,20 +51,20 @@ class _HomePageState extends State<HomePage> {
   SliverToBoxAdapter _buildProductListView(Stream<List<Stream<Product>>> products) {
     return SliverToBoxAdapter(
       child: Container(
-        height: 200.0,
+        height: 270,
         child: StreamBuilder<List<Stream<Product>>>(
             stream: products, // Stream of the list of products
             builder: (context, snapshot) => snapshot.hasData
                 ? ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: snapshot.data // List<Stream<Product>>
-                        .map((productStream) => StreamBuilder(
-                            stream: productStream,
-                            builder: (context, snapshot) =>
-                                snapshot.hasData ? ProductTile(product: snapshot.data) : Container()))
-                        .toList(),
-                  )
-                : Center(child: Center(child: CircularProgressIndicator()))),
+                  scrollDirection: Axis.horizontal,
+                  children: snapshot.data // List<Stream<Product>>
+                      .map((productStream) => StreamBuilder(
+                          stream: productStream,
+                          builder: (context, snapshot) =>
+                              snapshot.hasData ? ProductTile(product: snapshot.data) : Container()))
+                      .toList(),
+                )
+                : Center(child: CircularProgressIndicator())),
       ),
     );
   }

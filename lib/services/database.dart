@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:shapp/models/category.dart';
 import 'package:shapp/models/product.dart';
 import 'package:shapp/services/firebase_path.dart';
@@ -12,6 +14,8 @@ abstract class Database {
   Stream<List<Product>> productCategoryStream(Category category);
 
   Stream<List<Stream<Product>>> promotedProductsStream(String promotion);
+
+  Stream<double> lowestProductPrice(String id);
 }
 
 class FirestoreDatabase implements Database {
@@ -62,5 +66,15 @@ class FirestoreDatabase implements Database {
           List<Stream<Product>> products = productIDs.map<Stream<Product>>((id) => productStream(id)).toList();
           return products;
         });
+  }
+
+  @override
+  Stream<double> lowestProductPrice(String id) {
+    Stream<dynamic> price = _service.collectionStream(
+        path: FirebasePath.productStores(id),
+        builder: (data, documentID) => data['price'],
+        queryBuilder: (query) => query.orderBy("price").limit(1));
+    log(price.toString());
+    return null;
   }
 }
