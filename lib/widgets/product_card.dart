@@ -19,7 +19,11 @@ class ProductCard extends StatelessWidget {
               width: 150,
               child: Column(
                 children: [
-                  Container(height: 150, child: buildImage()),
+                  Container(
+                    height: 150,
+                    width: 150,
+                    child: buildImage(),
+                  ),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.all(8),
