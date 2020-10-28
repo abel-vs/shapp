@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:shapp/models/product.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
-import 'package:shapp/widgets/product_tile.dart';
+import 'package:shapp/widgets/product_card.dart';
 import 'package:shapp/widgets/search_bar.dart';
 import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
@@ -56,14 +56,14 @@ class _HomePageState extends State<HomePage> {
             stream: products, // Stream of the list of products
             builder: (context, snapshot) => snapshot.hasData
                 ? ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: snapshot.data // List<Stream<Product>>
-                      .map((productStream) => StreamBuilder(
-                          stream: productStream,
-                          builder: (context, snapshot) =>
-                              snapshot.hasData ? ProductTile(product: snapshot.data) : Container()))
-                      .toList(),
-                )
+                    scrollDirection: Axis.horizontal,
+                    children: snapshot.data // List<Stream<Product>>
+                        .map((productStream) => StreamBuilder(
+                            stream: productStream,
+                            builder: (context, snapshot) =>
+                                snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
+                        .toList(),
+                  )
                 : Center(child: CircularProgressIndicator())),
       ),
     );

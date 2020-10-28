@@ -12,8 +12,6 @@ class _ShopCardState extends State<ShopCard> {
   final Shop shop = new Shop("id", "Albert Heijn XL", "supermarket", "Delft", "Martinus Nijhofflaan", 7,
       "assets/images/AlbertHeijnXL.jpg", null);
 
-
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
