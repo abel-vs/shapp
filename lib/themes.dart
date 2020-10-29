@@ -37,6 +37,8 @@ TextTheme textTheme = TextTheme(
     fontWeight: FontWeight.bold,
     fontSize: 18,
   ),
+  bodyText1: TextStyle(color: Colors.black),
+  bodyText2: TextStyle(color: Colors.grey),
 );
 
 ThemeData lightTheme = ThemeData(

@@ -1,9 +1,11 @@
 import 'package:flutter/rendering.dart';
 import 'package:shapp/models/product.dart';
+import 'package:shapp/models/shop.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/widgets/product_card.dart';
 import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/shop_card.dart';
 import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +44,7 @@ class _HomePageState extends State<HomePage> {
           SliverTitle(title: "Populaire producten"),
           _buildProductListView(database.promotedProductsStream('popular_products')),
           SliverTitle(title: "Populaire winkels"),
-          _buildProductListView(database.promotedProductsStream('popular_shops')),
+          _buildShopListView(),
         ],
       ),
     );
@@ -51,21 +53,26 @@ class _HomePageState extends State<HomePage> {
   SliverToBoxAdapter _buildProductListView(Stream<List<Stream<Product>>> products) {
     return SliverToBoxAdapter(
       child: Container(
-        height: 270,
+        height: 280,
         child: StreamBuilder<List<Stream<Product>>>(
-            stream: products, // Stream of the list of products
-            builder: (context, snapshot) => snapshot.hasData
-                ? ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: snapshot.data // List<Stream<Product>>
-                        .map((productStream) => StreamBuilder(
-                            stream: productStream,
-                            builder: (context, snapshot) =>
-                                snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
-                        .toList(),
-                  )
-                : Center(child: CircularProgressIndicator())),
+          stream: products, // Stream of the list of products
+          builder: (context, snapshot) => snapshot.hasData
+              ? ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: snapshot.data // List<Stream<Product>>
+                      .map((productStream) => StreamBuilder(
+                          stream: productStream,
+                          builder: (context, snapshot) =>
+                              snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
+                      .toList(),
+                )
+              : Center(child: CircularProgressIndicator()),
+        ),
       ),
     );
+  }
+
+  SliverToBoxAdapter _buildShopListView() {
+    return SliverToBoxAdapter(child: Column(children: [ShopCard(), ShopCard(), ShopCard()]));
   }
 }

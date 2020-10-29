@@ -33,7 +33,7 @@ class _ShopCardState extends State<ShopCard> {
             right: 0,
             child: IconButton(
               icon: Icon(
-                Icons.favorite,
+                Icons.favorite_outline,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () => print("Not a favorite anymore"),
@@ -56,10 +56,13 @@ class _ShopCardState extends State<ShopCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context).translate(shop.type)),
+          Text(
+            AppLocalizations.of(context).translate(shop.type),
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           Text(
             shop.name,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.headline6,
           ),
           Spacer(),
           Row(
@@ -69,10 +72,12 @@ class _ShopCardState extends State<ShopCard> {
                   shop.street,
                   overflow: TextOverflow.fade,
                   softWrap: false,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
               Text(
                 "  " + shop.houseNumber.toString(),
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ],
           ),
@@ -80,6 +85,7 @@ class _ShopCardState extends State<ShopCard> {
             shop.city,
             overflow: TextOverflow.fade,
             softWrap: false,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ],
       ),

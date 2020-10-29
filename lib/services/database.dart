@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shapp/models/category.dart';
 import 'package:shapp/models/product.dart';
 import 'package:shapp/services/firebase_path.dart';
@@ -32,10 +34,6 @@ class FirestoreDatabase implements Database {
         info: data['info']);
   };
 
-  Function testBuilder = (documentID) {
-    return documentID;
-  };
-
   @override
   Stream<List<Product>> productsStream() {
     return _service.collectionStream(path: FirebasePath.products(), builder: productBuilder);
@@ -43,7 +41,12 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<Product> productStream(String id) {
-    return _service.documentStream(path: FirebasePath.product(id), builder: productBuilder);
+    return Rx.combineLatest2<Map<String, dynamic>, double, Product>(
+        _service.documentStream(path: FirebasePath.product(id), builder: (data, documentID) => data),
+        lowestProductPrice(id), (Map<String, dynamic> data, double price) {
+      data.addEntries([MapEntry('price', price)]);
+      return productBuilder(data, id);
+    });
   }
 
   @override
@@ -70,11 +73,10 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<double> lowestProductPrice(String id) {
-    Stream<dynamic> price = _service.collectionStream(
-        path: FirebasePath.productStores(id),
-        builder: (data, documentID) => data['price'],
-        queryBuilder: (query) => query.orderBy("price").limit(1));
-    log(price.toString());
-    return null;
+    Query query =
+        FirebaseFirestore.instance.collection("products").doc(id).collection("stores").orderBy("price").limit(1);
+    Stream<QuerySnapshot> snapshots = query.snapshots();
+    Stream<double> price = snapshots.map((snapshot) => snapshot.docs.first.data()['price'].toDouble());
+    return price;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shapp/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +36,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 0,
+              bottom: 0,
               right: 0,
               child: IconButton(
                 icon: Icon(
@@ -56,6 +57,7 @@ class ProductCard extends StatelessWidget {
   }
 
   Column buildInfo(BuildContext context) {
+    List<String> price = product.price.toStringAsFixed(2).split(".");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -71,9 +73,15 @@ class ProductCard extends StatelessWidget {
           maxLines: 2,
         ),
         Spacer(),
-        Text(
-          product.price.toString(),
-          style: Theme.of(context).textTheme.headline2,
+        RichText(
+          text: TextSpan(
+            style: Theme.of(context).textTheme.headline2,
+            children: [
+              TextSpan(text: price.first),
+              TextSpan(text: ","),
+              TextSpan(text: price.last, style: TextStyle(fontSize: 18)),
+            ],
+          ),
         ),
       ],
     );
