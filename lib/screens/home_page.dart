@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   children: snapshot.data // List<Stream<Product>>
                       .map((productStream) => StreamBuilder(
-                          stream: productStream,
+                          stream: productStream.asBroadcastStream(),
                           builder: (context, snapshot) =>
                               snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
                       .toList(),
