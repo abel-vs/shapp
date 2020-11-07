@@ -4,6 +4,7 @@ import 'package:shapp/models/shop.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/widgets/product_card.dart';
+import 'package:shapp/widgets/product_list_view.dart';
 import 'package:shapp/widgets/search_bar.dart';
 import 'package:shapp/widgets/shop_card.dart';
 import 'package:shapp/widgets/sliver_title.dart';
@@ -40,34 +41,12 @@ class _HomePageState extends State<HomePage> {
             toolbarHeight: 100,
           ),
           SliverTitle(title: "Koop iemand een cadeautje"),
-          _buildProductListView(database.promotedProductsStream('presents')),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('presents'))),
           SliverTitle(title: "Populaire producten"),
-          _buildProductListView(database.promotedProductsStream('popular_products')),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('popular_products'))),
           SliverTitle(title: "Populaire winkels"),
           _buildShopListView(),
         ],
-      ),
-    );
-  }
-
-  SliverToBoxAdapter _buildProductListView(Stream<List<Stream<Product>>> products) {
-    return SliverToBoxAdapter(
-      child: Container(
-        height: 280,
-        child: StreamBuilder<List<Stream<Product>>>(
-          stream: products, // Stream of the list of products
-          builder: (context, snapshot) => snapshot.hasData
-              ? ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: snapshot.data // List<Stream<Product>>
-                      .map((productStream) => StreamBuilder(
-                          stream: productStream.asBroadcastStream(),
-                          builder: (context, snapshot) =>
-                              snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
-                      .toList(),
-                )
-              : Center(child: CircularProgressIndicator()),
-        ),
       ),
     );
   }
