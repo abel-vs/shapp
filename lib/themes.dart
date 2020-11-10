@@ -19,16 +19,6 @@ TextTheme textTheme = TextTheme(
     fontWeight: FontWeight.bold,
     fontSize: 24,
   ),
-//  headline3: TextStyle(
-//    color: OCEAN_GREEN,
-//    fontWeight: FontWeight.bold,
-//    fontSize: 24,
-//  ),
-//  headline4: TextStyle(
-//  color: OCEAN_GREEN,
-//  fontWeight: FontWeight.bold,
-//  fontSize: 32,
-//),
   headline5: TextStyle(
     color: OCEAN_GREEN,
     fontSize: 18,
@@ -39,6 +29,12 @@ TextTheme textTheme = TextTheme(
   ),
   bodyText1: TextStyle(color: Colors.black),
   bodyText2: TextStyle(color: Colors.grey),
+);
+
+TextSelectionThemeData textSelectionTheme = TextSelectionThemeData(
+  selectionColor: OCEAN_GREEN.withOpacity(0.2),
+  selectionHandleColor: OCEAN_GREEN,
+  cursorColor: OCEAN_GREEN,
 );
 
 ThemeData lightTheme = ThemeData(
@@ -61,12 +57,9 @@ ThemeData lightTheme = ThemeData(
 
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-
-  // Define the default font family.
+  splashColor: OCEAN_GREEN.withOpacity(0.2),
+  textSelectionTheme: textSelectionTheme,
   fontFamily: 'Abel',
-
-  // Define the default TextTheme. Use this to specify the default
-  // text styling for headlines, titles, bodies of text, and more.
   textTheme: textTheme,
 );
 

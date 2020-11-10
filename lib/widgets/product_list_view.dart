@@ -18,7 +18,7 @@ class ProductListView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: snapshot.data // List<Stream<Product>>
                     .map((productStream) => StreamBuilder(
-                        stream: productStream.asBroadcastStream(),
+                        stream: productStream,
                         builder: (context, snapshot) =>
                             snapshot.hasData ? ProductCard(product: snapshot.data) : Container()))
                     .toList(),
