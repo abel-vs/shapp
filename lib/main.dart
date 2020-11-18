@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'screens/home_page.dart';
 import 'screens/intro_page.dart';
-import 'screens/more_page.dart';
+import 'screens/drawer_page.dart';
 import 'services/app_localizations.dart';
 
 void main() async {
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         home: LandingPage(),
         routes: <String, WidgetBuilder>{
           '/home': (context) => HomePage(),
-          '/more': (context) => MorePage(),
+          '/more': (context) => DrawerPage(),
           '/intro': (context) => IntroPage(),
         },
 
