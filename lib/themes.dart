@@ -19,12 +19,20 @@ TextTheme textTheme = TextTheme(
     fontWeight: FontWeight.bold,
     fontSize: 24,
   ),
+  headline3: TextStyle(
+    color: OCEAN_GREEN,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+  headline4: TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
   headline5: TextStyle(
     color: OCEAN_GREEN,
     fontSize: 18,
   ),
   headline6: TextStyle(
-    fontWeight: FontWeight.bold,
     fontSize: 18,
   ),
   bodyText1: TextStyle(color: Colors.black),

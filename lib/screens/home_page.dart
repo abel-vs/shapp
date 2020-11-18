@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/screens/drawer_page.dart';
@@ -20,7 +21,64 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text("Shapp"),
+        title: FlatButton(
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Icon(
+                Icons.location_on_outlined,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                "Delft",
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ],
+          ),
+          onPressed: () => showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text(
+                "Kies je locatie",
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              contentPadding: EdgeInsets.only(top: 20),
+              content: Container(
+                width: double.maxFinite,
+                child: Wrap(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Text("Momenteel zijn we enkel actief in Delft."),
+                    ),
+                    ListView(
+                      shrinkWrap: true,
+                      children: [
+                        RadioListTile(
+                          value: false,
+//                          controlAffinity: ListTileControlAffinity.trailing,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
+                          title: Text("Huidige Locatie"),
+                          onChanged: (value) {},
+                        ),
+                        Divider(height: 0,),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
+                          leading: Icon(Icons.add),
+                          title: Text("Voeg ander adres toe"),
+                          onTap: (){},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       drawer: Drawer(child: DrawerPage()),
       body: Center(

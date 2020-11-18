@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shapp/screens/about_page.dart';
 import 'package:shapp/screens/feedback_page.dart';
 import 'package:shapp/screens/intro_page.dart';
@@ -13,7 +14,12 @@ class DrawerPage extends StatelessWidget {
         iconColor: Theme.of(context).primaryColor,
         child: ListView(
           children: [
-             ListTile(title: Text('Shapp',style: Theme.of(context).textTheme.headline1,)),
+            ListTile(
+              title: Text(
+                'Shapp',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            ),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text("Instellingen"),
