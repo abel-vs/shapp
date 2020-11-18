@@ -1,84 +1,57 @@
+import 'package:flutter/rendering.dart';
+import 'package:shapp/models/product.dart';
+import 'package:shapp/models/shop.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/services/database.dart';
+import 'package:shapp/widgets/product_card.dart';
+import 'package:shapp/widgets/product_list_view.dart';
+import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/shop_card.dart';
+import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<Database>(context);
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text("Shapp"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Theme.of(context).primaryColor,
-                Theme.of(context).accentColor,
-              ],
-            ),
-          ),
-        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedFontSize: 10,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-            backgroundColor: Color.fromRGBO(183, 248, 219, 1),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: SearchBar(
+              text: AppLocalizations.of(context).translate("search_product"),
+            ),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            floating: true,
+            pinned: true,
+            snap: false,
+            toolbarHeight: 100,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket),
-            title: Text("Lijst"),
-            backgroundColor: Color.fromRGBO(80, 167, 194, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            title: Text("Meer"),
-            backgroundColor: Color.fromRGBO(120, 167, 180, 1),
-          ),
+          SliverTitle(title: "Koop iemand een cadeautje"),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('presents').asBroadcastStream())),
+          SliverTitle(title: "Populaire producten"),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('popular_products').asBroadcastStream())),
+          SliverTitle(title: "Populaire winkels"),
+          _buildShopListView(),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              autofocus: false,
-              enableSuggestions: true,
-              autocorrect: true,
-              decoration: InputDecoration(
-                hintText: "Zoek een product",
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.close),
-                  color: Colors.black,
-                  onPressed: () => print("Clear search Bar"),
-                ),
-                border: new OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                  borderRadius:
-                      const BorderRadius.all(const Radius.circular(50.0)),
-                ),
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              ),
-            ),
-          ],
-        ),
-      ),
-//      backgroundColor:,
     );
+  }
+
+  SliverToBoxAdapter _buildShopListView() {
+    return SliverToBoxAdapter(child: Column(children: [ShopCard(), ShopCard(), ShopCard()]));
   }
 }
