@@ -1,15 +1,9 @@
-import 'package:flutter/rendering.dart';
-import 'package:shapp/models/product.dart';
-import 'package:shapp/models/shop.dart';
-import 'package:shapp/services/app_localizations.dart';
-import 'package:shapp/services/database.dart';
-import 'package:shapp/widgets/product_card.dart';
-import 'package:shapp/widgets/product_list_view.dart';
-import 'package:shapp/widgets/search_bar.dart';
-import 'package:shapp/widgets/shop_card.dart';
-import 'package:shapp/widgets/sliver_title.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shapp/screens/more_page.dart';
+import 'package:shapp/services/database.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,36 +16,18 @@ class _HomePageState extends State<HomePage> {
     final database = Provider.of<Database>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Shapp"),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: SearchBar(
-              text: AppLocalizations.of(context).translate("search_product"),
-            ),
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-            floating: true,
-            pinned: true,
-            snap: false,
-            toolbarHeight: 100,
+      appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent, centerTitle: true, title: Text("Shapp"),),
+      drawer: Drawer(child: MorePage()),
+      body: Center(
+        child: FloatingActionButton(
+          onPressed: () => log('Yeet'),
+          child: Icon(
+            Icons.search,
+            color: Colors.white,
+            size: 30,
           ),
-          SliverTitle(title: "Koop iemand een cadeautje"),
-          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('presents').asBroadcastStream())),
-          SliverTitle(title: "Populaire producten"),
-          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('popular_products').asBroadcastStream())),
-          SliverTitle(title: "Populaire winkels"),
-          _buildShopListView(),
-        ],
+        ),
       ),
     );
-  }
-
-  SliverToBoxAdapter _buildShopListView() {
-    return SliverToBoxAdapter(child: Column(children: [ShopCard(), ShopCard(), ShopCard()]));
   }
 }

@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/products_page.dart';
 import 'screens/home_page.dart';
 import 'screens/intro_page.dart';
 import 'screens/more_page.dart';
@@ -45,7 +44,6 @@ class MyApp extends StatelessWidget {
         home: LandingPage(),
         routes: <String, WidgetBuilder>{
           '/home': (context) => HomePage(),
-          '/cart': (context) => ProductsPage(),
           '/more': (context) => MorePage(),
           '/intro': (context) => IntroPage(),
         },
