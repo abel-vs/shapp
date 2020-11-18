@@ -1,8 +1,12 @@
+import 'package:flutter/rendering.dart';
 import 'package:shapp/models/product.dart';
+import 'package:shapp/models/shop.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
-import 'package:shapp/widgets/product_tile.dart';
+import 'package:shapp/widgets/product_card.dart';
+import 'package:shapp/widgets/product_list_view.dart';
 import 'package:shapp/widgets/search_bar.dart';
+import 'package:shapp/widgets/shop_card.dart';
 import 'package:shapp/widgets/sliver_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +19,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<Database>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Shapp"),
@@ -35,41 +41,17 @@ class _HomePageState extends State<HomePage> {
             toolbarHeight: 100,
           ),
           SliverTitle(title: "Koop iemand een cadeautje"),
-          _buildScrollView('presents'),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('presents').asBroadcastStream())),
           SliverTitle(title: "Populaire producten"),
-          _buildScrollView('popular_products'),
+          SliverToBoxAdapter(child: ProductListView(products: database.promotedProductsStream('popular_products').asBroadcastStream())),
           SliverTitle(title: "Populaire winkels"),
-          _buildScrollView('popular_shops'),
+          _buildShopListView(),
         ],
       ),
     );
   }
 
-
-  SliverToBoxAdapter _buildScrollView(String promotion) {
-    final database = Provider.of<Database>(context);
-    return SliverToBoxAdapter(
-      child: Container(
-        height: 150.0,
-        child: StreamBuilder<List<Stream<Product>>>(
-          stream: database.promotedProductsStream(promotion), // Stream of the list of products
-          builder: (context, snapshot) => snapshot.connectionState == ConnectionState.active
-              ? snapshot.hasData
-                  ?
-//          Text('data')
-                  ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: snapshot.data // List<Stream<Product>>
-                          .map((productStream) => StreamBuilder(
-                              stream: productStream,
-                              builder: (context, snapshot) =>
-                                  snapshot.hasData ? ProductTile(product: snapshot.data) : Container()))
-                          .toList(),
-                    )
-                  : Center(child: Center(child: CircularProgressIndicator()))
-              : Center(child: Text("No Connection...")),
-        ),
-      ),
-    );
+  SliverToBoxAdapter _buildShopListView() {
+    return SliverToBoxAdapter(child: Column(children: [ShopCard(), ShopCard(), ShopCard()]));
   }
 }

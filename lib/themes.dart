@@ -9,20 +9,32 @@ const Color JET_BLACK = Color(0xff333333);
 const Color EERIE_BLACK = Color(0xff222222);
 
 TextTheme textTheme = TextTheme(
-  headline6: TextStyle(
-    color: OCEAN_GREEN,
-    fontWeight: FontWeight.bold,
-    fontSize: 24,
-  ),
-  headline4: TextStyle(
+  headline1: TextStyle(
     color: OCEAN_GREEN,
     fontWeight: FontWeight.bold,
     fontSize: 32,
   ),
-  subtitle2: TextStyle(
+  headline2: TextStyle(
+    color: OCEAN_GREEN,
+    fontWeight: FontWeight.bold,
+    fontSize: 24,
+  ),
+  headline5: TextStyle(
     color: OCEAN_GREEN,
     fontSize: 18,
   ),
+  headline6: TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+  bodyText1: TextStyle(color: Colors.black),
+  bodyText2: TextStyle(color: Colors.grey),
+);
+
+TextSelectionThemeData textSelectionTheme = TextSelectionThemeData(
+  selectionColor: OCEAN_GREEN.withOpacity(0.2),
+  selectionHandleColor: OCEAN_GREEN,
+  cursorColor: OCEAN_GREEN,
 );
 
 ThemeData lightTheme = ThemeData(
@@ -39,19 +51,15 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
 
-  bottomNavigationBarTheme:
-      BottomNavigationBarThemeData(backgroundColor: Colors.white),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white),
 
   brightness: Brightness.light,
 
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-
-  // Define the default font family.
+  splashColor: OCEAN_GREEN.withOpacity(0.2),
+  textSelectionTheme: textSelectionTheme,
   fontFamily: 'Abel',
-
-  // Define the default TextTheme. Use this to specify the default
-  // text styling for headlines, titles, bodies of text, and more.
   textTheme: textTheme,
 );
 
@@ -69,14 +77,10 @@ ThemeData darkTheme = ThemeData(
     iconTheme: IconThemeData(color: OCEAN_GREEN),
   ),
   primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.white)),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: EERIE_BLACK,
-    elevation: 0,
-  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: EERIE_BLACK),
   brightness: Brightness.dark,
   primaryColor: OCEAN_GREEN,
   accentColor: OCEAN_GREEN,
-
   fontFamily: 'Abel',
   textTheme: textTheme,
 );

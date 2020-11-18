@@ -20,16 +20,20 @@ class ProductsPage extends StatelessWidget {
           snap: false,
           toolbarHeight: 100,
         ),
-        SliverToBoxAdapter(
-          child: Container(
-            height: 150.0,
-            child: ListView.builder(
-                padding: EdgeInsets.all(8),
-                scrollDirection: Axis.horizontal,
-                itemCount: productCategories.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return CategoryTile(category: productCategories.entries.elementAt(index).value);
-                }),
+        SliverPadding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              crossAxisCount: 2,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return CategoryTile(category: productCategories.values.elementAt(index));
+              },
+              childCount: productCategories.length,
+            ),
           ),
         ),
       ],

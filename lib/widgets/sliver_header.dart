@@ -9,6 +9,7 @@ class SliverHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      centerTitle: true,
       automaticallyImplyLeading: false,
       title: widget,
       pinned: true,

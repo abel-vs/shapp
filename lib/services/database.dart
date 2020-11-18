@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shapp/models/category.dart';
 import 'package:shapp/models/product.dart';
 import 'package:shapp/services/firebase_path.dart';
@@ -12,6 +16,8 @@ abstract class Database {
   Stream<List<Product>> productCategoryStream(Category category);
 
   Stream<List<Stream<Product>>> promotedProductsStream(String promotion);
+
+  Stream<double> lowestProductPrice(String id);
 }
 
 class FirestoreDatabase implements Database {
@@ -21,14 +27,11 @@ class FirestoreDatabase implements Database {
     return Product(
         id: documentID,
         name: data['name'],
+        brand: data['brand'],
         image: data['image'],
         category: data['category'],
         price: data['price'],
         info: data['info']);
-  };
-
-  Function testBuilder = (documentID) {
-    return documentID;
   };
 
   @override
@@ -38,7 +41,12 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<Product> productStream(String id) {
-    return _service.documentStream(path: FirebasePath.product(id), builder: productBuilder);
+    return Rx.combineLatest2<Map<String, dynamic>, double, Product>(
+        _service.documentStream(path: FirebasePath.product(id), builder: (data, documentID) => data),
+        lowestProductPrice(id), (Map<String, dynamic> data, double price) {
+      data.addEntries([MapEntry('price', price)]);
+      return productBuilder(data, id);
+    });
   }
 
   @override
@@ -61,5 +69,14 @@ class FirestoreDatabase implements Database {
           List<Stream<Product>> products = productIDs.map<Stream<Product>>((id) => productStream(id)).toList();
           return products;
         });
+  }
+
+  @override
+  Stream<double> lowestProductPrice(String id) {
+    Query query =
+        FirebaseFirestore.instance.collection("products").doc(id).collection("stores").orderBy("price").limit(1);
+    Stream<QuerySnapshot> snapshots = query.snapshots();
+    Stream<double> price = snapshots.map((snapshot) => snapshot.docs.first.data()['price'].toDouble());
+    return price;
   }
 }
