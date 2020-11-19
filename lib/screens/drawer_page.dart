@@ -14,11 +14,9 @@ class DrawerPage extends StatelessWidget {
         iconColor: Theme.of(context).primaryColor,
         child: ListView(
           children: [
-            ListTile(
-              title: Text(
-                'Shapp',
-                style: Theme.of(context).textTheme.headline1,
-              ),
+            AppBar(
+              title: Text('Shapp'),
+              automaticallyImplyLeading: false,
             ),
             ListTile(
               leading: Icon(Icons.settings),

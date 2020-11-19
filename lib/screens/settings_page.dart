@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+
+  bool darkMode = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,21 +26,21 @@ class SettingsPage extends StatelessWidget {
               title: Text("Taal"),
               onTap: () => showDialog(
                 context: context,
-                builder: (_) => AlertDialog(
-                  title: Text("Check 123"),
-                  content: Text("Choose your damn language mate"),
-                  actions: [
-                    FlatButton(
-                      onPressed: () =>
-                          Navigator.of(context, rootNavigator: true).pop(),
-                      child: Text("Cancel"),
-                    ),
-                    FlatButton(
-                      onPressed: () =>
-                          Navigator.of(context, rootNavigator: true).pop(),
-                      child: Text("Confirm"),
-                    ),
-                  ],
+                builder: (_) => Dialog(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      RadioListTile(
+                        title: Text("Nederlands"),
+                        onChanged: (value){},
+                      ),
+                      Divider(height: 0),
+                      RadioListTile(
+                        title: Text("Engels"),
+                        onChanged: (value){},
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -42,8 +50,10 @@ class SettingsPage extends StatelessWidget {
               ),
               title: Text("Donkere Modus"),
               trailing: Switch(
-                onChanged: null,
-                value: false,
+                onChanged: (value) => this.setState(() {
+                  darkMode = value;
+                }),
+                value: darkMode,
               ),
             ),
             ListTile(
