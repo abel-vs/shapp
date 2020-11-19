@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/screens/drawer_page.dart';
+import 'package:shapp/screens/order_page.dart';
 import 'package:shapp/services/database.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,8 +19,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
         centerTitle: true,
         title: FlatButton(
           child: Wrap(
@@ -96,7 +95,11 @@ class _HomePageState extends State<HomePage> {
                 color: Theme.of(context).canvasColor,
                 size: 100,
               ),
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OrderPage(),
+                ),
+              ),
             )),
       ),
     );
