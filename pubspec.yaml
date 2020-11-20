@@ -43,6 +43,8 @@ dependencies:
 
   dots_indicator: ^1.2.0
 
+  intl: ^0.16.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

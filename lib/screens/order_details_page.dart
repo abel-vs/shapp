@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year && this.month == other.month && this.day == other.day;
+  }
+}
 
 class OrderDetailsPage extends StatefulWidget {
   @override
@@ -6,8 +13,9 @@ class OrderDetailsPage extends StatefulWidget {
 
   final PageController pageController;
   final TextEditingController timeController;
+  final TextEditingController dayController;
 
-  OrderDetailsPage({this.pageController, this.timeController});
+  OrderDetailsPage({this.pageController, this.timeController, this.dayController});
 }
 
 class _OrderDetailsPageState extends State<OrderDetailsPage> {
@@ -25,53 +33,81 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           SizedBox(height: 5),
           Text("Beschrijf het hier en we gaan het voor je halen!"),
           SizedBox(height: 20),
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Waar te vinden",
-              hintText: "Waar kunnen we dit product voor je vinden?",
-              alignLabelWithHint: true,
-              contentPadding: EdgeInsets.all(20.0),
-              border: OutlineInputBorder(),
-            ),
-          ),
+          buildPickUpPlaceField(),
           SizedBox(height: 10),
-          TextField(
-            onTap: () async {
-              showDialog(
-                  context: context,
-                  builder: (_) => Dialog(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                              title: Text("Zo snel mogelijk"),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                                return "Yeet";
-                              },
-                            ),
-                            Divider(height: 0),
-                            ListTile(
-                              title: Text("Kies een ander tijdstip"),
-                              onTap: () async {
-                                TimeOfDay time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
-                                widget.timeController.text = time.format(context);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        ),
-                      ));
-            },
-            readOnly: true,
-            controller: widget.timeController,
-            autofocus: false,
-            decoration: InputDecoration(
-              labelText: "Wanneer",
-              alignLabelWithHint: true,
-              contentPadding: EdgeInsets.all(20.0),
-              border: OutlineInputBorder(),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  onTap: () async {
+                    DateTime day = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 7)),
+                    );
+                    widget.dayController.text = day.isSameDate(DateTime.now())
+                        ? "Vandaag"
+                        : day.isSameDate(DateTime.now().add(Duration(days: 1)))
+                            ? "Morgen"
+                            : DateFormat('dd-MM-yyyy').format(day);
+                  },
+                  readOnly: true,
+                  controller: widget.dayController,
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    labelText: "Dag",
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.all(20.0),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: TextField(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    title: Text("Zo snel mogelijk"),
+                                    onTap: () {
+                                      widget.timeController.text = "Zo snel mogelijk";
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  Divider(height: 0),
+                                  ListTile(
+                                    title: Text("Kies een ander tijdstip"),
+                                    onTap: () async {
+                                      TimeOfDay time =
+                                          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                                      widget.timeController.text = time.format(context);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ));
+                  },
+                  readOnly: true,
+                  controller: widget.timeController,
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    labelText: "Tijdstip",
+                    alignLabelWithHint: true,
+                    contentPadding: EdgeInsets.all(20.0),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10),
           TextField(
@@ -120,6 +156,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  TextField buildPickUpPlaceField() {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: "Waar te vinden",
+        hintText: "Waar kunnen we dit product voor je vinden?",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.all(20.0),
+        border: OutlineInputBorder(),
       ),
     );
   }

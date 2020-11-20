@@ -12,6 +12,7 @@ class OrderPage extends StatefulWidget {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
+  final TextEditingController dayController = TextEditingController();
 }
 
 class _OrderPageState extends State<OrderPage> {
@@ -49,6 +50,7 @@ class _OrderPageState extends State<OrderPage> {
           OrderDetailsPage(
             pageController: widget.pageController,
             timeController: widget.timeController,
+            dayController: widget.dayController,
           ),
           OrderSummaryPage(widget.pageController),
         ],
