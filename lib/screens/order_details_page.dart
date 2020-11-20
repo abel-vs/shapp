@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shapp/screens/map_page.dart';
 
 extension DateOnlyCompare on DateTime {
   bool isSameDate(DateTime other) {
@@ -54,7 +55,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   },
                   readOnly: true,
                   controller: widget.dayController,
-                  autofocus: false,
                   decoration: InputDecoration(
                     labelText: "Dag",
                     alignLabelWithHint: true,
@@ -98,7 +98,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   },
                   readOnly: true,
                   controller: widget.timeController,
-                  autofocus: false,
                   decoration: InputDecoration(
                     labelText: "Tijdstip",
                     alignLabelWithHint: true,
@@ -162,6 +161,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   TextField buildPickUpPlaceField() {
     return TextField(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MapPage(),
+        ),
+      ),
+      readOnly: true,
       decoration: InputDecoration(
         labelText: "Waar te vinden",
         hintText: "Waar kunnen we dit product voor je vinden?",

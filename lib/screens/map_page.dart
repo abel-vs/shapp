@@ -16,8 +16,7 @@ class MapPageState extends State<MapPage> {
   String lightStyle;
   String darkStyle;
 
-  // ignore: non_constant_identifier_names
-  static final CameraPosition Delft = CameraPosition(
+  static const CameraPosition Delft = CameraPosition(
     target: LatLng(52.00667, 4.35556),
     zoom: 10,
   );
