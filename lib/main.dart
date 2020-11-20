@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:shapp/screens/landing_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
@@ -21,6 +23,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
@@ -30,12 +34,16 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<AuthBase>(create: (context) => Auth()),
         Provider<Database>(create: (context) => FirestoreDatabase()),
+        Provider<FirebaseAnalytics>(create: (context) => analytics),
       ],
       child: MaterialApp(
         title: 'Shapp',
 
-        debugShowCheckedModeBanner: false,
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
 
+        debugShowCheckedModeBanner: false,
         theme: lightTheme,
 
         darkTheme: darkTheme,
