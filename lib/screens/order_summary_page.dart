@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shapp/widgets/expanded_button.dart';
+import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderSummaryPage extends StatefulWidget {
   @override
@@ -15,19 +17,9 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Overzicht",
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              SizedBox(height: 5),
-              Text("Kijk je bestelling nog eens na en betaal!"),
-            ],
-          ),
+        OrderTitleBlock(
+          title: "Overzicht",
+          subtitle: "Kijk je bestelling nog eens na en betaal!",
         ),
         Expanded(
           child: ListView(
@@ -40,42 +32,34 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              children: [
-                Expanded(
-                  child: RaisedButton(
-                    child: Text(
-                      "Terug",
-                      style: TextStyle(color: Theme.of(context).canvasColor, fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      widget.controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-                    },
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: RaisedButton(
-                    child: Text(
-                      "Betaal",
-                      style: TextStyle(color: Theme.of(context).canvasColor, fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    color: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      widget.controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        buildButtons(context),
       ],
+    );
+  }
+
+  Widget buildButtons(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SizedBox(
+        width: double.maxFinite,
+        child: Row(
+          children: [
+            ExpandedButton(
+              text: "Terug",
+              function: () {
+                widget.controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+              },
+            ),
+            SizedBox(width: 10),
+            ExpandedButton(
+              text:  "Volgende",
+              function: () {
+                widget.controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

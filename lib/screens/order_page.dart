@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/screens/order_description_page.dart';
 import 'package:shapp/screens/order_details_page.dart';
+import 'package:shapp/screens/order_pay_page.dart';
 import 'package:shapp/screens/order_summary_page.dart';
 
 class OrderPage extends StatefulWidget {
@@ -25,7 +26,7 @@ class _OrderPageState extends State<OrderPage> {
         title: Text("Bestelling"),
         actions: [
           DotsIndicator(
-            dotsCount: 3,
+            dotsCount: 4,
             position: pageIndex.toDouble(),
             decorator: DotsDecorator(
               activeColor: Theme.of(context).primaryColor,
@@ -53,6 +54,7 @@ class _OrderPageState extends State<OrderPage> {
             dayController: widget.dayController,
           ),
           OrderSummaryPage(widget.pageController),
+          OrderPayPage(pageController: widget.pageController)
         ],
       ),
     );
