@@ -68,7 +68,6 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       RadioListTile(
                         value: false,
-//                          controlAffinity: ListTileControlAffinity.trailing,
                         contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
                         title: Text("Huidige Locatie"),
                         onChanged: (value) {},
@@ -93,17 +92,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Center buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Center(
       child: Container(
         width: 200.0,
         height: 200.0,
-        child: new RawMaterialButton(
-          shape: new CircleBorder(),
-          fillColor: Theme.of(context).primaryColor,
-          splashColor: Theme.of(context).canvasColor.withOpacity(0.6),
-          highlightColor: Theme.of(context).canvasColor.withOpacity(0.1),
-          elevation: 20,
+        child: FloatingActionButton(
+          // splashColor: Theme.of(context).canvasColor.withOpacity(0.6),
           child: Icon(
             Icons.shopping_basket,
             color: Theme.of(context).canvasColor,

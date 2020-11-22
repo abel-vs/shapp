@@ -140,7 +140,8 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     );
 
     setState(() {
-      _image = File(pickedFile.path);
+      if(pickedFile != null)
+        _image = File(pickedFile.path);
     });
   }
 
