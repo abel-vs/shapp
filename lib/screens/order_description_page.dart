@@ -150,6 +150,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
       context: context,
       child: AlertDialog(
         title: Text("Delete the image?"),
+        content: Image.file(_image),
         actions: [
           FlatButton(
             child: Text("No"),
