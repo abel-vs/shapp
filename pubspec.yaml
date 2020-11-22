@@ -31,6 +31,7 @@ dependencies:
 
   provider: ^4.3.2
   rxdart: ^0.24.1
+  intl: ^0.16.1
 
   firebase_core: ^0.5.2
   cloud_firestore: ^0.14.3
@@ -41,10 +42,8 @@ dependencies:
   location: ^3.0.2
 
   share: ^0.6.5
-
   dots_indicator: ^1.2.0
-
-  intl: ^0.16.1
+  image_picker: ^0.6.7
 
 dev_dependencies:
   flutter_test:
