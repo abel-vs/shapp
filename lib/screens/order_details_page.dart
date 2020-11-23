@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
@@ -54,9 +52,37 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               buildTimeField(context),
             ],
           ),
+          SizedBox(height: 10),
+          buildPriceField(context),
         ],
       ),
     );
+  }
+
+  InputDecorator buildPriceField(BuildContext context) {
+    return InputDecorator(
+          decoration: InputDecoration(
+            labelText: "Prijs",
+            alignLabelWithHint: true,
+            contentPadding: EdgeInsets.all(20.0),
+            border: OutlineInputBorder(),
+          ),
+          child: Row(
+            children: [
+              Text(
+                "Ongeveer €" + order.estimatedPrice.toStringAsFixed(0)),
+              Expanded(
+                child: Slider(
+                    value: order.estimatedPrice,
+                    onChanged: (price) => setState(() => order.estimatedPrice = price),
+                    min: 10,
+                    max: 50,
+                    divisions: 4,
+                    label: '€${order.estimatedPrice.toStringAsFixed(0)}'),
+              ),
+            ],
+          ),
+        );
   }
 
   Widget buildTimeField(BuildContext context) {

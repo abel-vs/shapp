@@ -67,5 +67,5 @@ class Order {
   TimeOfDay deliveryTime = TimeExtension.asap();
   String deliveryLocation = "";
   String pickUpLocation = "";
-  double estimatedPrice = 0;
+  double estimatedPrice = 10;
 }
