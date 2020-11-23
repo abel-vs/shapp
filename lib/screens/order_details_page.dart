@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:shapp/screens/map_page.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
-
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return this.year == other.year && this.month == other.month && this.day == other.day;
-  }
-}
 
 class OrderDetailsPage extends StatefulWidget {
   @override
   _OrderDetailsPageState createState() => _OrderDetailsPageState();
-
-  final PageController pageController;
-  final TextEditingController timeController;
-  final TextEditingController dayController;
-
-  OrderDetailsPage({this.pageController, this.timeController, this.dayController});
 }
 
 class _OrderDetailsPageState extends State<OrderDetailsPage> {
+  PageController pageController;
+  Order order;
+  final TextEditingController timeController = TextEditingController();
+  final TextEditingController dayController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<Order>(context);
+    pageController = Provider.of<PageController>(context);
+    dayController.text = order.deliveryDay.toReadableString();
+    timeController.text = order.deliveryTime.toReadableString(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         OrderTitleBlock(
           title: "Details",
-          subtitle: "Beschrijf het hier en we gaan het voor je halen!",
+          subtitle: "Alle informatie voor een vlotte levering.",
         ),
         buildFields(context),
         Spacer(),
@@ -40,36 +40,28 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Padding buildFields(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            buildPickUpPlaceField(),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                buildDayField(context),
-                SizedBox(width: 10),
-                buildTimeField(context),
-              ],
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Beschrijving",
-                hintText: "",
-                alignLabelWithHint: true,
-                contentPadding: EdgeInsets.all(20.0),
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ],
-        ),
-      );
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          buildPickUpLocationField(),
+          SizedBox(height: 10),
+          buildDeliveryLocationField(),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              buildDayField(context),
+              SizedBox(width: 10),
+              buildTimeField(context),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildTimeField(BuildContext context) {
     return Expanded(
-      child: TextField(
+      child: TextFormField(
         onTap: () {
           showDialog(
               context: context,
@@ -80,7 +72,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ListTile(
                           title: Text("Zo snel mogelijk"),
                           onTap: () {
-                            widget.timeController.text = "Zo snel mogelijk";
+                            order.deliveryTime = TimeExtension.asap();
+                            timeController.text = order.deliveryTime.toReadableString(context);
                             Navigator.of(context).pop();
                           },
                         ),
@@ -88,8 +81,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ListTile(
                           title: Text("Kies een ander tijdstip"),
                           onTap: () async {
-                            TimeOfDay time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
-                            widget.timeController.text = time.format(context);
+                            TimeOfDay time = await showTimePicker(
+                              context: context,
+                              initialTime: TimeExtension.asap(),
+                            );
+                            order.deliveryTime = time;
+                            timeController.text = order.deliveryTime.toReadableString(context);
                             Navigator.of(context).pop();
                           },
                         ),
@@ -98,7 +95,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                   ));
         },
         readOnly: true,
-        controller: widget.timeController,
+        controller: timeController,
         decoration: InputDecoration(
           labelText: "Tijdstip",
           alignLabelWithHint: true,
@@ -111,7 +108,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Widget buildDayField(BuildContext context) {
     return Expanded(
-      child: TextField(
+      child: TextFormField(
         onTap: () async {
           DateTime day = await showDatePicker(
             context: context,
@@ -119,14 +116,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             firstDate: DateTime.now(),
             lastDate: DateTime.now().add(Duration(days: 7)),
           );
-          widget.dayController.text = day.isSameDate(DateTime.now())
-              ? "Vandaag"
-              : day.isSameDate(DateTime.now().add(Duration(days: 1)))
-                  ? "Morgen"
-                  : DateFormat('dd-MM-yyyy').format(day);
+          if (day != null) {
+            order.deliveryDay = day;
+            dayController.text = day.toReadableString();
+          }
         },
         readOnly: true,
-        controller: widget.dayController,
+        controller: dayController,
         decoration: InputDecoration(
           labelText: "Dag",
           alignLabelWithHint: true,
@@ -137,17 +133,39 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     );
   }
 
-  TextField buildPickUpPlaceField() {
-    return TextField(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => MapPage(),
-        ),
-      ),
-      readOnly: true,
+  Widget buildPickUpLocationField() {
+    return TextFormField(
+      // onTap: () => Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) => MapPage(),
+      //   ),
+      // ),
+      onChanged: (text) => setState(() => order.pickUpLocation = text),
+      // readOnly: true,
+      initialValue: order.pickUpLocation.toString(),
       decoration: InputDecoration(
         labelText: "Waar te vinden",
         hintText: "Waar kunnen we dit product voor je vinden?",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.all(20.0),
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+
+  Widget buildDeliveryLocationField() {
+    return TextFormField(
+      // onTap: () => Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) => MapPage(),
+      //   ),
+      // ),
+      onChanged: (text) => setState(() => order.deliveryLocation = text),
+      // readOnly: true,
+      initialValue: order.deliveryLocation.toString(),
+      decoration: InputDecoration(
+        labelText: "Waar te leveren",
+        hintText: "Waar wil je je bestelling geleverd hebben?",
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.all(20.0),
         border: OutlineInputBorder(),
@@ -165,14 +183,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             ExpandedButton(
               text: "Terug",
               function: () {
-                widget.pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
             ExpandedButton(
               text: "Volgende",
               function: () {
-                widget.pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
           ],

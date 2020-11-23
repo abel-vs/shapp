@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderSummaryPage extends StatefulWidget {
   @override
   _OrderSummaryPageState createState() => _OrderSummaryPageState();
-
-  final PageController controller;
-
-  OrderSummaryPage(this.controller);
 }
 
 class _OrderSummaryPageState extends State<OrderSummaryPage> {
+
+  PageController pageController;
+  Order order;
+
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<Order>(context);
+    pageController = Provider.of<PageController>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,11 +28,26 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
         ),
         Expanded(
           child: ListView(
-//            padding: EdgeInsets.symmetric(horizontal: 10),
             children: [
               ListTile(
                 title: Text("Beschrijving"),
-                subtitle: Text("Yeet"),
+                subtitle: Text(order.description),
+              ),
+              ListTile(
+                title: Text("Waar te vinden"),
+                subtitle: Text(order.pickUpLocation),
+              ),
+              ListTile(
+                title: Text("Waar te leveren"),
+                subtitle: Text(order.deliveryLocation),
+              ),
+              ListTile(
+                title: Text("Wanneer te leveren"),
+                subtitle: Text(order.deliveryDay.toString() + " " + order.deliveryTime.toString()),
+              ),
+              ListTile(
+                title: Text("Prijs"),
+                subtitle: Text(order.estimatedPrice.toString()),
               ),
             ],
           ),
@@ -47,14 +67,14 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
             ExpandedButton(
               text: "Terug",
               function: () {
-                widget.controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
             ExpandedButton(
               text:  "Volgende",
               function: () {
-                widget.controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
           ],

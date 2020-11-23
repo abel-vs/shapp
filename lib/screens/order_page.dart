@@ -1,5 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/screens/order_description_page.dart';
 import 'package:shapp/screens/order_details_page.dart';
 import 'package:shapp/screens/order_pay_page.dart';
@@ -10,14 +12,16 @@ class OrderPage extends StatefulWidget {
   _OrderPageState createState() => _OrderPageState();
 
   final PageController pageController = PageController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
-  final TextEditingController timeController = TextEditingController();
-  final TextEditingController dayController = TextEditingController();
+  final Order order = Order();
 }
 
 class _OrderPageState extends State<OrderPage> {
   int pageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +39,17 @@ class _OrderPageState extends State<OrderPage> {
           SizedBox(width: 20)
         ],
       ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        onPageChanged: (value) {
-          setState(() {
-            pageIndex = value;
-          });
-        },
-        controller: widget.pageController,
-        children: [
-          OrderDescriptionPage(
-            pageController: widget.pageController,
-            descriptionController: widget.descriptionController,
-          ),
-          OrderDetailsPage(
-            pageController: widget.pageController,
-            timeController: widget.timeController,
-            dayController: widget.dayController,
-          ),
-          OrderSummaryPage(widget.pageController),
-          OrderPayPage(pageController: widget.pageController)
+      body: MultiProvider(
+        providers: [
+          Provider<Order>.value(value: widget.order),
+          ListenableProvider<PageController>.value(value: widget.pageController),
         ],
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          onPageChanged: (value) => setState(() => pageIndex = value),
+          controller: widget.pageController,
+          children: [OrderDescriptionPage(), OrderDetailsPage(), OrderSummaryPage(), OrderPayPage()],
+        ),
       ),
     );
   }

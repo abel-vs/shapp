@@ -2,41 +2,32 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderDescriptionPage extends StatefulWidget {
   @override
   _OrderDescriptionPageState createState() => _OrderDescriptionPageState();
-
-  final PageController pageController;
-  final TextEditingController descriptionController;
-
-  OrderDescriptionPage({this.pageController, this.descriptionController});
 }
 
 class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
+  PageController pageController;
+  Order order;
+  ImagePicker picker = ImagePicker();
   File _image;
-  final picker = ImagePicker();
-
-  @override
-  void initState() {
-    widget.descriptionController.addListener(() {
-      setState(() {});
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<Order>(context);
+    pageController = Provider.of<PageController>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        OrderTitleBlock(
-          title: "Wat heb je nodig?",
-          subtitle: "Beschrijf het hier en we gaan het voor je halen!",
-        ),
-        buildDescriptionField(),
+        OrderTitleBlock(title: "Wat heb je nodig?", subtitle: "Beschrijf het hier en we gaan het voor je halen!"),
+        buildBody(),
         buildNextButton(context),
       ],
     );
@@ -49,60 +40,74 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
         children: [
           ExpandedButton(
             text: "Volgende",
-            function: widget.descriptionController.text.isEmpty
+            function: order.description == null || order.description.isEmpty
                 ? null
-                : () => widget.pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
+                : () => pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
           ),
         ],
       ),
     );
   }
 
-  Widget buildDescriptionField() {
+  Widget buildBody() {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Stack(
-          children: [
-            TextField(
-              textAlignVertical: TextAlignVertical.top,
-              controller: widget.descriptionController,
-              decoration: InputDecoration(
-                labelText: "Beschrijving",
-                alignLabelWithHint: true,
-                contentPadding: EdgeInsets.all(20.0),
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.multiline,
-              expands: true,
-              maxLines: null,
-            ),
-            Positioned(
-              right: 20,
-              bottom: 20,
-              child: _image == null
-                  ? FloatingActionButton(
-                      child: Icon(
-                        Icons.add_photo_alternate_outlined,
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      onPressed: getImage,
-                    )
-                  : InkWell(
-                      onTap: () => deleteImage(),
-                      borderRadius: BorderRadius.circular(300.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(300.0),
-                        child: Image.file(
-                          _image,
-                          fit: BoxFit.cover,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ),
-            )
-          ],
+          children: [buildDescriptionField(), buildImageButton()],
+        ),
+      ),
+    );
+  }
+
+
+
+  TextFormField buildDescriptionField() {
+    return TextFormField(
+        textAlignVertical: TextAlignVertical.top,
+        decoration: InputDecoration(
+          labelText: "Beschrijving",
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.all(20.0),
+          border: OutlineInputBorder(),
+        ),
+        keyboardType: TextInputType.multiline,
+        expands: true,
+        maxLines: null,
+        onChanged: (text) => setState(() => order.description = text),
+        initialValue: order.description,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
+        });
+  }
+
+
+  Positioned buildImageButton() {
+    return Positioned(
+      right: 20,
+      bottom: 20,
+      child: _image == null
+          ? FloatingActionButton(
+        child: Icon(
+          Icons.add_photo_alternate_outlined,
+          color: Theme.of(context).canvasColor,
+        ),
+        onPressed: getImage,
+      )
+          : InkWell(
+        onTap: () => deleteImage(),
+        borderRadius: BorderRadius.circular(300.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(300.0),
+          child: Image.file(
+            _image,
+            fit: BoxFit.cover,
+            height: 50,
+            width: 50,
+          ),
         ),
       ),
     );
@@ -140,8 +145,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     );
 
     setState(() {
-      if(pickedFile != null)
-        _image = File(pickedFile.path);
+      if (pickedFile != null) _image = File(pickedFile.path);
     });
   }
 

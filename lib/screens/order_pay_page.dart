@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderPayPage extends StatefulWidget {
   @override
   _OrderPayPageState createState() => _OrderPayPageState();
-
-  final PageController pageController;
-
-  const OrderPayPage({this.pageController});
 }
 
 class _OrderPayPageState extends State<OrderPayPage> {
+
+  PageController pageController;
+  Order order;
+
   @override
   Widget build(BuildContext context) {
+    order = Provider.of<Order>(context);
+    pageController = Provider.of<PageController>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,7 +42,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
             ExpandedButton(
               text: "Terug",
               function: () {
-                widget.pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
