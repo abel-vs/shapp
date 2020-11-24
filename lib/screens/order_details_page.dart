@@ -24,86 +24,67 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
     return LayoutBuilder(builder: (context, constraints) {
       return SingleChildScrollView(
-          child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Column(mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  OrderTitleBlock(
-                    title: "Details",
-                    subtitle: "Alle informatie voor een vlotte levering.",
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      children: [
-                        buildPickUpLocationField(),
-                        SizedBox(height: 10),
-                        buildDeliveryLocationField(),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            buildDayField(context),
-                            SizedBox(width: 10),
-                            buildTimeField(context),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        buildPriceField(context),
-                        SizedBox(height: 10),
-                      ],
-                    ),
-                  ),
-                  Expanded(child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: buildExtraInfoField(),
-                  )),
-                  buildButtons(context),
-                ]),
-              )));
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+          child: IntrinsicHeight(
+            child: Column(mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
+              OrderTitleBlock(
+                title: "Details",
+                subtitle: "Alle informatie voor een vlotte levering.",
+              ),
+              buildFields(context),
+              buildButtons(context),
+            ]),
+          ),
+        ),
+      );
     });
   }
 
-  // Widget buildFields(BuildContext context) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         buildPickUpLocationField(),
-  //         SizedBox(height: 10),
-  //         buildDeliveryLocationField(),
-  //         SizedBox(height: 10),
-  //         Row(
-  //           children: [
-  //             buildDayField(context),
-  //             SizedBox(width: 10),
-  //             buildTimeField(context),
-  //           ],
-  //         ),
-  //         SizedBox(height: 10),
-  //         buildPriceField(context),
-  //         SizedBox(height: 10),
-  //         buildDescriptionField(),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget buildFields(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          children: [
+            buildPickUpLocationField(),
+            SizedBox(height: 10),
+            buildDeliveryLocationField(),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                buildDayField(context),
+                SizedBox(width: 10),
+                buildTimeField(context),
+              ],
+            ),
+            SizedBox(height: 10),
+            buildPriceField(context),
+            SizedBox(height: 10),
+            buildExtraInfoField(),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget buildExtraInfoField() {
-    return TextFormField(
-      textAlignVertical: TextAlignVertical.top,
-      decoration: InputDecoration(
-        labelText: "Verdere informatie",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(),
+    return Expanded(
+      child: TextFormField(
+        textAlignVertical: TextAlignVertical.top,
+        decoration: InputDecoration(
+          labelText: "Verdere informatie",
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.all(20.0),
+          border: OutlineInputBorder(),
+        ),
+        keyboardType: TextInputType.multiline,
+        minLines: null,
+        maxLines: null,
+        expands: true,
+        onChanged: (text) => setState(() => order.extraInfo = text),
+        initialValue: order.extraInfo,
       ),
-      keyboardType: TextInputType.multiline,
-      minLines: null,
-      maxLines: null,
-      expands: true,
-      onChanged: (text) => setState(() => order.extraInfo = text),
-      initialValue: order.extraInfo,
     );
   }
 
