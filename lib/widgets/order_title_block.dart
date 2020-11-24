@@ -18,7 +18,7 @@ class OrderTitleBlock extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline3,
           ),
           SizedBox(height: 5),
           Text(subtitle),

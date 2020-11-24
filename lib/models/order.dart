@@ -68,4 +68,5 @@ class Order {
   String deliveryLocation = "";
   String pickUpLocation = "";
   double estimatedPrice = 10;
+  String extraInfo = "";
 }

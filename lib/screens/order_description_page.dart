@@ -60,30 +60,22 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     );
   }
 
-
-
   TextFormField buildDescriptionField() {
     return TextFormField(
-        textAlignVertical: TextAlignVertical.top,
-        decoration: InputDecoration(
-          labelText: "Beschrijving",
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.all(20.0),
-          border: OutlineInputBorder(),
-        ),
-        keyboardType: TextInputType.multiline,
-        expands: true,
-        maxLines: null,
-        onChanged: (text) => setState(() => order.description = text),
-        initialValue: order.description,
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Please enter some text';
-          }
-          return null;
-        });
+      textAlignVertical: TextAlignVertical.top,
+      decoration: InputDecoration(
+        labelText: "Beschrijving",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.all(20.0),
+        border: OutlineInputBorder(),
+      ),
+      keyboardType: TextInputType.multiline,
+      expands: true,
+      maxLines: null,
+      onChanged: (text) => setState(() => order.description = text),
+      initialValue: order.description,
+    );
   }
-
 
   Positioned buildImageButton() {
     return Positioned(
@@ -91,25 +83,25 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
       bottom: 20,
       child: _image == null
           ? FloatingActionButton(
-        child: Icon(
-          Icons.add_photo_alternate_outlined,
-          color: Theme.of(context).canvasColor,
-        ),
-        onPressed: getImage,
-      )
+              child: Icon(
+                Icons.add_photo_alternate_outlined,
+                color: Theme.of(context).canvasColor,
+              ),
+              onPressed: getImage,
+            )
           : InkWell(
-        onTap: () => deleteImage(),
-        borderRadius: BorderRadius.circular(300.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(300.0),
-          child: Image.file(
-            _image,
-            fit: BoxFit.cover,
-            height: 50,
-            width: 50,
-          ),
-        ),
-      ),
+              onTap: () => deleteImage(),
+              borderRadius: BorderRadius.circular(300.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(300.0),
+                child: Image.file(
+                  _image,
+                  fit: BoxFit.cover,
+                  height: 50,
+                  width: 50,
+                ),
+              ),
+            ),
     );
   }
 

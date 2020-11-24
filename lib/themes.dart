@@ -37,8 +37,6 @@ TextTheme textTheme = TextTheme(
   headline6: TextStyle(
     fontSize: 18,
   ),
-  bodyText1: TextStyle(color: Colors.black),
-  bodyText2: TextStyle(color: Colors.grey),
 );
 
 TextSelectionThemeData textSelectionTheme = TextSelectionThemeData(

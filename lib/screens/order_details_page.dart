@@ -22,67 +22,114 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     dayController.text = order.deliveryDay.toReadableString();
     timeController.text = order.deliveryTime.toReadableString(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        OrderTitleBlock(
-          title: "Details",
-          subtitle: "Alle informatie voor een vlotte levering.",
-        ),
-        buildFields(context),
-        Spacer(),
-        buildButtons(context),
-      ],
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      return SingleChildScrollView(
+          child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  OrderTitleBlock(
+                    title: "Details",
+                    subtitle: "Alle informatie voor een vlotte levering.",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        buildPickUpLocationField(),
+                        SizedBox(height: 10),
+                        buildDeliveryLocationField(),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            buildDayField(context),
+                            SizedBox(width: 10),
+                            buildTimeField(context),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        buildPriceField(context),
+                        SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+                  Expanded(child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: buildExtraInfoField(),
+                  )),
+                  buildButtons(context),
+                ]),
+              )));
+    });
   }
 
-  Padding buildFields(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        children: [
-          buildPickUpLocationField(),
-          SizedBox(height: 10),
-          buildDeliveryLocationField(),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              buildDayField(context),
-              SizedBox(width: 10),
-              buildTimeField(context),
-            ],
-          ),
-          SizedBox(height: 10),
-          buildPriceField(context),
-        ],
+  // Widget buildFields(BuildContext context) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
+  //     child: Column(
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: [
+  //         buildPickUpLocationField(),
+  //         SizedBox(height: 10),
+  //         buildDeliveryLocationField(),
+  //         SizedBox(height: 10),
+  //         Row(
+  //           children: [
+  //             buildDayField(context),
+  //             SizedBox(width: 10),
+  //             buildTimeField(context),
+  //           ],
+  //         ),
+  //         SizedBox(height: 10),
+  //         buildPriceField(context),
+  //         SizedBox(height: 10),
+  //         buildDescriptionField(),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget buildExtraInfoField() {
+    return TextFormField(
+      textAlignVertical: TextAlignVertical.top,
+      decoration: InputDecoration(
+        labelText: "Verdere informatie",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.all(20.0),
+        border: OutlineInputBorder(),
       ),
+      keyboardType: TextInputType.multiline,
+      minLines: null,
+      maxLines: null,
+      expands: true,
+      onChanged: (text) => setState(() => order.extraInfo = text),
+      initialValue: order.extraInfo,
     );
   }
 
   InputDecorator buildPriceField(BuildContext context) {
     return InputDecorator(
-          decoration: InputDecoration(
-            labelText: "Prijs",
-            alignLabelWithHint: true,
-            contentPadding: EdgeInsets.all(20.0),
-            border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: "Prijs",
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+        border: OutlineInputBorder(),
+      ),
+      child: Row(
+        children: [
+          Text("Ongeveer €" + order.estimatedPrice.toStringAsFixed(0)),
+          Expanded(
+            child: Slider(
+                value: order.estimatedPrice,
+                onChanged: (price) => setState(() => order.estimatedPrice = price),
+                min: 10,
+                max: 50,
+                divisions: 4,
+                label: '€${order.estimatedPrice.toStringAsFixed(0)}'),
           ),
-          child: Row(
-            children: [
-              Text(
-                "Ongeveer €" + order.estimatedPrice.toStringAsFixed(0)),
-              Expanded(
-                child: Slider(
-                    value: order.estimatedPrice,
-                    onChanged: (price) => setState(() => order.estimatedPrice = price),
-                    min: 10,
-                    max: 50,
-                    divisions: 4,
-                    label: '€${order.estimatedPrice.toStringAsFixed(0)}'),
-              ),
-            ],
-          ),
-        );
+        ],
+      ),
+    );
   }
 
   Widget buildTimeField(BuildContext context) {
