@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
+import 'package:shapp/widgets/field_decoration.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderDetailsPage extends StatefulWidget {
@@ -22,49 +23,52 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     dayController.text = order.deliveryDay.toReadableString();
     timeController.text = order.deliveryTime.toReadableString(context);
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
-          child: IntrinsicHeight(
-            child: Column(mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              OrderTitleBlock(
-                title: "Details",
-                subtitle: "Alle informatie voor een vlotte levering.",
-              ),
-              buildFields(context),
-              buildButtons(context),
-            ]),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        OrderTitleBlock(
+          title: "Details",
+          subtitle: "Alle informatie voor een vlotte levering.",
         ),
-      );
-    });
+        buildFields(context),
+        buildButtons(context),
+      ],
+    );
   }
 
   Widget buildFields(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            buildPickUpLocationField(),
-            SizedBox(height: 10),
-            buildDeliveryLocationField(),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                buildDayField(context),
-                SizedBox(width: 10),
-                buildTimeField(context),
-              ],
+      child: LayoutBuilder(builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: [
+                    buildPickUpLocationField(),
+                    SizedBox(height: 10),
+                    buildDeliveryLocationField(),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        buildDayField(context),
+                        SizedBox(width: 10),
+                        buildTimeField(context),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    buildPriceField(context),
+                    SizedBox(height: 10),
+                    buildExtraInfoField(),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 10),
-            buildPriceField(context),
-            SizedBox(height: 10),
-            buildExtraInfoField(),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 
@@ -72,12 +76,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     return Expanded(
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
-        decoration: InputDecoration(
-          labelText: "Verdere informatie",
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.all(20.0),
-          border: OutlineInputBorder(),
-        ),
+        decoration: fieldDecoration(labelText: "Verdere Informatie"),
         keyboardType: TextInputType.multiline,
         minLines: null,
         maxLines: null,
@@ -150,12 +149,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: timeController,
-        decoration: InputDecoration(
-          labelText: "Tijdstip",
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.all(20.0),
-          border: OutlineInputBorder(),
-        ),
+        decoration: fieldDecoration(labelText: "Tijdstip"),
       ),
     );
   }
@@ -177,12 +171,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: dayController,
-        decoration: InputDecoration(
-          labelText: "Dag",
-          alignLabelWithHint: true,
-          contentPadding: EdgeInsets.all(20.0),
-          border: OutlineInputBorder(),
-        ),
+        decoration: fieldDecoration(labelText: "Dag"),
       ),
     );
   }
@@ -197,13 +186,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       onChanged: (text) => setState(() => order.pickUpLocation = text),
       // readOnly: true,
       initialValue: order.pickUpLocation.toString(),
-      decoration: InputDecoration(
-        labelText: "Waar te vinden",
-        hintText: "Waar kunnen we dit product voor je vinden?",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(),
-      ),
+      decoration: fieldDecoration(labelText: "Waar te vinden", hintText: "Waar kunnen we dit product voor je vinden?"),
     );
   }
 
@@ -217,13 +200,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       onChanged: (text) => setState(() => order.deliveryLocation = text),
       // readOnly: true,
       initialValue: order.deliveryLocation.toString(),
-      decoration: InputDecoration(
-        labelText: "Waar te leveren",
-        hintText: "Waar wil je je bestelling geleverd hebben?",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(),
-      ),
+      decoration: fieldDecoration(labelText: "Waar te leveren", hintText: "Waar wil je je bestelling geleverd hebben?"),
     );
   }
 

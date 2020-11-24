@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
+import 'package:shapp/widgets/field_decoration.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderDescriptionPage extends StatefulWidget {
@@ -63,12 +64,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   TextFormField buildDescriptionField() {
     return TextFormField(
       textAlignVertical: TextAlignVertical.top,
-      decoration: InputDecoration(
-        labelText: "Beschrijving",
-        alignLabelWithHint: true,
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(),
-      ),
+      decoration: fieldDecoration(labelText: "Beschrijving"),
       keyboardType: TextInputType.multiline,
       expands: true,
       maxLines: null,
