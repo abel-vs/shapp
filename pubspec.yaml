@@ -45,6 +45,7 @@ dependencies:
   dots_indicator: ^1.2.0
   image_picker: ^0.6.7
   intl_phone_number_input: ^0.5.2+2
+  code_input: ^1.0.3
 
 dev_dependencies:
   flutter_test:

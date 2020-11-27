@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1"
+  code_input:
+    dependency: "direct main"
+    description:
+      name: code_input
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   collection:
     dependency: transitive
     description:

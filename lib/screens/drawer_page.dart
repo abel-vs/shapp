@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:shapp/screens/about_page.dart';
 import 'package:shapp/screens/feedback_page.dart';
 import 'package:shapp/screens/intro_page.dart';
 import 'package:shapp/screens/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shapp/services/auth.dart';
 import 'package:share/share.dart';
 
 class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Auth auth = Provider.of<AuthBase>(context);
+
     return Drawer(
       child: ListTileTheme(
         iconColor: Theme.of(context).primaryColor,
@@ -61,6 +65,13 @@ class DrawerPage extends StatelessWidget {
                   builder: (context) => AboutPage(),
                 ),
               ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+              ),
+              title: Text("Uitloggen"),
+              onTap: () => auth.signOut(),
             ),
           ],
         ),

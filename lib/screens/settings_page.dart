@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shapp/services/auth.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
