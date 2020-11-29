@@ -6,6 +6,7 @@ import 'package:shapp/screens/intro_page.dart';
 import 'package:shapp/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/services/auth.dart';
+import 'package:shapp/themes.dart';
 import 'package:share/share.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -70,7 +71,7 @@ class DrawerPage extends StatelessWidget {
               leading: Icon(
                 Icons.logout,
               ),
-              title: Text("Uitloggen"),
+              title: Text("Uitloggen", style: TextStyle(color: TERRA_COTTA_RED),),
               onTap: () => auth.signOut(),
             ),
           ],

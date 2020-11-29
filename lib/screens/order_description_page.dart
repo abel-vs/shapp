@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shapp/decorations/field_decoration.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/expanded_button.dart';
-import 'package:shapp/widgets/field_decoration.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
 class OrderDescriptionPage extends StatefulWidget {
