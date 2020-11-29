@@ -11,6 +11,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   PhoneNumber phoneNumber = PhoneNumber(isoCode: 'NL');
+  TextEditingController phoneController = TextEditingController();
   bool loading = false;
 
   @override
@@ -27,18 +28,24 @@ class _SignInPageState extends State<SignInPage> {
   Container buildTitle(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      color: Theme.of(context).primaryColor,
+      color: Theme
+          .of(context)
+          .primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             "SHAPP",
-            style: TextStyle(fontSize: 80, color: Theme.of(context).canvasColor),
+            style: TextStyle(fontSize: 80, color: Theme
+                .of(context)
+                .canvasColor),
           ),
           SizedBox(height: 10),
           Text(
             "As quick as a click.",
-            style: TextStyle(fontSize: 20, color: Theme.of(context).canvasColor),
+            style: TextStyle(fontSize: 20, color: Theme
+                .of(context)
+                .canvasColor),
           ),
         ],
       ),
@@ -68,27 +75,47 @@ class _SignInPageState extends State<SignInPage> {
                     contentPadding: EdgeInsets.only(left: 20),
                     border: OutlineInputBorder(),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
-                    child: InternationalPhoneNumberInput(
-                      selectorConfig: SelectorConfig(
-                        selectorType: PhoneInputSelectorType.DIALOG,
-                        showFlags: true,
-                        backgroundColor: Theme.of(context).canvasColor,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: InternationalPhoneNumberInput(
+                            selectorConfig: SelectorConfig(
+                              selectorType: PhoneInputSelectorType.DIALOG,
+                              showFlags: true,
+                              backgroundColor: Theme
+                                  .of(context)
+                                  .canvasColor,
+                            ),
+                            searchBoxDecoration: InputDecoration(hintText: "Zoek op naam of land code"),
+                            locale: "nl",
+                            initialValue: phoneNumber,
+                            textFieldController: phoneController,
+                            // selectorButtonOnErrorPadding: 0,
+                            // autoValidateMode: AutovalidateMode.always,
+                            onInputChanged: (value) =>
+                                setState(() {
+                                  phoneNumber = value;
+                                }),
+                            inputDecoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "06 12 34 56 78",
+                            ),
+                          ),
+                        ),
                       ),
-                      searchBoxDecoration: InputDecoration(hintText: "Zoek op naam of land code"),
-                      locale: "nl",
-                      initialValue: phoneNumber,
-                      // selectorButtonOnErrorPadding: 0,
-                      // autoValidateMode: AutovalidateMode.always,
-                      onInputChanged: (value) => setState(() {
-                        phoneNumber = value;
-                      }),
-                      inputDecoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "06 12 34 56 78",
+                      IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () =>
+                            setState(() {
+                              phoneNumber = PhoneNumber(isoCode: 'NL');
+                              phoneController.clear();
+                            }),
+                        splashColor: Colors.transparent,
+                        splashRadius: 20,
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -98,18 +125,22 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       ExpandedButton(
                         text: "Registreer",
-                        function: phoneNumber.toString() == null || phoneNumber.toString().isEmpty
+                        function: phoneNumber.toString() == null || phoneNumber
+                            .toString()
+                            .isEmpty
                             ? null
                             : () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                auth.verifyPhone(phoneNumber, context)
-                                    .then((_) => setState(() {
-                                          // loading = false;
-                                          phoneNumber = PhoneNumber(isoCode: 'NL');
-                                        }));
-                              },
+                          setState(() {
+                            phoneController.clear();
+                            loading = true;
+                          });
+                          auth.verifyPhone(phoneNumber, context).then((_) =>
+                              setState(() {
+                                // loading = false;
+
+                                phoneNumber = PhoneNumber(isoCode: 'NL');
+                              }));
+                        },
                       ),
                     ],
                   ),

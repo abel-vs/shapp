@@ -16,6 +16,7 @@ class _ExpandedButtonState extends State<ExpandedButton> {
 
   @override
   Widget build(BuildContext context) {
+
     return Expanded(
       child: RaisedButton(
         child: loading
