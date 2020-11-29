@@ -28,24 +28,18 @@ class _SignInPageState extends State<SignInPage> {
   Container buildTitle(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      color: Theme
-          .of(context)
-          .primaryColor,
+      color: Theme.of(context).primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             "SHAPP",
-            style: TextStyle(fontSize: 80, color: Theme
-                .of(context)
-                .canvasColor),
+            style: TextStyle(fontSize: 80, color: Theme.of(context).canvasColor),
           ),
           SizedBox(height: 10),
           Text(
             "As quick as a click.",
-            style: TextStyle(fontSize: 20, color: Theme
-                .of(context)
-                .canvasColor),
+            style: TextStyle(fontSize: 20, color: Theme.of(context).canvasColor),
           ),
         ],
       ),
@@ -84,9 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                             selectorConfig: SelectorConfig(
                               selectorType: PhoneInputSelectorType.DIALOG,
                               showFlags: true,
-                              backgroundColor: Theme
-                                  .of(context)
-                                  .canvasColor,
+                              backgroundColor: Theme.of(context).canvasColor,
                             ),
                             searchBoxDecoration: InputDecoration(hintText: "Zoek op naam of land code"),
                             locale: "nl",
@@ -94,10 +86,9 @@ class _SignInPageState extends State<SignInPage> {
                             textFieldController: phoneController,
                             // selectorButtonOnErrorPadding: 0,
                             // autoValidateMode: AutovalidateMode.always,
-                            onInputChanged: (value) =>
-                                setState(() {
-                                  phoneNumber = value;
-                                }),
+                            onInputChanged: (value) => setState(() {
+                              phoneNumber = value;
+                            }),
                             inputDecoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "06 12 34 56 78",
@@ -107,11 +98,11 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       IconButton(
                         icon: Icon(Icons.clear),
-                        onPressed: () =>
-                            setState(() {
-                              phoneNumber = PhoneNumber(isoCode: 'NL');
-                              phoneController.clear();
-                            }),
+                        onPressed: () => setState(() {
+                          phoneNumber = PhoneNumber(isoCode: 'NL');
+                          phoneController.clear();
+                          loading = false;
+                        }),
                         splashColor: Colors.transparent,
                         splashRadius: 20,
                       ),
@@ -123,24 +114,14 @@ class _SignInPageState extends State<SignInPage> {
                   width: double.maxFinite,
                   child: Row(
                     children: [
-                      ExpandedButton(
-                        text: "Registreer",
-                        function: phoneNumber.toString() == null || phoneNumber
-                            .toString()
-                            .isEmpty
-                            ? null
-                            : () async {
-                          setState(() {
-                            phoneController.clear();
-                            loading = true;
-                          });
-                          auth.verifyPhone(phoneNumber, context).then((_) =>
-                              setState(() {
-                                // loading = false;
-
-                                phoneNumber = PhoneNumber(isoCode: 'NL');
-                              }));
-                        },
+                      Provider.value(
+                        value: loading,
+                        child: ExpandedButton(
+                          text: "Registreer",
+                          function: phoneNumber.toString() == null || phoneNumber.toString().isEmpty
+                              ? null
+                              : () => auth.verifyPhone(phoneNumber, context),
+                        ),
                       ),
                     ],
                   ),

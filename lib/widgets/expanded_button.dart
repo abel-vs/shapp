@@ -22,7 +22,7 @@ class _ExpandedButtonState extends State<ExpandedButton> {
         child: loading
             ? LinearProgressIndicator(
                 backgroundColor: Colors.transparent,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).canvasColor),
               )
             : Text(
                 widget.text,
