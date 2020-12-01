@@ -7,6 +7,8 @@ import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
+import 'order_confirmed_page.dart';
+
 class OrderPayPage extends StatefulWidget {
   @override
   _OrderPayPageState createState() => _OrderPayPageState();
@@ -121,7 +123,11 @@ class _OrderPayPageState extends State<OrderPayPage> {
             SizedBox(width: 10),
             ExpandedButton(
               text: "Betaal",
-              function: null,
+              function: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OrderConfirmedPage(),
+                ),
+              ),
             ),
           ],
         ),
