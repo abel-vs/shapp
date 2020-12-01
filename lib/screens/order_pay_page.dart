@@ -25,6 +25,8 @@ class _OrderPayPageState extends State<OrderPayPage> {
   ScrollController _controller = ScrollController();
 
   @override
+
+  @override
   Widget build(BuildContext context) {
     order = Provider.of<Order>(context);
     pageController = Provider.of<PageController>(context);
@@ -32,80 +34,123 @@ class _OrderPayPageState extends State<OrderPayPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        OrderTitleBlock(
-          title: "Time to pay",
-          subtitle: "Via iDeal Biitch",
+        Row(
+          children: [
+            OrderTitleBlock(
+              title: "Betaling",
+              subtitle: "Kijk je bestelling nog eens na en betaal!",
+            ),
+            Spacer(),
+            IconButton(
+              icon: Icon(Icons.help),
+              color: Theme.of(context).primaryColor,
+              iconSize: 30,
+              onPressed: () {},
+            ),
+            SizedBox(width: 20)
+          ],
         ),
-        buildIdealPayment(context),
-        Spacer(),
-        buildNativePayment(context),
-        Spacer(),
+        Expanded(
+          child: ListView(
+            children: [
+              ListTile(
+                title: Text("Beschrijving"),
+                subtitle: Text(order.description),
+              ),
+              ListTile(
+                title: Text("Waar te vinden"),
+                subtitle: Text(order.pickUpLocation),
+              ),
+              ListTile(
+                title: Text("Waar te leveren"),
+                subtitle: Text(order.deliveryLocation),
+              ),
+              ListTile(
+                title: Text("Wanneer te leveren"),
+                subtitle: Text(order.deliveryDay.toString() + " " + order.deliveryTime.toString()),
+              ),
+              ListTile(
+                title: Text("Verdere Informatie"),
+                subtitle: Text(order.description),
+              ),
+              ListTile(
+                title: Text("Voorschot", style: Theme.of(context).textTheme.headline5),
+                subtitle: Text("€ 18,00", style: TextStyle(fontSize: 20),),
+              ),
+              ListTile(
+                title: Text("Leveringskosten", style: Theme.of(context).textTheme.headline5),
+                subtitle: Text("€ 2,00", style: TextStyle(fontSize: 20),),
+              ),
+            ],
+          ),
+        ),
+        Divider(height: 0,),
+        SizedBox(height: 5),
+        ListTile(
+          title: Text("Totaal", style: Theme.of(context).textTheme.headline2),
+          subtitle: Text("€ 20,00", style: TextStyle(fontSize: 30),),
+        ),
         buildButtons(context),
       ],
     );
   }
 
-  RaisedButton buildIdealPayment(BuildContext context) {
-    return RaisedButton(
-      child: Text("iDeal"),
-      onPressed: () {
-        StripePayment.createSourceWithParams(SourceParams(
-          type: 'ideal',
-          amount: 1,
-          statementDescriptor: "Beschrijving van het product",
-          currency: 'eur',
-          returnURL: 'example://stripe-redirect',
-        )).then((source) {
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${source.sourceId}')));
-          setState(() {
-            _source = source;
-          });
-        }).catchError((err) => Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Something went wrong'),
-                backgroundColor: Colors.redAccent,
-              ),
-            ));
-      },
-    );
-  }
-
-  RaisedButton buildNativePayment(BuildContext context) {
-    return RaisedButton(
-      child: Text("Native payment"),
-      onPressed: () {
-        if (Platform.isIOS) {
-          _controller.jumpTo(450);
-        }
-        StripePayment.paymentRequestWithNativePay(
-          androidPayOptions: AndroidPayPaymentRequest(
-            totalPrice: "0.01",
-            currencyCode: "EUR",
-          ),
-          applePayOptions: ApplePayPaymentOptions(
-            countryCode: 'NL',
-            currencyCode: 'EUR',
-            items: [
-              ApplePayItem(
-                label: 'Test',
-                amount: '1',
-              )
-            ],
-          ),
-        ).then((token) {
-          setState(() {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${token.tokenId}')));
-            _paymentToken = token;
-          });
-        }).catchError((err) => Scaffold.of(context).showSnackBar(
+  Future<Source> executePayment(BuildContext context) {
+    return StripePayment.createSourceWithParams(SourceParams(
+      type: 'ideal',
+      amount: 1,
+      statementDescriptor: "Beschrijving van het product",
+      currency: 'eur',
+      returnURL: 'example://stripe-redirect',
+    )).then((source) {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${source.sourceId}')));
+      setState(() {
+        _source = source;
+      });
+    }).catchError((err) => Scaffold.of(context).showSnackBar(
           SnackBar(
             content: Text('Something went wrong'),
             backgroundColor: Colors.redAccent,
           ),
         ));
-      },
-    );
   }
+
+  // RaisedButton buildNativePayment(BuildContext context) {
+  //   return RaisedButton(
+  //     child: Text("Native payment"),
+  //     onPressed: () {
+  //       if (Platform.isIOS) {
+  //         _controller.jumpTo(450);
+  //       }
+  //       StripePayment.paymentRequestWithNativePay(
+  //         androidPayOptions: AndroidPayPaymentRequest(
+  //           totalPrice: "0.01",
+  //           currencyCode: "EUR",
+  //         ),
+  //         applePayOptions: ApplePayPaymentOptions(
+  //           countryCode: 'NL',
+  //           currencyCode: 'EUR',
+  //           items: [
+  //             ApplePayItem(
+  //               label: 'Test',
+  //               amount: '1',
+  //             )
+  //           ],
+  //         ),
+  //       ).then((token) {
+  //         setState(() {
+  //           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${token.tokenId}')));
+  //           _paymentToken = token;
+  //         });
+  //       }).catchError((err) => Scaffold.of(context).showSnackBar(
+  //             SnackBar(
+  //               content: Text('Something went wrong'),
+  //               backgroundColor: Colors.redAccent,
+  //             ),
+  //           ));
+  //     },
+  //   );
+  // }
 
   Widget buildButtons(BuildContext context) {
     return Padding(

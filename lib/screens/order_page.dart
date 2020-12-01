@@ -5,7 +5,6 @@ import 'package:shapp/models/order.dart';
 import 'package:shapp/screens/order_description_page.dart';
 import 'package:shapp/screens/order_details_page.dart';
 import 'package:shapp/screens/order_pay_page.dart';
-import 'package:shapp/screens/order_summary_page.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -30,7 +29,7 @@ class _OrderPageState extends State<OrderPage> {
         title: Text("Bestelling"),
         actions: [
           DotsIndicator(
-            dotsCount: 4,
+            dotsCount: 3,
             position: pageIndex.toDouble(),
             decorator: DotsDecorator(
               activeColor: Theme.of(context).primaryColor,
@@ -48,7 +47,7 @@ class _OrderPageState extends State<OrderPage> {
           physics: NeverScrollableScrollPhysics(),
           onPageChanged: (value) => setState(() => pageIndex = value),
           controller: widget.pageController,
-          children: [OrderDescriptionPage(), OrderDetailsPage(), OrderSummaryPage(), OrderPayPage()],
+          children: [OrderDescriptionPage(), OrderDetailsPage(), OrderPayPage()],
         ),
       ),
     );
