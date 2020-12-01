@@ -25,7 +25,6 @@ class _OrderPayPageState extends State<OrderPayPage> {
   ScrollController _controller = ScrollController();
 
   @override
-
   @override
   Widget build(BuildContext context) {
     order = Provider.of<Order>(context);
@@ -45,7 +44,19 @@ class _OrderPayPageState extends State<OrderPayPage> {
               icon: Icon(Icons.help),
               color: Theme.of(context).primaryColor,
               iconSize: 30,
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    title: Text("Hoe werkt het betalen?", style: Theme.of(context).textTheme.headline3,),
+                    content: Text("Je betaalt een voorschot voor de producten die je laat leveren.\n\n"
+                        "Het verschil in prijs wordt bij de levering afgehandeld.\n\n"
+                        "Als je voorschot te veel was krijg je de rest terug.\n\n"
+                        "Als je voorschot te weinig was betaal je het overige bij de levering.\n\n"
+                        "Als de werkelijke prijs te hard afwijkt wordt je nog gecontacteerd voor we de aankoop maken."),
+                  ),
+                );
+              },
             ),
             SizedBox(width: 20)
           ],
@@ -75,20 +86,31 @@ class _OrderPayPageState extends State<OrderPayPage> {
               ),
               ListTile(
                 title: Text("Voorschot", style: Theme.of(context).textTheme.headline5),
-                subtitle: Text("€ 18,00", style: TextStyle(fontSize: 20),),
+                subtitle: Text(
+                  "€ " + order.estimatedPrice.toStringAsFixed(2),
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
               ListTile(
                 title: Text("Leveringskosten", style: Theme.of(context).textTheme.headline5),
-                subtitle: Text("€ 2,00", style: TextStyle(fontSize: 20),),
+                subtitle: Text(
+                  "€ 2,00",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ],
           ),
         ),
-        Divider(height: 0,),
+        Divider(
+          height: 0,
+        ),
         SizedBox(height: 5),
         ListTile(
           title: Text("Totaal", style: Theme.of(context).textTheme.headline2),
-          subtitle: Text("€ 20,00", style: TextStyle(fontSize: 30),),
+          subtitle: Text(
+            "€ " + (order.estimatedPrice + 2).toStringAsFixed(2),
+            style: TextStyle(fontSize: 30),
+          ),
         ),
         buildButtons(context),
       ],
@@ -98,21 +120,28 @@ class _OrderPayPageState extends State<OrderPayPage> {
   Future<Source> executePayment(BuildContext context) {
     return StripePayment.createSourceWithParams(SourceParams(
       type: 'ideal',
-      amount: 1,
-      statementDescriptor: "Beschrijving van het product",
+      amount: (order.estimatedPrice * 100).toInt(),
+      statementDescriptor: "Shapp bestelling: " + order.description,
       currency: 'eur',
       returnURL: 'example://stripe-redirect',
     )).then((source) {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${source.sourceId}')));
-      setState(() {
-        _source = source;
-      });
-    }).catchError((err) => Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Something went wrong'),
-            backgroundColor: Colors.redAccent,
-          ),
-        ));
+      // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${source.sourceId}')));
+      // setState(() {
+      //   _source = source;
+      // });
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => OrderConfirmedPage(),
+        ),
+      );
+    }).catchError((err) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Something went wrong'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    });
   }
 
   // RaisedButton buildNativePayment(BuildContext context) {
@@ -168,11 +197,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
             SizedBox(width: 10),
             ExpandedButton(
               text: "Betaal",
-              function: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OrderConfirmedPage(),
-                ),
-              ),
+              function: () => executePayment(context),
             ),
           ],
         ),

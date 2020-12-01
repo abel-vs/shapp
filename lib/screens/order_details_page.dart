@@ -138,8 +138,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               context: context,
                               initialTime: TimeExtension.asap(),
                             );
-                            order.deliveryTime = time;
-                            timeController.text = order.deliveryTime.toReadableString(context);
+                            if(time != null){
+                              order.deliveryTime = time;
+                              timeController.text = order.deliveryTime.toReadableString(context);
+                            }
                             Navigator.of(context).pop();
                           },
                         ),
