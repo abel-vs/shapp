@@ -47,6 +47,8 @@ dependencies:
   intl_phone_number_input: ^0.5.2+2
   code_input: ^1.0.3
 
+  stripe_payment: ^1.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -15,11 +15,20 @@ import 'screens/intro_page.dart';
 import 'screens/drawer_page.dart';
 import 'services/app_localizations.dart';
 
+import 'package:stripe_payment/stripe_payment.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  StripePayment.setOptions(StripeOptions(
+      publishableKey:
+          "pk_test_51HoqjPCn8fuy3fijvWHsIaEjvVhPBvIkB4hTnavS9gSMFcFxS9HCXsLCvpMb9uaVMD9mAFCOIbfZXVVDKNSnvipI00WnlnLe5X",
+      //YOUR_PUBLISHABLE_KEY
+      merchantId: "Shapp", //YOUR_MERCHANT_ID
+      androidPayMode: 'test'));
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -27,8 +36,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
     return MultiProvider(
       providers: [
