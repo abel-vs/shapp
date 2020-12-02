@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shapp/services/firebase_path.dart';
+
 import 'firestore_service.dart';
 
 abstract class Database {
@@ -10,10 +14,20 @@ abstract class Database {
   // Stream<List<Stream<Product>>> promotedProductsStream(String promotion);
   //
   // Stream<double> lowestProductPrice(String id);
+
+  sendFeedback(String feedback);
 }
 
 class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
+
+  @override
+  sendFeedback(String feedback) {
+    Map<String, dynamic> data = {'text': feedback, 'user': FirebaseAuth.instance.currentUser.uid, 'createdOn': FieldValue.serverTimestamp()};
+    _service.addData(path: FirebasePath.feedback(), data: data);
+  }
+
+
 
   // Function productBuilder = (data, documentID) {
   //   return Product(
