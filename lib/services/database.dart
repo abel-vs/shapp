@@ -35,31 +35,43 @@ class FirestoreDatabase implements Database {
   @override
   Future<void> placeOrder(Order order) async {
     String uid = FirebaseAuth.instance.currentUser.uid;
+    String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
     DateTime day = order.deliveryDay;
     TimeOfDay time = order.deliveryTime;
     DateTime deliveryMoment = DateTime(day.year, day.month, day.day, time.hour, time.minute);
 
-    /// MAKE DOCUMENT IN ORDERS
-    Map<String, dynamic> orderData = {
-      'description': order.description,
-      'extraInfo': order.extraInfo,
-      'pickUpLocation': order.pickUpLocation,
-      'deliveryLocation': order.deliveryLocation,
-      'deliveryMoment': deliveryMoment,
-      'asap': order.asap,
-      'estimatedPrice': order.estimatedPrice,
-      'stripeSource': order.source.sourceId,
-      'createdAt': FieldValue.serverTimestamp(),
+    TransactionHandler transactionHandler = (transaction) async {
+      /// MAKE DOCUMENT IN ORDERS
+      Map<String, dynamic> orderData = {
+        'description': order.description,
+        'extraInfo': order.extraInfo,
+        'pickUpLocation': order.pickUpLocation,
+        'deliveryLocation': order.deliveryLocation,
+        'deliveryMoment': deliveryMoment,
+        'asap': order.asap,
+        'estimatedPrice': order.estimatedPrice,
+        'stripeSource': order.source.sourceId,
+        'createdAt': FieldValue.serverTimestamp(),
+      };
+
+      DocumentReference orderReference = FirebaseFirestore.instance.doc(FirebasePath.order(oid));
+
+      transaction.set(orderReference, orderData);
+
+      /// MAKE DOCUMENT IN USER/UID/ORDERS
+      Map<String, dynamic> userOrderData = {
+        'orderReference': FirebaseFirestore.instance.doc(FirebasePath.order(oid)),
+      };
+
+      DocumentReference userOrderReference =
+      FirebaseFirestore.instance.doc(FirebasePath.user(uid) + "/" + FirebasePath.order(oid));
+
+      transaction.set(userOrderReference, userOrderData);
+
+      return null;
     };
 
-    DocumentReference orderReference = await _service.addData(path: FirebasePath.orders(), data: orderData);
-
-    /// MAKE DOCUMENT IN USER/UID/ORDERS
-    Map<String, dynamic> orderReferenceData = {'orderReference': orderReference};
-    _service.setData(
-      path: FirebasePath.user(uid) + "/" + FirebasePath.order(orderReference.id),
-      data: orderReferenceData,
-    );
+    _service.executeTransaction(transaction: transactionHandler);
   }
 
 // Function productBuilder = (data, documentID) {
