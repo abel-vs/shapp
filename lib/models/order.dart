@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 extension DateExtension on DateTime {
   bool isSameDate(DateTime other) {
@@ -65,8 +66,10 @@ class Order {
   String description = "";
   DateTime deliveryDay = DateTime.now();
   TimeOfDay deliveryTime = TimeExtension.asap();
+  bool asap = true;
   String deliveryLocation = "";
   String pickUpLocation = "";
   double estimatedPrice = 10;
   String extraInfo = "";
+  Source source;
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/database.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -15,6 +16,7 @@ class OrderPayPage extends StatefulWidget {
 }
 
 class _OrderPayPageState extends State<OrderPayPage> {
+  Database database;
   PageController pageController;
   Order order;
 
@@ -25,10 +27,10 @@ class _OrderPayPageState extends State<OrderPayPage> {
   ScrollController _controller = ScrollController();
 
   @override
-  @override
   Widget build(BuildContext context) {
     order = Provider.of<Order>(context);
     pageController = Provider.of<PageController>(context);
+    database = Provider.of<Database>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,9 +120,10 @@ class _OrderPayPageState extends State<OrderPayPage> {
   }
 
   Future<Source> executePayment(BuildContext context) {
+
     return StripePayment.createSourceWithParams(SourceParams(
       type: 'ideal',
-      amount: (order.estimatedPrice * 100).toInt(),
+      amount: ((order.estimatedPrice + 2) * 100).toInt(),
       statementDescriptor: "Shapp bestelling: " + order.description,
       currency: 'eur',
       returnURL: 'example://stripe-redirect',
@@ -129,9 +132,11 @@ class _OrderPayPageState extends State<OrderPayPage> {
       // setState(() {
       //   _source = source;
       // });
+      order.source = source;
+      database.placeOrder(order);
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => OrderConfirmedPage(),
+          builder: (context) => OrderConfirmedPage(order: order),
         ),
       );
     }).catchError((err) {

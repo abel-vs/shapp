@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/widgets/success_page.dart';
 
 class OrderConfirmedPage extends StatelessWidget {
+
+  final Order order;
+
+  const OrderConfirmedPage({Key key, this.order}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SuccessPage(
       icon: Icons.check_circle,
       title: "Je bestelling is bevestigd",
       body: Text(
-        "Bestelling nummer #78234892",
+        "Bestelling ID: " + order.source.sourceId.substring(4),
         textAlign: TextAlign.center,
         style: TextStyle(color: Theme.of(context).canvasColor, fontWeight: FontWeight.bold),
       ),

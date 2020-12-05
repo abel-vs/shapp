@@ -99,8 +99,8 @@ class _VerifyPageState extends State<VerifyPage> {
                         ExpandedButton(
                           text: "Verifieer",
                           function: () {
-                            Navigator.of(context).pop();
                             auth.signIn(otp);
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],

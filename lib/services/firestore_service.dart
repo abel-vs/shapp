@@ -6,13 +6,13 @@ class FirestoreService {
 
   static final instance = FirestoreService._();
 
-  Future<void> addData({
+  Future<DocumentReference> addData({
     @required String path,
     @required Map<String, dynamic> data,
   }) async {
     final reference = FirebaseFirestore.instance.collection(path);
     print('add: $path: $data');
-    await reference.add(data);
+    return reference.add(data);
   }
 
   Future<void> setData({
