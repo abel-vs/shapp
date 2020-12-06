@@ -3,27 +3,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/services/firebase_path.dart';
+import 'package:stripe_payment/stripe_payment.dart' as stripe;
 
 import 'firestore_service.dart';
 
 abstract class Database {
-  // Stream<Product> productStream(String id);
-  //
-  // Stream<List<Product>> productsStream();
-  //
-  // Stream<List<Product>> productCategoryStream(Category category);
-  //
-  // Stream<List<Stream<Product>>> promotedProductsStream(String promotion);
-  //
-  // Stream<double> lowestProductPrice(String id);
 
   sendFeedback(String feedback);
 
   Future<void> placeOrder(Order order);
+
+  Stream<Order> orderStream({@required String oid});
+
+  Stream<List<Stream<Order>>> ordersStream({@required String uid});
 }
 
 class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
+
+  Function orderBuilder = (data, documentId) {
+    return Order(
+      id: documentId,
+      description: data["description"],
+      deliveryDay: data["deliveryMoment"],
+      deliveryTime: TimeOfDay(hour: data["deliveryMoment"].hour, minute: data["deliveryMoment"].minute),
+      asap: data["asap"],
+      deliveryLocation: data["deliveryLocation"],
+      pickUpLocation: data["pickUpLocation"],
+      estimatedPrice: data["estimatedPrice"],
+      extraInfo: data["extraInfo"],
+      source: stripe.Source.fromJson(data['stripeSource']),
+    );
+  };
 
   @override
   sendFeedback(String feedback) {
@@ -36,23 +47,10 @@ class FirestoreDatabase implements Database {
   Future<void> placeOrder(Order order) async {
     String uid = FirebaseAuth.instance.currentUser.uid;
     String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
-    DateTime day = order.deliveryDay;
-    TimeOfDay time = order.deliveryTime;
-    DateTime deliveryMoment = DateTime(day.year, day.month, day.day, time.hour, time.minute);
 
     TransactionHandler transactionHandler = (transaction) async {
       /// MAKE DOCUMENT IN ORDERS
-      Map<String, dynamic> orderData = {
-        'description': order.description,
-        'extraInfo': order.extraInfo,
-        'pickUpLocation': order.pickUpLocation,
-        'deliveryLocation': order.deliveryLocation,
-        'deliveryMoment': deliveryMoment,
-        'asap': order.asap,
-        'estimatedPrice': order.estimatedPrice,
-        'stripeSource': order.source.sourceId,
-        'createdAt': FieldValue.serverTimestamp(),
-      };
+      Map<String, dynamic> orderData = order.toJson();
 
       DocumentReference orderReference = FirebaseFirestore.instance.doc(FirebasePath.order(oid));
 
@@ -64,7 +62,7 @@ class FirestoreDatabase implements Database {
       };
 
       DocumentReference userOrderReference =
-      FirebaseFirestore.instance.doc(FirebasePath.user(uid) + "/" + FirebasePath.order(oid));
+      FirebaseFirestore.instance.doc(FirebasePath.userOrder(uid, oid));
 
       transaction.set(userOrderReference, userOrderData);
 
@@ -74,15 +72,17 @@ class FirestoreDatabase implements Database {
     _service.executeTransaction(transaction: transactionHandler);
   }
 
-// Function productBuilder = (data, documentID) {
-//   return Product(
-//       id: documentID,
-//       name: data['name'],
-//       brand: data['brand'],
-//       image: data['image'],
-//       category: data['category'],
-//       price: data['price'],
-//       info: data['info']);
-// };
+  @override
+  Stream<Order> orderStream({String oid}) {
+    _service.documentStream(
+        path: FirebasePath.order(oid),
+        builder: orderBuilder,
+    );
+  }
+
+  @override
+  Stream<List<Stream<Order>>> ordersStream({String uid}) {
+    return _service.collectionStream(path: FirebasePath.userOrders(uid), builder: (data, documentId) => orderStream(oid: documentId));
+  }
 
 }

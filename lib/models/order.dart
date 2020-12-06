@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stripe_payment/stripe_payment.dart';
+import 'package:stripe_payment/stripe_payment.dart' as stripe;
 
 extension DateExtension on DateTime {
   bool isSameDate(DateTime other) {
@@ -42,19 +43,15 @@ extension TimeExtension on TimeOfDay {
   }
 
   String toReadableString(context) {
-    return this.isAsap()
-        ? "Zo snel mogelijk"
-        : this.format(context);
+    return this.isAsap() ? "Zo snel mogelijk" : this.format(context);
   }
 
-
-  bool isAsap(){
+  bool isAsap() {
     TimeOfDay now = TimeOfDay.now();
     return (this.hour < now.hour + 1) || (this.hour == now.hour + 1 && this.minute <= now.minute);
   }
 
-  // toRightTime
-
+// toRightTime
 
 }
 
@@ -71,5 +68,42 @@ class Order {
   String pickUpLocation = "";
   double estimatedPrice = 10;
   String extraInfo = "";
-  Source source;
+  stripe.Source source;
+
+  Order(
+      {this.id,
+      this.state,
+      this.description,
+      this.deliveryDay,
+      this.deliveryTime,
+      this.asap,
+      this.deliveryLocation,
+      this.pickUpLocation,
+      this.estimatedPrice,
+      this.extraInfo,
+      this.source});
+
+  Map<String, dynamic> toJson() {
+    DateTime deliveryMoment = DateTime(
+      deliveryDay.year,
+      deliveryDay.month,
+      deliveryDay.day,
+      deliveryTime.hour,
+      deliveryTime.minute,
+    );
+
+    final Map<String, dynamic> data = {
+      'description': description,
+      'extraInfo': extraInfo,
+      'pickUpLocation': pickUpLocation,
+      'deliveryLocation': deliveryLocation,
+      'deliveryMoment': deliveryMoment,
+      'asap': asap,
+      'estimatedPrice': estimatedPrice,
+      'stripeSource': source.toJson(),
+      'createdAt': FieldValue.serverTimestamp(),
+    };
+
+    return data;
+  }
 }
