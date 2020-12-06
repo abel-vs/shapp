@@ -59,29 +59,33 @@ enum OrderState { Created, Submitted, Appointed, Bought, Delivery, Done }
 
 class Order {
   String id;
-  OrderState state = OrderState.Created;
-  String description = "";
-  DateTime deliveryDay = DateTime.now();
-  TimeOfDay deliveryTime = TimeExtension.asap();
-  bool asap = true;
-  String deliveryLocation = "";
-  String pickUpLocation = "";
-  double estimatedPrice = 10;
-  String extraInfo = "";
+  OrderState state;
+  String description;
+  DateTime deliveryDay;
+  TimeOfDay deliveryTime;
+  bool asap;
+  String deliveryLocation;
+  String pickUpLocation;
+  double estimatedPrice;
+  String extraInfo;
   stripe.Source source;
 
-  Order(
-      {this.id,
-      this.state,
-      this.description,
-      this.deliveryDay,
-      this.deliveryTime,
-      this.asap,
-      this.deliveryLocation,
-      this.pickUpLocation,
-      this.estimatedPrice,
-      this.extraInfo,
-      this.source});
+  Order({
+    this.id,
+    this.state = OrderState.Created,
+    this.description = "",
+    this.deliveryDay,
+    this.deliveryTime,
+    this.asap = true,
+    this.deliveryLocation = "",
+    this.pickUpLocation = "",
+    this.estimatedPrice = 10,
+    this.extraInfo = "",
+    this.source,
+  }) {
+    if (this.deliveryDay == null) deliveryDay = DateTime.now();
+    if (this.deliveryTime == null) deliveryTime = TimeExtension.asap();
+  }
 
   Map<String, dynamic> toJson() {
     DateTime deliveryMoment = DateTime(
