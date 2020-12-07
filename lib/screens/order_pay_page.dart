@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/services/database.dart';
+import 'package:shapp/services/payments.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -119,73 +120,6 @@ class _OrderPayPageState extends State<OrderPayPage> {
     );
   }
 
-  Future<Source> executePayment(BuildContext context) {
-
-    return StripePayment.createSourceWithParams(SourceParams(
-      type: 'ideal',
-      amount: ((order.estimatedPrice + 2) * 100).toInt(),
-      statementDescriptor: "Shapp bestelling: " + order.description,
-      currency: 'eur',
-      returnURL: 'example://stripe-redirect',
-    )).then((source) {
-      // Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${source.sourceId}')));
-      // setState(() {
-      //   _source = source;
-      // });
-      order.source = source;
-      database.placeOrder(order);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => OrderConfirmedPage(order: order),
-        ),
-      );
-    }).catchError((err) {
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Something went wrong'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    });
-  }
-
-  // RaisedButton buildNativePayment(BuildContext context) {
-  //   return RaisedButton(
-  //     child: Text("Native payment"),
-  //     onPressed: () {
-  //       if (Platform.isIOS) {
-  //         _controller.jumpTo(450);
-  //       }
-  //       StripePayment.paymentRequestWithNativePay(
-  //         androidPayOptions: AndroidPayPaymentRequest(
-  //           totalPrice: "0.01",
-  //           currencyCode: "EUR",
-  //         ),
-  //         applePayOptions: ApplePayPaymentOptions(
-  //           countryCode: 'NL',
-  //           currencyCode: 'EUR',
-  //           items: [
-  //             ApplePayItem(
-  //               label: 'Test',
-  //               amount: '1',
-  //             )
-  //           ],
-  //         ),
-  //       ).then((token) {
-  //         setState(() {
-  //           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Received ${token.tokenId}')));
-  //           _paymentToken = token;
-  //         });
-  //       }).catchError((err) => Scaffold.of(context).showSnackBar(
-  //             SnackBar(
-  //               content: Text('Something went wrong'),
-  //               backgroundColor: Colors.redAccent,
-  //             ),
-  //           ));
-  //     },
-  //   );
-  // }
-
   Widget buildButtons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -202,7 +136,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
             SizedBox(width: 10),
             ExpandedButton(
               text: "Betaal",
-              function: () => executePayment(context),
+              function: () => Payments.executePayment(context, order),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stripe_payment/stripe_payment.dart' as stripe;
@@ -96,7 +97,7 @@ class Order {
       deliveryTime.minute,
     );
 
-    final Map<String, dynamic> data = {
+    return {
       'description': description,
       'extraInfo': extraInfo,
       'pickUpLocation': pickUpLocation,
@@ -104,10 +105,9 @@ class Order {
       'deliveryMoment': deliveryMoment,
       'asap': asap,
       'estimatedPrice': estimatedPrice,
-      'stripeSource': source.toJson(),
+      'stripeSource': source.sourceId,
       'createdAt': FieldValue.serverTimestamp(),
+      'user': FirebaseAuth.instance.currentUser.uid,
     };
-
-    return data;
   }
 }

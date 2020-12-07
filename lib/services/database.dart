@@ -8,14 +8,13 @@ import 'package:stripe_payment/stripe_payment.dart' as stripe;
 import 'firestore_service.dart';
 
 abstract class Database {
-
   sendFeedback(String feedback);
 
   Future<void> placeOrder(Order order);
 
   Stream<Order> orderStream({@required String oid});
 
-  Stream<List<Stream<Order>>> ordersStream({@required String uid});
+  Stream<List<Order>> ordersStream();
 }
 
 class FirestoreDatabase implements Database {
@@ -32,7 +31,7 @@ class FirestoreDatabase implements Database {
       pickUpLocation: data["pickUpLocation"],
       estimatedPrice: data["estimatedPrice"],
       extraInfo: data["extraInfo"],
-      source: stripe.Source.fromJson(data['stripeSource']),
+      source: stripe.Source(sourceId: data["stripeSource"]),
     );
   };
 
@@ -45,44 +44,28 @@ class FirestoreDatabase implements Database {
 
   @override
   Future<void> placeOrder(Order order) async {
-    String uid = FirebaseAuth.instance.currentUser.uid;
     String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
-
-    TransactionHandler transactionHandler = (transaction) async {
-      /// MAKE DOCUMENT IN ORDERS
-      Map<String, dynamic> orderData = order.toJson();
-
-      DocumentReference orderReference = FirebaseFirestore.instance.doc(FirebasePath.order(oid));
-
-      transaction.set(orderReference, orderData);
-
-      /// MAKE DOCUMENT IN USER/UID/ORDERS
-      Map<String, dynamic> userOrderData = {
-        'orderReference': FirebaseFirestore.instance.doc(FirebasePath.order(oid)),
-      };
-
-      DocumentReference userOrderReference =
-      FirebaseFirestore.instance.doc(FirebasePath.userOrder(uid, oid));
-
-      transaction.set(userOrderReference, userOrderData);
-
-      return null;
-    };
-
-    _service.executeTransaction(transaction: transactionHandler);
+    _service.setData(
+      path: FirebasePath.order(oid),
+      data: order.toJson(),
+    );
   }
 
   @override
   Stream<Order> orderStream({String oid}) {
     _service.documentStream(
-        path: FirebasePath.order(oid),
-        builder: orderBuilder,
+      path: FirebasePath.order(oid),
+      builder: orderBuilder,
     );
   }
 
   @override
-  Stream<List<Stream<Order>>> ordersStream({String uid}) {
-    return _service.collectionStream(path: FirebasePath.userOrders(uid), builder: (data, documentId) => orderStream(oid: documentId));
+  Stream<List<Order>> ordersStream() {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    return _service.collectionStream(
+      path: FirebasePath.orders(),
+      builder: orderBuilder,
+      queryBuilder: (query) => query.where("user", isEqualTo: uid),
+    );
   }
-
 }
