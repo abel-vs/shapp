@@ -2,8 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shapp/screens/drawer_page.dart';
-import 'package:shapp/screens/orders_page.dart';
+import 'package:shapp/pages/drawer_page.dart';
+import 'package:shapp/pages/orders_page.dart';
 import 'package:shapp/services/database.dart';
 
 class HomePage extends StatefulWidget {

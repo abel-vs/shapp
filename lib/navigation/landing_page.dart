@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/navigation/app.dart';
-import 'package:shapp/screens/sign_in_page.dart';
+import 'package:shapp/pages/sign_in_page.dart';
 
 class LandingPage extends StatelessWidget {
   @override

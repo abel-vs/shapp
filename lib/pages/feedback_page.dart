@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
-import 'package:shapp/screens/feedback_send_page.dart';
+import 'package:shapp/pages/feedback_send_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/services/database.dart';

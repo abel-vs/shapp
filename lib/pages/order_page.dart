@@ -2,9 +2,9 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
-import 'package:shapp/screens/order_description_page.dart';
-import 'package:shapp/screens/order_details_page.dart';
-import 'package:shapp/screens/order_pay_page.dart';
+import 'package:shapp/pages/order_description_page.dart';
+import 'package:shapp/pages/order_details_page.dart';
+import 'package:shapp/pages/order_pay_page.dart';
 
 class OrderPage extends StatefulWidget {
   @override

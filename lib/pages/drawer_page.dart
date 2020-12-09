@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:shapp/screens/about_page.dart';
-import 'package:shapp/screens/feedback_page.dart';
-import 'package:shapp/screens/intro_page.dart';
-import 'package:shapp/screens/settings_page.dart';
+import 'package:shapp/pages/about_page.dart';
+import 'package:shapp/pages/feedback_page.dart';
+import 'package:shapp/pages/intro_page.dart';
+import 'package:shapp/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/themes.dart';

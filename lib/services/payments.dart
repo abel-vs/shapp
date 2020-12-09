@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
-import 'package:shapp/screens/order_confirmed_page.dart';
+import 'package:shapp/pages/order_confirmed_page.dart';
 import 'package:shapp/services/database.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 

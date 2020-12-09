@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shapp/models/order.dart';
-import 'package:shapp/widgets/success_page.dart';
+import 'file:///C:/Users/abelv/Shapp/Projects/shapp/lib/pages/info_page.dart';
 
 class OrderConfirmedPage extends StatelessWidget {
 
@@ -10,7 +10,7 @@ class OrderConfirmedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SuccessPage(
+    return InfoPage(
       icon: Icons.check_circle,
       title: "Je bestelling is bevestigd",
       body: Text(

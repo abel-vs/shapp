@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class SuccessPage extends StatelessWidget {
+class InfoPage extends StatelessWidget {
 
   final IconData icon;
   final String title;
   final Widget body;
 
-  const SuccessPage({Key key, this.icon, this.title, this.body}) : super(key: key);
+  const InfoPage({Key key, this.icon, this.title, this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

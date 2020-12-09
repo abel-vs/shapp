@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:shapp/screens/verify_page.dart';
+import 'package:shapp/pages/verify_page.dart';
 
 abstract class AuthBase {
   Stream<User> get onAuthStateChanged;

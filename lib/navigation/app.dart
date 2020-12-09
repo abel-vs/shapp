@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
-import 'package:shapp/screens/home_page.dart';
-import 'package:shapp/screens/order_page.dart';
-import 'package:shapp/screens/orders_page.dart';
+import 'package:shapp/pages/home_page.dart';
+import 'package:shapp/pages/info_page.dart';
+import 'package:shapp/pages/order_page.dart';
+import 'package:shapp/pages/orders_page.dart';
 import 'package:shapp/services/database.dart';
 
 class App extends StatelessWidget {
@@ -11,7 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     Database database = Provider.of<Database>(context);
     return StreamProvider<List<Order>>.value(
-      /// Providing orders to all screens
+      /// Providing orders to all pages
       value: database.ordersStream().asBroadcastStream(),
       initialData: [],
       builder: (context, _) => Navigator(
@@ -31,10 +32,10 @@ class App extends StatelessWidget {
               break;
             default:
               return MaterialPageRoute(
-                builder: (_) => Scaffold(
-                  body: Center(
-                    child: Text("Route Not FOund"),
-                  ),
+                builder: (_) => InfoPage(
+                  icon: Icons.sentiment_dissatisfied_outlined ,
+                  title: "Page Not Found",
+                  body: Container(),
                 ),
               );
           }
