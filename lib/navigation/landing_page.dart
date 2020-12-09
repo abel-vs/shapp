@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shapp/navigation/app.dart';
 import 'package:shapp/screens/sign_in_page.dart';
-import 'package:shapp/screens/home_page.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -11,10 +11,7 @@ class LandingPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           User user = snapshot.data;
-          if (user == null) {
-            return SignInPage();
-          }
-          return HomePage();
+          return user == null ? SignInPage() : App();
         } else {
           return Scaffold(
             body: Center(

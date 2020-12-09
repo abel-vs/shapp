@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:shapp/screens/landing_page.dart';
+import 'package:shapp/navigation/landing_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/themes.dart';
@@ -9,10 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
-import 'screens/home_page.dart';
-import 'screens/intro_page.dart';
-import 'screens/drawer_page.dart';
 import 'services/app_localizations.dart';
 
 import 'package:stripe_payment/stripe_payment.dart';
@@ -57,11 +53,6 @@ class MyApp extends StatelessWidget {
 
         /// Navigation
         home: LandingPage(),
-        routes: <String, WidgetBuilder>{
-          '/home': (context) => HomePage(),
-          '/more': (context) => DrawerPage(),
-          '/intro': (context) => IntroPage(),
-        },
 
         /// Localization
         localizationsDelegates: [

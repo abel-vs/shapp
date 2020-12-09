@@ -21,11 +21,12 @@ class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
 
   Function orderBuilder = (data, documentId) {
+    DateTime deliveryMoment = data["deliveryMoment"].toDate();
     return Order(
       id: documentId,
       description: data["description"],
-      deliveryDay: data["deliveryMoment"],
-      deliveryTime: TimeOfDay(hour: data["deliveryMoment"].hour, minute: data["deliveryMoment"].minute),
+      deliveryDay: deliveryMoment,
+      deliveryTime: TimeOfDay(hour: deliveryMoment.hour, minute: deliveryMoment.minute),
       asap: data["asap"],
       deliveryLocation: data["deliveryLocation"],
       pickUpLocation: data["pickUpLocation"],
@@ -53,7 +54,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<Order> orderStream({String oid}) {
-    _service.documentStream(
+    return _service.documentStream(
       path: FirebasePath.order(oid),
       builder: orderBuilder,
     );
@@ -61,6 +62,7 @@ class FirestoreDatabase implements Database {
 
   @override
   Stream<List<Order>> ordersStream() {
+    print('Getting orders');
     String uid = FirebaseAuth.instance.currentUser.uid;
     return _service.collectionStream(
       path: FirebasePath.orders(),

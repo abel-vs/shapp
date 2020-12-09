@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/screens/drawer_page.dart';
-import 'package:shapp/screens/order_page.dart';
+import 'package:shapp/screens/orders_page.dart';
 import 'package:shapp/services/database.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: buildAppBar(context),
       drawer: Drawer(child: DrawerPage()),
+      // body: OrdersPage(),
       body: buildBody(context),
     );
   }
@@ -30,6 +31,12 @@ class _HomePageState extends State<HomePage> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.auto_awesome_motion),
+          onPressed: () => Navigator.of(context).pushNamed("orders"),
+        )
+      ],
       title: FlatButton(
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -106,11 +113,7 @@ class _HomePageState extends State<HomePage> {
           ),
           onPressed: () {
             analytics.logEvent(name: "shapp_button_pressed");
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => OrderPage(),
-              ),
-            );
+            Navigator.of(context).pushNamed("order");
           },
         ),
       ),
