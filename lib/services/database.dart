@@ -33,6 +33,7 @@ class FirestoreDatabase implements Database {
       estimatedPrice: data["estimatedPrice"],
       extraInfo: data["extraInfo"],
       source: stripe.Source(sourceId: data["stripeSource"]),
+      state: data["state"],
     );
   };
 

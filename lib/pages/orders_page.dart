@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/widgets/order_card.dart';
 
 class OrdersPage extends StatelessWidget {
   @override
@@ -12,7 +13,8 @@ class OrdersPage extends StatelessWidget {
       body: Consumer<List<Order>>(
         builder: (context, List<Order> orders, _) => ListView.builder(
           itemCount: orders.length,
-          itemBuilder: (context, index) => Text(orders.elementAt(index).description),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          itemBuilder: (context, index) => OrderCard(order: orders.elementAt(index)),
         ),
       ),
     );

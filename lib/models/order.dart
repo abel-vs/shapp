@@ -56,7 +56,43 @@ extension TimeExtension on TimeOfDay {
 
 }
 
-enum OrderState { Created, Submitted, Appointed, Bought, Delivery, Done }
+enum OrderState { Created, Submitted, Buying, Delivering, Done }
+
+extension OrderStateExtension on OrderState {
+  String get name {
+    switch (this) {
+      case OrderState.Created:
+        return 'Created';
+      case OrderState.Submitted:
+        return 'Submitted';
+      case OrderState.Buying:
+        return 'Buying';
+      case OrderState.Delivering:
+        return 'Delivering';
+      case OrderState.Done:
+        return 'Done';
+      default:
+        return 'No State Found';
+    }
+  }
+
+  static OrderState create(String state){
+    switch (state) {
+      case "OrderState.Created":
+        return OrderState.Created;
+      case "OrderState.Submitted":
+        return OrderState.Submitted;
+      case "OrderState.Buying":
+        return OrderState.Buying;
+      case "OrderState.Delivering":
+        return OrderState.Delivering;
+      case "OrderState.Done":
+        return OrderState.Done;
+      default:
+        return null;
+    }
+  }
+}
 
 class Order {
   String id;
@@ -73,7 +109,7 @@ class Order {
 
   Order({
     this.id,
-    this.state = OrderState.Created,
+    String state,
     this.description = "",
     this.deliveryDay,
     this.deliveryTime,
@@ -84,6 +120,7 @@ class Order {
     this.extraInfo = "",
     this.source,
   }) {
+    this.state = OrderStateExtension.create(state);
     if (this.deliveryDay == null) deliveryDay = DateTime.now();
     if (this.deliveryTime == null) deliveryTime = TimeExtension.asap();
   }
@@ -108,6 +145,7 @@ class Order {
       'stripeSource': source.sourceId,
       'createdAt': FieldValue.serverTimestamp(),
       'user': FirebaseAuth.instance.currentUser.uid,
+      'state': state.toString(),
     };
   }
 }

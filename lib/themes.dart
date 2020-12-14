@@ -57,6 +57,7 @@ ThemeData lightTheme = ThemeData(
         fontFamily: 'Abel',
       ),
     ),
+    iconTheme: IconThemeData(color: OCEAN_GREEN),
   ),
 
   bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white),
