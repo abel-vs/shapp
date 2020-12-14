@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/services/payments.dart';
 import 'package:shapp/widgets/expanded_button.dart';
@@ -17,12 +18,6 @@ class _OrderPayPageState extends State<OrderPayPage> {
   PageController pageController;
   Order order;
 
-  PaymentIntentResult _paymentIntent;
-  Token _paymentToken;
-  Source _source;
-
-  ScrollController _controller = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     order = Provider.of<Order>(context);
@@ -35,8 +30,8 @@ class _OrderPayPageState extends State<OrderPayPage> {
         Row(
           children: [
             OrderTitleBlock(
-              title: "Betaling",
-              subtitle: "Kijk je bestelling nog eens na en betaal!",
+              title: AppLocalizations.of(context).translate("payment"),
+              subtitle: AppLocalizations.of(context).translate("payment_subtitle"),
             ),
             Spacer(),
             IconButton(
@@ -47,12 +42,8 @@ class _OrderPayPageState extends State<OrderPayPage> {
                 showDialog(
                   context: context,
                   child: AlertDialog(
-                    title: Text("Hoe werkt het betalen?", style: Theme.of(context).textTheme.headline3,),
-                    content: Text("Je betaalt een voorschot voor de producten die je laat leveren.\n\n"
-                        "Het verschil in prijs wordt bij de levering afgehandeld.\n\n"
-                        "Als je voorschot te veel was krijg je de rest terug.\n\n"
-                        "Als je voorschot te weinig was betaal je het overige bij de levering.\n\n"
-                        "Als de werkelijke prijs te hard afwijkt wordt je nog gecontacteerd voor we de aankoop maken."),
+                    title: Text(AppLocalizations.of(context).translate("payment_explanation_title"), style: Theme.of(context).textTheme.headline3,),
+                    content: Text(AppLocalizations.of(context).translate("payment_explanation")),
                   ),
                 );
               },
@@ -64,34 +55,34 @@ class _OrderPayPageState extends State<OrderPayPage> {
           child: ListView(
             children: [
               ListTile(
-                title: Text("Beschrijving"),
+                title: Text(AppLocalizations.of(context).translate("order")),
                 subtitle: Text(order.description),
               ),
               ListTile(
-                title: Text("Waar te vinden"),
+                title: Text(AppLocalizations.of(context).translate("where_to_find")),
                 subtitle: Text(order.pickUpLocation),
               ),
               ListTile(
-                title: Text("Waar te leveren"),
+                title: Text(AppLocalizations.of(context).translate("where_to_deliver")),
                 subtitle: Text(order.deliveryLocation),
               ),
               ListTile(
-                title: Text("Wanneer te leveren"),
+                title: Text(AppLocalizations.of(context).translate("when_to_deliver")),
                 subtitle: Text(order.deliveryDay.toString() + " " + order.deliveryTime.toString()),
               ),
               ListTile(
-                title: Text("Verdere Informatie"),
-                subtitle: Text(order.description),
+                title: Text(AppLocalizations.of(context).translate("extra_info")),
+                subtitle: Text(order.extraInfo),
               ),
               ListTile(
-                title: Text("Voorschot", style: Theme.of(context).textTheme.headline5),
+                title: Text(AppLocalizations.of(context).translate("deposit"), style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
                   "€ " + order.estimatedPrice.toStringAsFixed(2),
                   style: TextStyle(fontSize: 20),
                 ),
               ),
               ListTile(
-                title: Text("Leveringskosten", style: Theme.of(context).textTheme.headline5),
+                title: Text(AppLocalizations.of(context).translate("delivery_costs"), style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
                   "€ 2,00",
                   style: TextStyle(fontSize: 20),
@@ -105,7 +96,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
         ),
         SizedBox(height: 5),
         ListTile(
-          title: Text("Totaal", style: Theme.of(context).textTheme.headline2),
+          title: Text(AppLocalizations.of(context).translate("total"), style: Theme.of(context).textTheme.headline2),
           subtitle: Text(
             "€ " + (order.estimatedPrice + 2).toStringAsFixed(2),
             style: TextStyle(fontSize: 30),
@@ -124,14 +115,14 @@ class _OrderPayPageState extends State<OrderPayPage> {
         child: Row(
           children: [
             ExpandedButton(
-              text: "Terug",
+              text: AppLocalizations.of(context).translate("back"),
               function: () {
                 pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
             ExpandedButton(
-              text: "Betaal",
+              text: AppLocalizations.of(context).translate("pay"),
               function: () => Payments.executePayment(context, order),
             ),
           ],

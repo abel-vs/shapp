@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/pages/drawer_page.dart';
-import 'package:shapp/pages/orders_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (_) => AlertDialog(
             title: Text(
-              "Kies je locatie",
+              AppLocalizations.of(context).translate("choose_location"),
               style: Theme.of(context).textTheme.headline2,
             ),
             contentPadding: EdgeInsets.only(top: 20),
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text("Momenteel zijn we enkel actief in Delft."),
+                    child: Text(AppLocalizations.of(context).translate("choose_location_message")),
                   ),
                   ListView(
                     shrinkWrap: true,
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       RadioListTile(
                         value: false,
                         contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
-                        title: Text("Huidige Locatie"),
+                        title: Text(AppLocalizations.of(context).translate("current_location")),
                         onChanged: (value) {},
                       ),
                       Divider(
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                       ListTile(
                         contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
                         leading: Icon(Icons.add),
-                        title: Text("Voeg ander adres toe"),
+                        title: Text(AppLocalizations.of(context).translate("add_address")),
                         onTap: () {},
                       ),
                     ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 
@@ -64,7 +65,7 @@ class _SignInPageState extends State<SignInPage> {
               children: [
                 InputDecorator(
                   decoration: InputDecoration(
-                    labelText: "Telefoonnummer",
+                    labelText: AppLocalizations.of(context).translate("phone_number"),
                     alignLabelWithHint: true,
                     contentPadding: EdgeInsets.only(left: 20),
                     border: OutlineInputBorder(),
@@ -80,7 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                               showFlags: true,
                               backgroundColor: Theme.of(context).canvasColor,
                             ),
-                            searchBoxDecoration: InputDecoration(hintText: "Zoek op naam of land code"),
+                            searchBoxDecoration: InputDecoration(hintText: AppLocalizations.of(context).translate("search_country_code")),
                             locale: "nl",
                             initialValue: phoneNumber,
                             textFieldController: phoneController,
@@ -117,7 +118,7 @@ class _SignInPageState extends State<SignInPage> {
                       Provider.value(
                         value: loading,
                         child: ExpandedButton(
-                          text: "Registreer",
+                          text: AppLocalizations.of(context).translate("register"),
                           function: phoneNumber.toString() == null || phoneNumber.toString().isEmpty
                               ? null
                               : () => auth.verifyPhone(phoneNumber, context),

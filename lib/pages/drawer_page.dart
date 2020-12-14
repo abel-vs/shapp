@@ -5,6 +5,7 @@ import 'package:shapp/pages/feedback_page.dart';
 import 'package:shapp/pages/intro_page.dart';
 import 'package:shapp/pages/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/themes.dart';
 import 'package:share/share.dart';
@@ -25,7 +26,7 @@ class DrawerPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text("Instellingen"),
+              title: Text(AppLocalizations.of(context).translate("settings")),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SettingsPage(),
@@ -34,12 +35,12 @@ class DrawerPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.share),
-              title: Text("Spread the love"),
-              onTap: () => Share.share('Hey! Shoppen was nog nooit zo makkelijk als nu!', subject: 'Shapp'),
+              title: Text(AppLocalizations.of(context).translate("spread_the_love")),
+              onTap: () => Share.share(AppLocalizations.of(context).translate("share_message"), subject: 'Shapp'),
             ),
             ListTile(
               leading: Icon(Icons.star),
-              title: Text("Feedback"),
+              title: Text(AppLocalizations.of(context).translate("feedback")),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => FeedbackPage(),
@@ -48,7 +49,7 @@ class DrawerPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.help_outline),
-              title: Text("Veelgestelde vragen"),
+              title: Text(AppLocalizations.of(context).translate("frequent_questions")),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => Scaffold(
@@ -60,7 +61,7 @@ class DrawerPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
-              title: Text("Over de app"),
+              title: Text(AppLocalizations.of(context).translate("about_the_app")),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => AboutPage(),
@@ -71,7 +72,7 @@ class DrawerPage extends StatelessWidget {
               leading: Icon(
                 Icons.logout,
               ),
-              title: Text("Uitloggen", style: TextStyle(color: TERRA_COTTA_RED),),
+              title: Text(AppLocalizations.of(context).translate("logout"), style: TextStyle(color: TERRA_COTTA_RED),),
               onTap: () => auth.signOut(),
             ),
           ],

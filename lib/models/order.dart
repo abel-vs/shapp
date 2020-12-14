@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:stripe_payment/stripe_payment.dart' as stripe;
 
 extension DateExtension on DateTime {
@@ -56,38 +57,34 @@ extension TimeExtension on TimeOfDay {
 
 }
 
-enum OrderState { Created, Submitted, Buying, Delivering, Done }
+enum OrderStatus { Submitted, Collecting, Delivering, Done }
 
-extension OrderStateExtension on OrderState {
-  String get name {
+extension OrderStatusExtension on OrderStatus {
+  String toReadableString(BuildContext context) {
     switch (this) {
-      case OrderState.Created:
-        return 'Created';
-      case OrderState.Submitted:
-        return 'Submitted';
-      case OrderState.Buying:
-        return 'Buying';
-      case OrderState.Delivering:
-        return 'Delivering';
-      case OrderState.Done:
-        return 'Done';
+      case OrderStatus.Submitted:
+        return AppLocalizations.of(context).translate("order_submitted");
+      case OrderStatus.Collecting:
+        return AppLocalizations.of(context).translate("order_collecting");
+      case OrderStatus.Delivering:
+        return AppLocalizations.of(context).translate("order_delivering");
+      case OrderStatus.Done:
+        return AppLocalizations.of(context).translate("order_delivered");
       default:
-        return 'No State Found';
+        return AppLocalizations.of(context).translate("no_status");
     }
   }
 
-  static OrderState create(String state){
+  static OrderStatus create(String state){
     switch (state) {
-      case "OrderState.Created":
-        return OrderState.Created;
       case "OrderState.Submitted":
-        return OrderState.Submitted;
-      case "OrderState.Buying":
-        return OrderState.Buying;
+        return OrderStatus.Submitted;
+      case "OrderState.Collecting":
+        return OrderStatus.Collecting;
       case "OrderState.Delivering":
-        return OrderState.Delivering;
+        return OrderStatus.Delivering;
       case "OrderState.Done":
-        return OrderState.Done;
+        return OrderStatus.Done;
       default:
         return null;
     }
@@ -96,7 +93,7 @@ extension OrderStateExtension on OrderState {
 
 class Order {
   String id;
-  OrderState state;
+  OrderStatus state;
   String description;
   DateTime deliveryDay;
   TimeOfDay deliveryTime;
@@ -120,7 +117,7 @@ class Order {
     this.extraInfo = "",
     this.source,
   }) {
-    this.state = OrderStateExtension.create(state);
+    this.state = OrderStatusExtension.create(state);
     if (this.deliveryDay == null) deliveryDay = DateTime.now();
     if (this.deliveryTime == null) deliveryTime = TimeExtension.asap();
   }

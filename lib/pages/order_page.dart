@@ -5,6 +5,7 @@ import 'package:shapp/models/order.dart';
 import 'package:shapp/pages/order_description_page.dart';
 import 'package:shapp/pages/order_details_page.dart';
 import 'package:shapp/pages/order_pay_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _OrderPageState extends State<OrderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bestelling"),
+        title: Text(AppLocalizations.of(context).translate("order")),
         actions: [
           DotsIndicator(
             dotsCount: 3,

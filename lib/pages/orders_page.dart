@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/widgets/order_card.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -8,7 +9,7 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bestellingen"),
+        title: Text(AppLocalizations.of(context).translate("orders")),
       ),
       body: Consumer<List<Order>>(
         builder: (context, List<Order> orders, _) => ListView.builder(

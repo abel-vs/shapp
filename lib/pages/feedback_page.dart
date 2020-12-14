@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 
-import 'order_confirmed_page.dart';
-
 class FeedbackPage extends StatefulWidget {
   @override
   _FeedbackPageState createState() => _FeedbackPageState();
@@ -25,13 +23,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text("We houden van jullie feedback, twijfel dus niet om een idee of mening te delen!"),
+            Text(AppLocalizations.of(context).translate("feedback_message")),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: TextField(
                   controller: feedbackController,
-                  decoration: fieldDecoration(labelText: "Feedback"),
+                  decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("feedback")),
                   textAlignVertical: TextAlignVertical.top,
                   expands: true,
                   minLines: null,
@@ -43,7 +41,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
             Row(
               children: [
                 ExpandedButton(
-                    text: "Verstuur",
+                    text: AppLocalizations.of(context).translate("send"),
                     function: feedbackController.text.isEmpty
                         ? null
                         : () {

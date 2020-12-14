@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/decorations/code_decoration.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 
@@ -50,7 +51,7 @@ class _VerifyPageState extends State<VerifyPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Verificatie".toUpperCase(),
+                    AppLocalizations.of(context).translate("verification").toUpperCase(),
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 60),
                   ),
@@ -58,7 +59,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     text: TextSpan(
                         style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Abel'),
                         children: [
-                          TextSpan(text: "Code verstuurd naar "),
+                          TextSpan(text: AppLocalizations.of(context).translate("code_sent") + " "),
                           TextSpan(text: widget.phoneNumber.phoneNumber, style: TextStyle(fontWeight: FontWeight.bold))
                         ]),
                   ),
@@ -84,7 +85,7 @@ class _VerifyPageState extends State<VerifyPage> {
                 SizedBox(height: 20),
                 TextButton(
                   child: Text(
-                    "Verstuur nieuwe code".toUpperCase(),
+                    AppLocalizations.of(context).translate("code_new").toUpperCase(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {},
@@ -97,7 +98,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     child: Row(
                       children: [
                         ExpandedButton(
-                          text: "Verifieer",
+                          text: AppLocalizations.of(context).translate("verify"),
                           function: () {
                             auth.signIn(otp);
                             Navigator.of(context).pop();

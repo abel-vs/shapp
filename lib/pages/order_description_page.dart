@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
@@ -27,7 +28,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        OrderTitleBlock(title: "Wat heb je nodig?", subtitle: "Beschrijf het hier en we gaan het voor je halen!"),
+        OrderTitleBlock(title: AppLocalizations.of(context).translate("description_title"), subtitle: AppLocalizations.of(context).translate("description_subtitle")),
         buildBody(),
         buildNextButton(context),
       ],
@@ -40,7 +41,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
       child: Row(
         children: [
           ExpandedButton(
-            text: "Volgende",
+            text: AppLocalizations.of(context).translate("next"),
             function: order.description == null || order.description.isEmpty
                 ? null
                 : () => pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
@@ -64,7 +65,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   TextFormField buildDescriptionField() {
     return TextFormField(
       textAlignVertical: TextAlignVertical.top,
-      decoration: fieldDecoration(labelText: "Beschrijving"),
+      decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("description")),
       keyboardType: TextInputType.multiline,
       expands: true,
       maxLines: null,
@@ -111,7 +112,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text("Make a photo"),
+              title: Text(AppLocalizations.of(context).translate("make_photo")),
               leading: Icon(Icons.image),
               onTap: () async {
                 pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -120,7 +121,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
             ),
             Divider(height: 0),
             ListTile(
-              title: Text("Pick from gallery"),
+              title: Text(AppLocalizations.of(context).translate("pick_gallery")),
               leading: Icon(Icons.camera_alt),
               onTap: () async {
                 pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -141,15 +142,15 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     showDialog(
       context: context,
       child: AlertDialog(
-        title: Text("Delete the image?"),
+        title: Text(AppLocalizations.of(context).translate("delete_image")),
         content: Image.file(_image),
         actions: [
           FlatButton(
-            child: Text("No"),
+            child: Text(AppLocalizations.of(context).translate("no")),
             onPressed: () => Navigator.of(context).pop(),
           ),
           FlatButton(
-            child: Text("Yes"),
+            child: Text(AppLocalizations.of(context).translate("yes")),
             onPressed: () {
               setState(() {
                 _image = null;

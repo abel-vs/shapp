@@ -1,3 +1,4 @@
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/widgets/intro_info.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +82,7 @@ class _IntroPageState extends State<IntroPage> {
                       ? FlatButton(
                           splashColor: Colors.transparent,
                           child: Text(
-                            'Next',
+                            AppLocalizations.of(context).translate("next"),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -97,7 +98,7 @@ class _IntroPageState extends State<IntroPage> {
                       : FlatButton(
                           splashColor: Colors.transparent,
                           child: Text(
-                            'Finish',
+                            AppLocalizations.of(context).translate("ready"),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

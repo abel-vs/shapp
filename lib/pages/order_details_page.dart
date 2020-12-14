@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
@@ -27,8 +28,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         OrderTitleBlock(
-          title: "Details",
-          subtitle: "Alle informatie voor een vlotte levering.",
+          title: AppLocalizations.of(context).translate("details_title"),
+          subtitle: AppLocalizations.of(context).translate("details_subtitle"),
         ),
         buildFields(context),
         buildButtons(context),
@@ -76,7 +77,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     return Expanded(
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
-        decoration: fieldDecoration(labelText: "Verdere Informatie"),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("extra_info")),
         keyboardType: TextInputType.multiline,
         minLines: null,
         maxLines: null,
@@ -90,14 +91,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   InputDecorator buildPriceField(BuildContext context) {
     return InputDecorator(
       decoration: InputDecoration(
-        labelText: "Prijs",
+        labelText: AppLocalizations.of(context).translate("price"),
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
         border: OutlineInputBorder(),
       ),
       child: Row(
         children: [
-          Text("Ongeveer €" + order.estimatedPrice.toStringAsFixed(0)),
+          Text(
+              AppLocalizations.of(context).translate("approximately") + " €" + order.estimatedPrice.toStringAsFixed(0)),
           Expanded(
             child: Slider(
                 value: order.estimatedPrice,
@@ -123,7 +125,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text("Zo snel mogelijk"),
+                          title: Text(AppLocalizations.of(context).translate("asap")),
                           onTap: () {
                             order.deliveryTime = TimeExtension.asap();
                             timeController.text = order.deliveryTime.toReadableString(context);
@@ -132,13 +134,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         ),
                         Divider(height: 0),
                         ListTile(
-                          title: Text("Kies een ander tijdstip"),
+                          title: Text(AppLocalizations.of(context).translate("choose_other_time")),
                           onTap: () async {
                             TimeOfDay time = await showTimePicker(
                               context: context,
                               initialTime: TimeExtension.asap(),
                             );
-                            if(time != null){
+                            if (time != null) {
                               order.deliveryTime = time;
                               timeController.text = order.deliveryTime.toReadableString(context);
                             }
@@ -151,7 +153,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: timeController,
-        decoration: fieldDecoration(labelText: "Tijdstip"),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("time")),
       ),
     );
   }
@@ -173,7 +175,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: dayController,
-        decoration: fieldDecoration(labelText: "Dag"),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("day")),
       ),
     );
   }
@@ -188,7 +190,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       onChanged: (text) => setState(() => order.pickUpLocation = text),
       // readOnly: true,
       initialValue: order.pickUpLocation.toString(),
-      decoration: fieldDecoration(labelText: "Waar te vinden", hintText: "Waar kunnen we dit product voor je vinden?"),
+      decoration: fieldDecoration(
+        labelText: AppLocalizations.of(context).translate("where_to_find"),
+        hintText: AppLocalizations.of(context).translate("where_to_find_hint"),
+      ),
     );
   }
 
@@ -202,7 +207,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       onChanged: (text) => setState(() => order.deliveryLocation = text),
       // readOnly: true,
       initialValue: order.deliveryLocation.toString(),
-      decoration: fieldDecoration(labelText: "Waar te leveren", hintText: "Waar wil je je bestelling geleverd hebben?"),
+      decoration: fieldDecoration(
+        labelText: AppLocalizations.of(context).translate("where_to_deliver"),
+        hintText: AppLocalizations.of(context).translate("where_to_deliver_hint"),
+      ),
     );
   }
 
@@ -214,14 +222,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         child: Row(
           children: [
             ExpandedButton(
-              text: "Terug",
+              text: AppLocalizations.of(context).translate("back"),
               function: () {
                 pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
             ExpandedButton(
-              text: "Volgende",
+              text: AppLocalizations.of(context).translate("next"),
               function: () {
                 pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },

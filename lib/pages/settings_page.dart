@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shapp/services/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Instellingen"),
+        title: Text(AppLocalizations.of(context).translate("settings")),
       ),
       body: ListTileTheme(
         iconColor: Theme.of(context).primaryColor,
@@ -23,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: Icon(
                 Icons.language,
               ),
-              title: Text("Taal"),
+              title: Text(AppLocalizations.of(context).translate("language")),
               onTap: () => showDialog(
                 context: context,
                 builder: (_) => Dialog(
@@ -31,12 +32,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       RadioListTile(
-                        title: Text("Nederlands"),
+                        title: Text(AppLocalizations.of(context).translate("NL")),
                         onChanged: (value){},
                       ),
                       Divider(height: 0),
                       RadioListTile(
-                        title: Text("Engels"),
+                        title: Text(AppLocalizations.of(context).translate("EN")),
                         onChanged: (value){},
                       ),
                     ],
@@ -48,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: Icon(
                 Icons.wb_sunny,
               ),
-              title: Text("Donkere Modus"),
+              title: Text(AppLocalizations.of(context).translate("dark_mode")),
               trailing: Switch(
                 onChanged: (value) => this.setState(() {
                   darkMode = value;
@@ -60,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: Icon(
                 Icons.notifications,
               ),
-              title: Text("Meldingen"),
+              title: Text(AppLocalizations.of(context).translate("notifications")),
             ),
           ],
         ),

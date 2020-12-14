@@ -23,7 +23,7 @@ class OrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    order.state.name,
+                    order.state.toReadableString(context),
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   Text(order.description),

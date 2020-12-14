@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shapp/models/order.dart';
-import 'file:///C:/Users/abelv/Shapp/Projects/shapp/lib/pages/info_page.dart';
+import 'package:shapp/pages/info_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 
 class OrderConfirmedPage extends StatelessWidget {
-
   final Order order;
 
   const OrderConfirmedPage({Key key, this.order}) : super(key: key);
@@ -12,16 +12,15 @@ class OrderConfirmedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return InfoPage(
       icon: Icons.check_circle,
-      title: "Je bestelling is bevestigd",
+      title: AppLocalizations.of(context).translate("order_confirmed"),
       body: Text(
-        "Bestelling ID: " + order.source.sourceId.substring(4),
+        AppLocalizations.of(context).translate("order") + " ID: " + order.source.sourceId.substring(4),
         textAlign: TextAlign.center,
         style: TextStyle(color: Theme.of(context).canvasColor, fontWeight: FontWeight.bold),
       ),
     );
   }
 }
-
 
 // SizedBox(
 //   width: double.maxFinite,
