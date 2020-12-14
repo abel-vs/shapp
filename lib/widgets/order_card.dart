@@ -9,7 +9,9 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: () {
+        Navigator.pushNamed(context, "order_overview", arguments: order);
+      },
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(5),
       child: Card(
@@ -20,16 +22,25 @@ class OrderCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(order.state.name, style: Theme.of(context).textTheme.headline3,),
+                  Text(
+                    order.state.name,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
                   Text(order.description),
                 ],
               ),
               Spacer(),
-              IconButton(
-                icon: Icon(Icons.navigate_next),
-                onPressed: () {},
-                color: Theme.of(context).primaryColor,
-              )
+              Text(
+                order.deliveryTime.toReadableString(context),
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              // Column(
+              //   crossAxisAlignment: CrossAxisAlignment.end,
+              //   children: [
+              //     Text(order.deliveryTime.toReadableString(context), style: Theme.of(context).textTheme.headline2,),
+              //     Text(order.deliveryDay.toReadableString()),
+              //   ],
+              // ),
             ],
           ),
         ),

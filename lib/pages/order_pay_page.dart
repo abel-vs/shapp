@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
@@ -8,8 +6,6 @@ import 'package:shapp/services/payments.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 import 'package:stripe_payment/stripe_payment.dart';
-
-import 'order_confirmed_page.dart';
 
 class OrderPayPage extends StatefulWidget {
   @override

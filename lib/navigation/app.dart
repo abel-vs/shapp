@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/pages/home_page.dart';
 import 'package:shapp/pages/info_page.dart';
+import 'package:shapp/pages/order_overview_page.dart';
 import 'package:shapp/pages/order_page.dart';
 import 'package:shapp/pages/orders_page.dart';
 import 'package:shapp/services/database.dart';
@@ -29,6 +30,9 @@ class App extends StatelessWidget {
               break;
             case 'orders':
               return MaterialPageRoute(builder: (_) => OrdersPage());
+              break;
+            case 'order_overview':
+              return MaterialPageRoute(builder: (_) => OrderOverviewPage(order: settings.arguments,));
               break;
             default:
               return MaterialPageRoute(
