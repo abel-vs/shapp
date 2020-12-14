@@ -61,7 +61,7 @@ class DrawerPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.info_outline),
-              title: Text(AppLocalizations.of(context).translate("about_the_app")),
+              title: Text(AppLocalizations.of(context).translate("about_app")),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => AboutPage(),
