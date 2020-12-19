@@ -94,7 +94,8 @@
   "verify": "Verify",
   "code_sent": "Code sent to",
   "code_new": "Send new code",
-  "something_went_wrong": "Something went wrong..."
-
-
+  "something_went_wrong": "Something went wrong...",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System"
 }

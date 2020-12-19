@@ -94,5 +94,8 @@
   "verify": "Verifieer",
   "code_sent": "Code verzonden naar",
   "code_new": "Verstuur nieuwe code",
-  "something_went_wrong": "Er ging iets mis..."
+  "something_went_wrong": "Er ging iets mis...",
+  "dark": "Donker",
+  "light": "Licht",
+  "system": "Systeem"
 }

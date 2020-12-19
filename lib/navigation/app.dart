@@ -12,14 +12,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Database database = Provider.of<Database>(context);
-    return StreamProvider<List<Order>>.value(
-      /// Providing orders to all pages
-      value: database.ordersStream().asBroadcastStream(),
-      initialData: [],
-      builder: (context, _) => Navigator(
-        // key: GlobalKey<NavigatorState>(),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Order>>.value(value: database.ordersStream().asBroadcastStream()),
+      ],
+      child: Navigator(
         initialRoute: 'home',
-        // pages: [],
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case 'home':
@@ -32,12 +30,15 @@ class App extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => OrdersPage());
               break;
             case 'order_overview':
-              return MaterialPageRoute(builder: (_) => OrderOverviewPage(order: settings.arguments,));
+              return MaterialPageRoute(
+                  builder: (_) => OrderOverviewPage(
+                        order: settings.arguments,
+                      ));
               break;
             default:
               return MaterialPageRoute(
                 builder: (_) => InfoPage(
-                  icon: Icons.sentiment_dissatisfied_outlined ,
+                  icon: Icons.sentiment_dissatisfied_outlined,
                   title: "Page Not Found",
                   body: Container(),
                 ),

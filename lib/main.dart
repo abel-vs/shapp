@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'services/app_localizations.dart';
 
 import 'package:stripe_payment/stripe_payment.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         Provider<AuthBase>(create: (context) => Auth()),
         Provider<Database>(create: (context) => FirestoreDatabase()),
         Provider<FirebaseAnalytics>(create: (context) => analytics),
+        FutureProvider<SharedPreferences>.value(value: SharedPreferences.getInstance()),
       ],
       child: MaterialApp(
         title: 'Shapp',
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         darkTheme: darkTheme,
+        // themeMode: prefs.ThemeMode.dark,
 
         /// Navigation
         home: LandingPage(),
