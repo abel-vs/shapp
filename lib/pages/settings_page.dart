@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/services/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shapp/services/preferences_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -10,12 +10,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   String darkMode;
-  SharedPreferences prefs;
+  PreferencesProvider notifier;
 
   @override
   Widget build(BuildContext context) {
-    prefs = Provider.of<SharedPreferences>(context);
-    darkMode = prefs.get("dark_mode");
+    notifier = Provider.of<PreferencesProvider>(context);
+    darkMode = notifier.themeMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -72,11 +72,9 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void onDarkModeChanged(String value) {
+  void onDarkModeChanged(String value){
     darkMode = value;
-    prefs.setString("dark_mode", value);
-    prefs.reload();
-    print("Setting Dark Mode: " + value.toString());
+    notifier.selectThemeMode(value);
   }
 
   Dialog buildDarkModeDialog(BuildContext context) {
@@ -89,27 +87,21 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Text(AppLocalizations.of(context).translate("dark")),
               value: "DARK",
               groupValue: darkMode,
-              onChanged: (value) => setState(() {
-                onDarkModeChanged(value);
-              }),
+              onChanged: (value) => setState(() => onDarkModeChanged(value)),
             ),
             Divider(height: 0),
             RadioListTile(
               title: Text(AppLocalizations.of(context).translate("light")),
               value: "LIGHT",
               groupValue: darkMode,
-              onChanged: (value) => setState(() {
-                onDarkModeChanged(value);
-              }),
+              onChanged: (value) => setState(() => onDarkModeChanged(value)),
             ),
             Divider(height: 0),
             RadioListTile(
               title: Text(AppLocalizations.of(context).translate("system")),
               value: "SYSTEM",
               groupValue: darkMode,
-              onChanged: (value) => setState(() {
-                onDarkModeChanged(value);
-              }),
+              onChanged: (value) => setState(() => onDarkModeChanged(value)),
             ),
           ],
         );

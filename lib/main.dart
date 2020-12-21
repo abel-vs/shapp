@@ -3,6 +3,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:shapp/navigation/landing_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
+import 'package:shapp/services/preferences_provider.dart';
 import 'package:shapp/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,46 +41,55 @@ class MyApp extends StatelessWidget {
         Provider<AuthBase>(create: (context) => Auth()),
         Provider<Database>(create: (context) => FirestoreDatabase()),
         Provider<FirebaseAnalytics>(create: (context) => analytics),
-        FutureProvider<SharedPreferences>.value(value: SharedPreferences.getInstance()),
+        ChangeNotifierProvider<PreferencesProvider>(create: (context) => PreferencesProvider()),
       ],
-      child: MaterialApp(
-        title: 'Shapp',
+      child: Consumer<PreferencesProvider>(
+        child: LandingPage(),
+        builder: (context, notifier, child) {
+          return MaterialApp(
+            title: 'Shapp',
 
-        navigatorObservers: [
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
+            navigatorObservers: [
+              FirebaseAnalyticsObserver(analytics: analytics),
+            ],
 
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        // themeMode: prefs.ThemeMode.dark,
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: notifier.themeMode == "DARK"
+                ? ThemeMode.dark
+                : notifier.themeMode == "LIGHT"
+                    ? ThemeMode.light
+                    : ThemeMode.system,
 
-        /// Navigation
-        home: LandingPage(),
+            /// Navigation
+            home: child,
 
-        /// Localization
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('nl', 'NL'),
-        ],
-        // Returns a locale which will be used by the app
-        localeResolutionCallback: (locale, supportedLocales) {
-          // Check if the current device locale is supported
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
-            }
-          }
-          // If the locale of the device is not supported, use the first one
-          // from the list (English, in this case).
-          return supportedLocales.first;
+            /// Localization
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en', 'US'),
+              const Locale('nl', 'NL'),
+            ],
+            // Returns a locale which will be used by the app
+            localeResolutionCallback: (locale, supportedLocales) {
+              // Check if the current device locale is supported
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode &&
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              // If the locale of the device is not supported, use the first one
+              // from the list (English, in this case).
+              return supportedLocales.first;
+            },
+          );
         },
       ),
     );
