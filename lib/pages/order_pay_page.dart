@@ -41,7 +41,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  child: AlertDialog(
+                  builder: (BuildContext context) => AlertDialog(
                     title: Text(AppLocalizations.of(context).translate("payment_explanation_title"), style: Theme.of(context).textTheme.headline3,),
                     content: Text(AppLocalizations.of(context).translate("payment_explanation")),
                   ),

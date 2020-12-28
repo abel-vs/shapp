@@ -107,7 +107,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
 
     await showDialog(
       context: context,
-      child: Dialog(
+      builder: (BuildContext context) => Dialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -141,7 +141,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   deleteImage() {
     showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: Text(AppLocalizations.of(context).translate("delete_image")),
         content: Image.file(_image),
         actions: [
