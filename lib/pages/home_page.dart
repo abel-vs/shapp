@@ -75,7 +75,6 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       RadioListTile(
                         value: false,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
                         title: Text(AppLocalizations.of(context).translate("current_location")),
                         onChanged: (value) {},
                       ),
