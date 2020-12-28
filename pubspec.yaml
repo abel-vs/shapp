@@ -50,6 +50,9 @@ dependencies:
 
   stripe_payment: ^1.0.8
 
+dependency_overrides:
+  intl: ^0.17.0-nullsafety.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -14,7 +14,10 @@ class App extends StatelessWidget {
     Database database = Provider.of<Database>(context);
     return MultiProvider(
       providers: [
-        StreamProvider<List<Order>>.value(value: database.ordersStream().asBroadcastStream()),
+        StreamProvider<List<Order>>.value(
+          value: database.ordersStream().asBroadcastStream(),
+          initialData: [],
+        ),
       ],
       child: Navigator(
         initialRoute: 'home',

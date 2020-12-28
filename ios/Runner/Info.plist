@@ -18,6 +18,17 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.776430906609-m63vrv95a7ocsri84kelmr3rck0lvuol</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -41,11 +52,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>io.flutter.embedded_views_preview</key>
-	<value>YES</value>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>Application needs to access your current location</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Application needs to access your current location</string>
 </dict>
 </plist>
