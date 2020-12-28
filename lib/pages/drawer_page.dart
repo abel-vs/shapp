@@ -18,64 +18,74 @@ class DrawerPage extends StatelessWidget {
     return Drawer(
       child: ListTileTheme(
         iconColor: Theme.of(context).primaryColor,
-        child: ListView(
-          children: [
-            AppBar(
-              title: Text('Shapp'),
-              automaticallyImplyLeading: false,
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text(AppLocalizations.of(context).translate("settings")),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => SettingsPage(),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.share),
-              title: Text(AppLocalizations.of(context).translate("spread_the_love")),
-              onTap: () => Share.share(AppLocalizations.of(context).translate("share_message"), subject: 'Shapp'),
-            ),
-            ListTile(
-              leading: Icon(Icons.star),
-              title: Text(AppLocalizations.of(context).translate("feedback")),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FeedbackPage(),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.help_outline),
-              title: Text(AppLocalizations.of(context).translate("frequent_questions")),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    appBar: AppBar(title: Text("Hoe te gebruiken")),
-                    body: IntroPage(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Shapp'),
+            automaticallyImplyLeading: false,
+          ),
+          body: ListView(
+            children: [
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text(AppLocalizations.of(context).translate("settings")),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SettingsPage(),
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.info_outline),
-              title: Text(AppLocalizations.of(context).translate("about_app")),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AboutPage(),
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text(
+                    AppLocalizations.of(context).translate("spread_the_love")),
+                onTap: () => Share.share(
+                    AppLocalizations.of(context).translate("share_message"),
+                    subject: 'Shapp'),
+              ),
+              ListTile(
+                leading: Icon(Icons.star),
+                title: Text(AppLocalizations.of(context).translate("feedback")),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FeedbackPage(),
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout,
+              ListTile(
+                leading: Icon(Icons.help_outline),
+                title: Text(AppLocalizations.of(context)
+                    .translate("frequent_questions")),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      appBar: AppBar(title: Text("Hoe te gebruiken")),
+                      body: IntroPage(),
+                    ),
+                  ),
+                ),
               ),
-              title: Text(AppLocalizations.of(context).translate("logout"), style: TextStyle(color: TERRA_COTTA_RED),),
-              onTap: () => auth.signOut(),
-            ),
-          ],
+              ListTile(
+                leading: Icon(Icons.info_outline),
+                title:
+                    Text(AppLocalizations.of(context).translate("about_app")),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AboutPage(),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.logout,
+                ),
+                title: Text(
+                  AppLocalizations.of(context).translate("logout"),
+                  style: TextStyle(color: TERRA_COTTA_RED),
+                ),
+                onTap: () => auth.signOut(),
+              ),
+            ],
+          ),
         ),
       ),
     );
