@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:shapp/navigation/landing_page.dart';
+import 'package:shapp/pages/error_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/services/preferences_provider.dart';
@@ -24,6 +25,8 @@ void main() async {
       //YOUR_PUBLISHABLE_KEY
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
+  // Set custom error screen
+  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
   runApp(MyApp());
 }
 
