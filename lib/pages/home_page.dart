@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shapp/pages/drawer_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
+import 'package:shapp/widgets/locationSelectionDialog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -56,43 +57,7 @@ class _HomePageState extends State<HomePage> {
         ),
         onPressed: () => showDialog(
           context: context,
-          builder: (_) => AlertDialog(
-            title: Text(
-              AppLocalizations.of(context).translate("choose_location"),
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            contentPadding: EdgeInsets.only(top: 20),
-            content: Container(
-              width: double.maxFinite,
-              child: Wrap(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text(AppLocalizations.of(context).translate("choose_location_message")),
-                  ),
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      RadioListTile(
-                        value: false,
-                        title: Text(AppLocalizations.of(context).translate("current_location")),
-                        onChanged: (value) {},
-                      ),
-                      Divider(
-                        height: 0,
-                      ),
-                      ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 24.0),
-                        leading: Icon(Icons.add),
-                        title: Text(AppLocalizations.of(context).translate("add_address")),
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          builder: (_) => LocationSelectionDialog(),
         ),
       ),
     );
