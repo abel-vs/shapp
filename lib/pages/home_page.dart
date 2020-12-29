@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shapp/pages/drawer_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
-import 'package:shapp/widgets/locationSelectionDialog.dart';
+import 'package:shapp/widgets/location_selection_dialog.dart';
 
 class HomePage extends StatefulWidget {
   @override

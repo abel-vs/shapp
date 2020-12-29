@@ -79,6 +79,8 @@
   "payment_subtitle": "Check your order and pay!",
   "payment_explanation_title": "How does paying work?",
   "payment_explanation": "You pay a deposit for the products being delivered.\n\nThe resting difference in price gets handled at the delivery.\n\nIf your deposit was too much the difference gets refunded.\n\nIf your deposit was too little you pay the resting difference at delivery.\n\nIf the actual price differs too hard from the deposit you will be contacted before the purchase is made.",
+  "order_explanation_title": "What can I order?",
+  "order_explanation": "You can order whatever you want. As long as we can find it for you and we can deliver it, we will.",
   "total": "Total",
   "pay": "Pay",
   "orders": "Orders",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/info_dialog.dart';
 
 class FaqPage extends StatelessWidget {
   @override
@@ -11,24 +12,24 @@ class FaqPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: Text(AppLocalizations.of(context)
-                .translate("payment_explanation_title")),
-            onTap: () => showDialog(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: Text(
-                  AppLocalizations.of(context)
-                      .translate("payment_explanation_title"),
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                content: Text(AppLocalizations.of(context)
-                    .translate("payment_explanation")),
-              ),
-            ),
-          ),
+          buildInfoListTile(
+              context, "order_explanation_title", "order_explanation"),
+          buildInfoListTile(
+              context, "payment_explanation_title", "payment_explanation"),
         ],
       ),
+    );
+  }
+
+  ListTile buildInfoListTile(
+      BuildContext context, String title, String explanation) {
+    return ListTile(
+      title: Text(AppLocalizations.of(context).translate(title)),
+      onTap: () => showDialog(
+          context: context,
+          builder: (BuildContext context) => InfoDialog(
+              title: AppLocalizations.of(context).translate(title),
+              content: AppLocalizations.of(context).translate(explanation))),
     );
   }
 }
