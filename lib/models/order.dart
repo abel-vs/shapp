@@ -75,7 +75,7 @@ extension OrderStatusExtension on OrderStatus {
     }
   }
 
-  IconData statusIcon() {
+  IconData toStatusIcon() {
     switch (this) {
       case OrderStatus.Submitted:
         return Icons.send;
@@ -89,6 +89,26 @@ extension OrderStatusExtension on OrderStatus {
         return Icons.help_outline;
     }
   }
+
+  double toPercentage(){
+    switch (this) {
+      case OrderStatus.Submitted:
+        return 0.2;
+      case OrderStatus.Collecting:
+        return 0.5;
+      case OrderStatus.Delivering:
+        return 0.8;
+      case OrderStatus.Done:
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
+  bool hasPassed(OrderStatus state){
+    return this.toPercentage() <= state.toPercentage();
+  }
+
 
   static OrderStatus create(String state){
     switch (state) {
@@ -118,6 +138,7 @@ class Order {
   String deliveryLocation;
   String pickUpLocation;
   double estimatedPrice;
+  double deliveryCosts;
   String extraInfo;
   stripe.Source source;
 
@@ -132,6 +153,7 @@ class Order {
     this.deliveryLocation = "",
     this.pickUpLocation = "",
     this.estimatedPrice = 10,
+    this.deliveryCosts = 2,
     this.extraInfo = "",
     this.source,
   }) {
@@ -158,6 +180,7 @@ class Order {
       'delivered': delivered,
       'asap': asap,
       'estimatedPrice': estimatedPrice,
+      'deliveryCosts': deliveryCosts,
       'stripeSource': source.sourceId,
       'createdAt': FieldValue.serverTimestamp(),
       'user': FirebaseAuth.instance.currentUser.uid,

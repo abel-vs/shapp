@@ -22,13 +22,13 @@ class OrderCard extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    order.state.statusIcon(),
+                    order.state.toStatusIcon(),
                     color: Theme.of(context).primaryColor,
                     size: 30,
                   ),
                   SizedBox(width: 15),
                   Flexible(
-                    flex: 1,
+                    flex: 2,
                     fit: FlexFit.tight,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,14 +68,14 @@ class OrderCard extends StatelessWidget {
                   ),
                   SizedBox(width: 10),
                   Flexible(
-                    flex: 1,
+                    flex: 3,
                     fit: FlexFit.tight,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           order.state.toReadableString(context),
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                         RichText(
                           text: TextSpan(
@@ -100,7 +100,7 @@ class OrderCard extends StatelessWidget {
               ),
             ),
             LinearProgressIndicator(
-              value: 0.5,
+              value: order.state.toPercentage(),
               backgroundColor: Theme.of(context).cardColor,
             ),
           ],
