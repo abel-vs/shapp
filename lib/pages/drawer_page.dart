@@ -27,11 +27,7 @@ class DrawerPage extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text(AppLocalizations.of(context).translate("settings")),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
-                  ),
-                ),
+                onTap: () => Navigator.of(context).pushNamed("settings"),
               ),
               ListTile(
                 leading: Icon(Icons.share),
@@ -42,46 +38,38 @@ class DrawerPage extends StatelessWidget {
                     subject: 'Shapp'),
               ),
               ListTile(
-                leading: Icon(Icons.star),
-                title: Text(AppLocalizations.of(context).translate("feedback")),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FeedbackPage(),
-                  ),
-                ),
-              ),
+                  leading: Icon(Icons.star),
+                  title:
+                      Text(AppLocalizations.of(context).translate("feedback")),
+                  onTap: () => Navigator.of(context).pushNamed("feedback")),
               ListTile(
                 leading: Icon(Icons.help_outline),
                 title: Text(AppLocalizations.of(context)
                     .translate("frequent_questions")),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                      appBar: AppBar(title: Text("Hoe te gebruiken")),
-                      body: IntroPage(),
-                    ),
-                  ),
-                ),
+                onTap: () => Navigator.of(context).pushNamed("faq"),
               ),
               AboutListTile(
                 icon: Icon(Icons.info_outline),
-                applicationVersion: AppLocalizations.of(context)
-                    .translate("version") + " 1.0.0",
+                applicationVersion:
+                    AppLocalizations.of(context).translate("version") +
+                        " 1.0.0",
                 applicationLegalese: "©2021 Shapp",
                 aboutBoxChildren: [
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ListTile(
                       title: Text(AppLocalizations.of(context)
                           .translate("general_conditions")),
-                      onTap: (){}),
+                      onTap: () {}),
                   ListTile(
                       title: Text(AppLocalizations.of(context)
                           .translate("privacy_policy")),
-                      onTap: (){}),
+                      onTap: () {}),
                   ListTile(
                       title: Text(AppLocalizations.of(context)
                           .translate("cookie_policy")),
-                      onTap: (){}),
+                      onTap: () {}),
                 ],
                 applicationIcon: Placeholder(
                   fallbackWidth: 50,
