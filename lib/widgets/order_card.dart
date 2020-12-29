@@ -15,34 +15,88 @@ class OrderCard extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(5),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
                 children: [
-                  Text(
-                    order.state.toReadableString(context),
-                    style: Theme.of(context).textTheme.headline3,
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          order.description,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        Text(
+                          order.deliveryLocation,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                        ),
+                        // Row(
+                        //   children: [
+                        //     Flexible(
+                        //       child: Text(
+                        //         order.deliveryLocation,
+                        //         overflow: TextOverflow.fade,
+                        //         softWrap: false,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       "  " + "7",
+                        //     ),
+                        //   ],
+                        // ),
+                        // Text(
+                        //   "Delft",
+                        //   overflow: TextOverflow.fade,
+                        //   softWrap: false,
+                        // ),
+                      ],
+                    ),
                   ),
-                  Text(order.description),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          order.state.toReadableString(context),
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            style: Theme.of(context).textTheme.bodyText1,
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: order.delivered
+                                      ? "Order geleverd om "
+                                      : "Levering: "),
+                              TextSpan(
+                                text: order.deliveryTime
+                                    .toReadableString(context),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              Spacer(),
-              Text(
-                order.deliveryTime.toReadableString(context),
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.end,
-              //   children: [
-              //     Text(order.deliveryTime.toReadableString(context), style: Theme.of(context).textTheme.headline2,),
-              //     Text(order.deliveryDay.toReadableString()),
-              //   ],
-              // ),
-            ],
-          ),
+            ),
+            LinearProgressIndicator(
+              value: 0.5,
+              backgroundColor: Theme.of(context).cardColor,
+            ),
+          ],
         ),
       ),
     );

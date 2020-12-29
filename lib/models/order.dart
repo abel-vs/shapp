@@ -98,6 +98,7 @@ class Order {
   DateTime deliveryDay;
   TimeOfDay deliveryTime;
   bool asap;
+  bool delivered;
   String deliveryLocation;
   String pickUpLocation;
   double estimatedPrice;
@@ -111,6 +112,7 @@ class Order {
     this.deliveryDay,
     this.deliveryTime,
     this.asap = true,
+    this.delivered = false,
     this.deliveryLocation = "",
     this.pickUpLocation = "",
     this.estimatedPrice = 10,
@@ -137,6 +139,7 @@ class Order {
       'pickUpLocation': pickUpLocation,
       'deliveryLocation': deliveryLocation,
       'deliveryMoment': deliveryMoment,
+      'delivered': delivered,
       'asap': asap,
       'estimatedPrice': estimatedPrice,
       'stripeSource': source.sourceId,
