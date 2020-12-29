@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:shapp/pages/about_page.dart';
 import 'package:shapp/pages/feedback_page.dart';
 import 'package:shapp/pages/intro_page.dart';
 import 'package:shapp/pages/settings_page.dart';
@@ -64,14 +63,29 @@ class DrawerPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.info_outline),
-                title:
-                    Text(AppLocalizations.of(context).translate("about_app")),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => AboutPage(),
-                  ),
+              AboutListTile(
+                icon: Icon(Icons.info_outline),
+                applicationVersion: AppLocalizations.of(context)
+                    .translate("version") + " 1.0.0",
+                applicationLegalese: "©2021 Shapp",
+                aboutBoxChildren: [
+                  SizedBox(height: 20,),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context)
+                          .translate("general_conditions")),
+                      onTap: (){}),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context)
+                          .translate("privacy_policy")),
+                      onTap: (){}),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context)
+                          .translate("cookie_policy")),
+                      onTap: (){}),
+                ],
+                applicationIcon: Placeholder(
+                  fallbackWidth: 50,
+                  fallbackHeight: 50,
                 ),
               ),
               ListTile(
