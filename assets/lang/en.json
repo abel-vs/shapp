@@ -98,5 +98,6 @@
   "something_went_wrong": "Something went wrong...",
   "dark": "Dark",
   "light": "Light",
-  "system": "System"
+  "system": "System",
+  "alert_logout": "Are you sure you want to log out?"
 }

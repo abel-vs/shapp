@@ -84,7 +84,26 @@ class DrawerPage extends StatelessWidget {
                   AppLocalizations.of(context).translate("logout"),
                   style: TextStyle(color: TERRA_COTTA_RED),
                 ),
-                onTap: () => auth.signOut(),
+                onTap: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: Text(AppLocalizations.of(context)
+                              .translate("alert_logout")),
+                          actions: [
+                            TextButton(
+                              child: Text(AppLocalizations.of(context)
+                                  .translate("no")
+                                  .toUpperCase()),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            TextButton(
+                              child: Text(AppLocalizations.of(context)
+                                  .translate("yes")
+                                  .toUpperCase()),
+                              onPressed: () => auth.signOut(),
+                            ),
+                          ],
+                        )),
               ),
             ],
           ),

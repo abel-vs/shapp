@@ -98,5 +98,7 @@
   "something_went_wrong": "Er ging iets mis...",
   "dark": "Donker",
   "light": "Licht",
-  "system": "Systeem"
+  "system": "Systeem",
+  "alert_logout": "Ben je zeker dat je wilt uitloggen?"
+
 }
