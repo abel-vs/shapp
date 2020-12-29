@@ -120,7 +120,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         onTap: () {
           showDialog(
               context: context,
-              builder: (_) => Dialog(
+              builder: (context) => Dialog(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
