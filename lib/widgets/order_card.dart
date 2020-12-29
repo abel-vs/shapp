@@ -21,6 +21,12 @@ class OrderCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
+                  Icon(
+                    order.state.statusIcon(),
+                    color: Theme.of(context).primaryColor,
+                    size: 30,
+                  ),
+                  SizedBox(width: 15),
                   Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
@@ -60,6 +66,7 @@ class OrderCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(width: 10),
                   Flexible(
                     flex: 1,
                     fit: FlexFit.tight,

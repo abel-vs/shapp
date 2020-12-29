@@ -75,6 +75,21 @@ extension OrderStatusExtension on OrderStatus {
     }
   }
 
+  IconData statusIcon() {
+    switch (this) {
+      case OrderStatus.Submitted:
+        return Icons.send;
+      case OrderStatus.Collecting:
+        return Icons.shopping_cart;
+      case OrderStatus.Delivering:
+        return Icons.directions_bike;
+      case OrderStatus.Done:
+        return Icons.check_circle;
+      default:
+        return Icons.help_outline;
+    }
+  }
+
   static OrderStatus create(String state){
     switch (state) {
       case "OrderState.Submitted":
@@ -89,6 +104,7 @@ extension OrderStatusExtension on OrderStatus {
         return null;
     }
   }
+
 }
 
 class Order {
