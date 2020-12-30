@@ -149,7 +149,6 @@ class Order {
     this.deliveryDay,
     this.deliveryTime,
     this.asap = true,
-    this.delivered = false,
     this.deliveryLocation = "",
     this.pickUpLocation = "",
     this.estimatedPrice = 10,
@@ -158,6 +157,7 @@ class Order {
     this.source,
   }) {
     this.state = OrderStatusExtension.create(state);
+    this.delivered = this.state == OrderStatus.Done;
     if (this.deliveryDay == null) deliveryDay = DateTime.now();
     if (this.deliveryTime == null) deliveryTime = TimeExtension.asap();
   }
@@ -177,7 +177,6 @@ class Order {
       'pickUpLocation': pickUpLocation,
       'deliveryLocation': deliveryLocation,
       'deliveryMoment': deliveryMoment,
-      'delivered': delivered,
       'asap': asap,
       'estimatedPrice': estimatedPrice,
       'deliveryCosts': deliveryCosts,

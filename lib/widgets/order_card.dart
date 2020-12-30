@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/services/app_localizations.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;
@@ -76,6 +77,8 @@ class OrderCard extends StatelessWidget {
                         Text(
                           order.state.toReadableString(context),
                           style: Theme.of(context).textTheme.headline6,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
                         ),
                         RichText(
                           text: TextSpan(
@@ -83,11 +86,10 @@ class OrderCard extends StatelessWidget {
                             children: <TextSpan>[
                               TextSpan(
                                   text: order.delivered
-                                      ? "Order geleverd om "
-                                      : "Levering: "),
+                                      ? AppLocalizations.of(context).translate("delivered_at") + ": "
+                                      : AppLocalizations.of(context).translate("delivered_at") + ": "),
                               TextSpan(
-                                text: order.deliveryTime
-                                    .toReadableString(context),
+                                text: order.deliveryTime.toReadableString(context),
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -99,10 +101,10 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
             ),
-            LinearProgressIndicator(
-              value: order.state.toPercentage(),
-              backgroundColor: Theme.of(context).cardColor,
-            ),
+            // LinearProgressIndicator(
+            //   value: order.state.toPercentage(),
+            //   backgroundColor: Theme.of(context).cardColor,
+            // ),
           ],
         ),
       ),
