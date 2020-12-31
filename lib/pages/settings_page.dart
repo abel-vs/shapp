@@ -9,13 +9,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String darkMode;
-  PreferencesProvider notifier;
+  PreferencesProvider preferences;
 
   @override
   Widget build(BuildContext context) {
-    notifier = Provider.of<PreferencesProvider>(context);
-    darkMode = notifier.themeMode;
+    preferences = Provider.of<PreferencesProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,22 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Text(AppLocalizations.of(context).translate("language")),
               onTap: () => showDialog(
                 context: context,
-                builder: (_) => Dialog(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      RadioListTile(
-                        title: Text(AppLocalizations.of(context).translate("NL")),
-                        onChanged: (value) {},
-                      ),
-                      Divider(height: 0),
-                      RadioListTile(
-                        title: Text(AppLocalizations.of(context).translate("EN")),
-                        onChanged: (value) {},
-                      ),
-                    ],
-                  ),
-                ),
+                builder: (context) => buildLanguageDialog(context),
               ),
             ),
             ListTile(
@@ -57,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Text(AppLocalizations.of(context).translate("dark_mode")),
               onTap: () => showDialog(
                 context: context,
-                builder: (BuildContext context) => buildDarkModeDialog(context),
+                builder: (context) => buildDarkModeDialog(context),
               ),
             ),
             ListTile(
@@ -72,9 +55,34 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void onDarkModeChanged(String value){
-    darkMode = value;
-    notifier.selectThemeMode(value);
+  Dialog buildLanguageDialog(BuildContext context) {
+    return Dialog(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          RadioListTile(
+            title: Text(AppLocalizations.of(context).translate("NL")),
+            value: "nl",
+            groupValue: preferences.language,
+            onChanged: (value) => setState(() => preferences.language = value),
+          ),
+          Divider(height: 0),
+          RadioListTile(
+            title: Text(AppLocalizations.of(context).translate("EN")),
+            value: "en",
+            groupValue: preferences.language,
+            onChanged: (value) => setState(() => preferences.language = value),
+          ),
+          Divider(height: 0),
+          RadioListTile(
+            title: Text(AppLocalizations.of(context).translate("system")),
+            value: "SYSTEM",
+            groupValue: preferences.language,
+            onChanged: (value) => setState(() => preferences.language = value),
+          ),
+        ],
+      ),
+    );
   }
 
   Dialog buildDarkModeDialog(BuildContext context) {
@@ -86,22 +94,22 @@ class _SettingsPageState extends State<SettingsPage> {
             RadioListTile(
               title: Text(AppLocalizations.of(context).translate("dark")),
               value: "DARK",
-              groupValue: darkMode,
-              onChanged: (value) => setState(() => onDarkModeChanged(value)),
+              groupValue: preferences.themeMode,
+              onChanged: (value) => setState(() => preferences.themeMode = value),
             ),
             Divider(height: 0),
             RadioListTile(
               title: Text(AppLocalizations.of(context).translate("light")),
               value: "LIGHT",
-              groupValue: darkMode,
-              onChanged: (value) => setState(() => onDarkModeChanged(value)),
+              groupValue: preferences.themeMode,
+              onChanged: (value) => setState(() => preferences.themeMode = value),
             ),
             Divider(height: 0),
             RadioListTile(
               title: Text(AppLocalizations.of(context).translate("system")),
               value: "SYSTEM",
-              groupValue: darkMode,
-              onChanged: (value) => setState(() => onDarkModeChanged(value)),
+              groupValue: preferences.themeMode,
+              onChanged: (value) => setState(() => preferences.themeMode = value),
             ),
           ],
         );

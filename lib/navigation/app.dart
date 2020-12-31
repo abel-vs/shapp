@@ -27,32 +27,32 @@ class App extends StatelessWidget {
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case 'home':
-              return MaterialPageRoute(builder: (BuildContext context) => HomePage());
+              return MaterialPageRoute(builder: (context) => HomePage());
               break;
             case 'order':
-              return MaterialPageRoute(builder: (BuildContext context) => OrderPage());
+              return MaterialPageRoute(builder: (context) => OrderPage());
               break;
             case 'orders':
-              return MaterialPageRoute(builder: (BuildContext context) => OrdersPage());
+              return MaterialPageRoute(builder: (context) => OrdersPage());
               break;
             case 'order_overview':
               return MaterialPageRoute(
-                  builder: (BuildContext context) => OrderOverviewPage(
+                  builder: (context) => OrderOverviewPage(
                         order: settings.arguments,
                       ));
               break;
             case 'faq':
-              return MaterialPageRoute(builder: (BuildContext context) => FaqPage());
+              return MaterialPageRoute(builder: (context) => FaqPage());
               break;
             case 'feedback':
-              return MaterialPageRoute(builder: (BuildContext context) => FeedbackPage());
+              return MaterialPageRoute(builder: (context) => FeedbackPage());
               break;
             case 'settings':
-              return MaterialPageRoute(builder: (BuildContext context) => SettingsPage());
+              return MaterialPageRoute(builder: (context) => SettingsPage());
               break;
             default:
               return MaterialPageRoute(
-                builder: (BuildContext context) => InfoPage(
+                builder: (context) => InfoPage(
                   icon: Icons.sentiment_dissatisfied_outlined,
                   title: "Page Not Found",
                   body: Container(),

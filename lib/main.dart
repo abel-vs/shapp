@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'services/app_localizations.dart';
 
 import 'package:stripe_payment/stripe_payment.dart';
@@ -26,7 +25,7 @@ void main() async {
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
   // Set custom error screen
-  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
+  // ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
   runApp(MyApp());
 }
 
@@ -46,54 +45,43 @@ class MyApp extends StatelessWidget {
         Provider<FirebaseAnalytics>(create: (context) => analytics),
         ChangeNotifierProvider<PreferencesProvider>(create: (context) => PreferencesProvider()),
       ],
-      child: Consumer<PreferencesProvider>(
-        child: LandingPage(),
-        builder: (context, notifier, child) {
-          return MaterialApp(
-            title: 'Shapp',
+      child: Builder(
+        builder: (BuildContext context) => Consumer<PreferencesProvider>(
+          child: LandingPage(),
+          builder: (context, preferences, child) {
+            return MaterialApp(
+              title: 'Shapp',
 
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(analytics: analytics),
-            ],
+              navigatorObservers: [
+                FirebaseAnalyticsObserver(analytics: analytics),
+              ],
 
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: notifier.themeMode == "DARK"
-                ? ThemeMode.dark
-                : notifier.themeMode == "LIGHT"
-                    ? ThemeMode.light
-                    : ThemeMode.system,
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: preferences.themeMode == "DARK"
+                  ? ThemeMode.dark
+                  : preferences.themeMode == "LIGHT"
+                      ? ThemeMode.light
+                      : ThemeMode.system,
 
-            /// Navigation
-            home: child,
+              /// Navigation
+              home: child,
 
-            /// Localization
-            localizationsDelegates: [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [
-              const Locale('en', 'US'),
-              const Locale('nl', 'NL'),
-            ],
-            // Returns a locale which will be used by the app
-            localeResolutionCallback: (locale, supportedLocales) {
-              // Check if the current device locale is supported
-              for (var supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode &&
-                    supportedLocale.countryCode == locale.countryCode) {
-                  return supportedLocale;
-                }
-              }
-              // If the locale of the device is not supported, use the first one
-              // from the list (English, in this case).
-              return supportedLocales.first;
-            },
-          );
-        },
+              /// Localization
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: preferences.locale,
+              supportedLocales: supportedLocales.values,
+              // Returns a locale which will be used by the app
+              localeResolutionCallback: (locale, supportedLocales) => localeResolution(locale, supportedLocales),
+            );
+          },
+        ),
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:shapp/pages/info_page.dart';
 class ErrorPage extends StatelessWidget {
   ErrorPage(this.detailsException);
 
-  dynamic detailsException;
+  final dynamic detailsException;
 
   @override
   Widget build(BuildContext context) {

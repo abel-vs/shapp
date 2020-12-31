@@ -39,7 +39,7 @@
   "feedback": "Feedback",
   "feedback_message": "We love your feedback, so don't hesitate to share an idea or opinion!",
   "feedback_thanks": "Thank you for your feedback!",
-  "frequent_questions": "Frequent Questions",
+  "frequent_questions": "Frequent questions",
   "logout": "Log out",
   "send": "Send",
   "choose_location": "Choose your location",
@@ -101,5 +101,7 @@
   "dark": "Dark",
   "light": "Light",
   "system": "System",
-  "alert_logout": "Are you sure you want to log out?"
+  "alert_logout": "Are you sure you want to log out?",
+  "delivered_at": "Delivered at",
+  "delivery_at": "Delivery at"
 }
