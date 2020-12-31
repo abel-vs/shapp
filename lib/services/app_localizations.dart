@@ -9,11 +9,11 @@ const supportedLocales = {'en': Locale('en', 'US'), 'nl': Locale('nl', 'NL')};
 
 Locale localeResolution(Locale locale, Iterable<Locale> supportedLocales) {
   for (var supportedLocale in supportedLocales) {
-    if (supportedLocale.languageCode == locale.languageCode && supportedLocale.countryCode == locale.countryCode) {
+    if (supportedLocale.languageCode == locale.languageCode) {
       return supportedLocale;
     }
   }
-  print("Locale not found");
+  print("Locale not found: " + locale.languageCode + " " + locale.countryCode);
   return supportedLocales.first;
 }
 

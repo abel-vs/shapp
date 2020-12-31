@@ -25,7 +25,7 @@ void main() async {
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
   // Set custom error screen
-  // ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
+  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
   runApp(MyApp());
 }
 

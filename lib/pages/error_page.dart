@@ -14,7 +14,7 @@ class ErrorPage extends StatelessWidget {
           title: Text('Error'),
         ),
         body: kReleaseMode
-            //Widget for release mode
+            //Widget for release mode21§1
             ? InfoPage(
                 icon: Icons.sentiment_dissatisfied_outlined,
                 title: "Something went wrong...",
