@@ -19,7 +19,6 @@ class App extends StatelessWidget {
       providers: [
         StreamProvider<List<Order>>.value(
           value: database.ordersStream().asBroadcastStream(),
-          initialData: [],
         ),
       ],
       child: Navigator(

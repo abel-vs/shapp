@@ -103,6 +103,7 @@
   "system": "Systeem",
   "alert_logout": "Ben je zeker dat je wilt uitloggen?",
   "delivered_at": "Geleverd om",
-  "delivery_at": "Levering om"
+  "delivery_at": "Levering om",
+  "no_orders": "Nog geen bestellingen..."
 
 }

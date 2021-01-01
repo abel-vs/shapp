@@ -14,12 +14,28 @@ class OrdersPage extends StatelessWidget {
       body: Consumer<List<Order>>(
         builder: (context, List<Order> orders, _) => orders == null
             ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: orders.length,
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                itemBuilder: (context, index) =>
-                    OrderCard(order: orders.elementAt(index)),
-              ),
+            : orders.length == 0
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.sentiment_dissatisfied_sharp,
+                            size: 150, color: Theme.of(context).primaryColor),
+                        SizedBox(height: 20),
+                        Text(
+                          AppLocalizations.of(context).translate("no_orders"),
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                        SizedBox(height: kToolbarHeight),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: orders.length,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    itemBuilder: (context, index) =>
+                        OrderCard(order: orders.elementAt(index)),
+                  ),
       ),
     );
   }

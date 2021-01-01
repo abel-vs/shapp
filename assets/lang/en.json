@@ -103,5 +103,6 @@
   "system": "System",
   "alert_logout": "Are you sure you want to log out?",
   "delivered_at": "Delivered at",
-  "delivery_at": "Delivery at"
+  "delivery_at": "Delivery at",
+  "no_orders": "No orders yet..."
 }
