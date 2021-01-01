@@ -104,6 +104,7 @@
   "alert_logout": "Ben je zeker dat je wilt uitloggen?",
   "delivered_at": "Geleverd om",
   "delivery_at": "Levering om",
-  "no_orders": "Nog geen bestellingen..."
-
+  "no_orders": "Nog geen bestellingen...",
+  "description_required": "Een beschrijving is verplicht.",
+  "location_required": "Een locatie is verplicht."
 }

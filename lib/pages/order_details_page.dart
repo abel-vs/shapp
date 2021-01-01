@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/services/validators.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
@@ -16,6 +17,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   Order order;
   final TextEditingController timeController = TextEditingController();
   final TextEditingController dayController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +26,20 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     dayController.text = order.deliveryDay.toReadableString();
     timeController.text = order.deliveryTime.toReadableString(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        OrderTitleBlock(
-          title: AppLocalizations.of(context).translate("details_title"),
-          subtitle: AppLocalizations.of(context).translate("details_subtitle"),
-        ),
-        buildFields(context),
-        buildButtons(context),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OrderTitleBlock(
+            title: AppLocalizations.of(context).translate("details_title"),
+            subtitle:
+                AppLocalizations.of(context).translate("details_subtitle"),
+          ),
+          buildFields(context),
+          buildButtons(context),
+        ],
+      ),
     );
   }
 
@@ -42,7 +48,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       child: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           child: ConstrainedBox(
-            constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+            constraints: BoxConstraints(
+                minWidth: constraints.maxWidth,
+                minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -77,7 +85,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     return Expanded(
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
-        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("extra_info")),
+        decoration: fieldDecoration(
+            labelText: AppLocalizations.of(context).translate("extra_info")),
         keyboardType: TextInputType.multiline,
         minLines: null,
         maxLines: null,
@@ -98,12 +107,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       ),
       child: Row(
         children: [
-          Text(
-              AppLocalizations.of(context).translate("approximately") + " €" + order.estimatedPrice.toStringAsFixed(0)),
+          Text(AppLocalizations.of(context).translate("approximately") +
+              " €" +
+              order.estimatedPrice.toStringAsFixed(0)),
           Expanded(
             child: Slider(
                 value: order.estimatedPrice,
-                onChanged: (price) => setState(() => order.estimatedPrice = price),
+                onChanged: (price) =>
+                    setState(() => order.estimatedPrice = price),
                 min: 10,
                 max: 50,
                 divisions: 4,
@@ -125,16 +136,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text(AppLocalizations.of(context).translate("asap")),
+                          title: Text(
+                              AppLocalizations.of(context).translate("asap")),
                           onTap: () {
                             order.deliveryTime = TimeExtension.asap();
-                            timeController.text = order.deliveryTime.toReadableString(context);
+                            timeController.text =
+                                order.deliveryTime.toReadableString(context);
                             Navigator.of(context).pop();
                           },
                         ),
                         Divider(height: 0),
                         ListTile(
-                          title: Text(AppLocalizations.of(context).translate("choose_other_time")),
+                          title: Text(AppLocalizations.of(context)
+                              .translate("choose_other_time")),
                           onTap: () async {
                             TimeOfDay time = await showTimePicker(
                               context: context,
@@ -142,7 +156,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             );
                             if (time != null) {
                               order.deliveryTime = time;
-                              timeController.text = order.deliveryTime.toReadableString(context);
+                              timeController.text =
+                                  order.deliveryTime.toReadableString(context);
                             }
                             Navigator.of(context).pop();
                           },
@@ -153,7 +168,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: timeController,
-        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("time")),
+        decoration: fieldDecoration(
+            labelText: AppLocalizations.of(context).translate("time")),
       ),
     );
   }
@@ -175,7 +191,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: dayController,
-        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("day")),
+        decoration: fieldDecoration(
+            labelText: AppLocalizations.of(context).translate("day")),
       ),
     );
   }
@@ -194,6 +211,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         labelText: AppLocalizations.of(context).translate("where_to_find"),
         hintText: AppLocalizations.of(context).translate("where_to_find_hint"),
       ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => emptyValidator(
+        value,
+        AppLocalizations.of(context).translate("location_required"),
+      ),
     );
   }
 
@@ -209,7 +231,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       initialValue: order.deliveryLocation.toString(),
       decoration: fieldDecoration(
         labelText: AppLocalizations.of(context).translate("where_to_deliver"),
-        hintText: AppLocalizations.of(context).translate("where_to_deliver_hint"),
+        hintText:
+            AppLocalizations.of(context).translate("where_to_deliver_hint"),
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => emptyValidator(
+        value,
+        AppLocalizations.of(context).translate("location_required"),
       ),
     );
   }
@@ -224,14 +252,20 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             ExpandedButton(
               text: AppLocalizations.of(context).translate("back"),
               function: () {
-                pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                pageController.previousPage(
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
             ExpandedButton(
               text: AppLocalizations.of(context).translate("next"),
               function: () {
-                pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                if (_formKey.currentState.validate()) {
+                  pageController.nextPage(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeInOut);
+                }
               },
             ),
           ],

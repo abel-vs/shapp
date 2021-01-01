@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/services/validators.dart';
 import 'package:shapp/widgets/expanded_button.dart';
 import 'package:shapp/widgets/order_title_block.dart';
 
@@ -20,18 +21,27 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   ImagePicker picker = ImagePicker();
   File _image;
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     order = Provider.of<Order>(context);
     pageController = Provider.of<PageController>(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        OrderTitleBlock(title: AppLocalizations.of(context).translate("description_title"), subtitle: AppLocalizations.of(context).translate("description_subtitle")),
-        buildBody(),
-        buildNextButton(context),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OrderTitleBlock(
+              title:
+                  AppLocalizations.of(context).translate("description_title"),
+              subtitle: AppLocalizations.of(context)
+                  .translate("description_subtitle")),
+          buildBody(),
+          buildNextButton(context),
+        ],
+      ),
     );
   }
 
@@ -42,9 +52,13 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
         children: [
           ExpandedButton(
             text: AppLocalizations.of(context).translate("next"),
-            function: order.description == null || order.description.isEmpty
-                ? null
-                : () => pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut),
+            function: () {
+              if (_formKey.currentState.validate()) {
+                pageController.nextPage(
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut);
+              }
+            },
           ),
         ],
       ),
@@ -65,12 +79,15 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   TextFormField buildDescriptionField() {
     return TextFormField(
       textAlignVertical: TextAlignVertical.top,
-      decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("description")),
+      decoration: fieldDecoration(
+          labelText: AppLocalizations.of(context).translate("description")),
       keyboardType: TextInputType.multiline,
       expands: true,
       maxLines: null,
       onChanged: (text) => setState(() => order.description = text),
       initialValue: order.description,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => emptyValidator(value, AppLocalizations.of(context).translate("description_required")),
     );
   }
 
@@ -121,7 +138,8 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
             ),
             Divider(height: 0),
             ListTile(
-              title: Text(AppLocalizations.of(context).translate("pick_gallery")),
+              title:
+                  Text(AppLocalizations.of(context).translate("pick_gallery")),
               leading: Icon(Icons.camera_alt),
               onTap: () async {
                 pickedFile = await picker.getImage(source: ImageSource.gallery);

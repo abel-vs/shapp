@@ -104,5 +104,7 @@
   "alert_logout": "Are you sure you want to log out?",
   "delivered_at": "Delivered at",
   "delivery_at": "Delivery at",
-  "no_orders": "No orders yet..."
+  "no_orders": "No orders yet...",
+  "description_required": "A description is required.",
+  "location_required": "A location is required."
 }
