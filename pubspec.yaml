@@ -82,6 +82,7 @@ flutter:
     - assets/images/basket.png
     - assets/images/map.png
     - assets/images/supermarket_location.png
+    - assets/launcher/icon.png
     - assets/lang/en.json
     - assets/lang/nl.json
 

@@ -31,49 +31,45 @@ class DrawerPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.share),
-                title: Text(
-                    AppLocalizations.of(context).translate("spread_the_love")),
-                onTap: () => Share.share(
-                    AppLocalizations.of(context).translate("share_message"),
-                    subject: 'Shapp'),
+                title: Text(AppLocalizations.of(context).translate("spread_the_love")),
+                onTap: () => Share.share(AppLocalizations.of(context).translate("share_message"), subject: 'Shapp'),
               ),
               ListTile(
                   leading: Icon(Icons.star),
-                  title:
-                      Text(AppLocalizations.of(context).translate("feedback")),
+                  title: Text(AppLocalizations.of(context).translate("feedback")),
                   onTap: () => Navigator.of(context).pushNamed("feedback")),
               ListTile(
                 leading: Icon(Icons.help_outline),
-                title: Text(AppLocalizations.of(context)
-                    .translate("frequent_questions")),
+                title: Text(AppLocalizations.of(context).translate("frequent_questions")),
                 onTap: () => Navigator.of(context).pushNamed("faq"),
               ),
               AboutListTile(
                 icon: Icon(Icons.info_outline),
-                applicationVersion:
-                    AppLocalizations.of(context).translate("version") +
-                        " 1.0.0",
+                applicationVersion: AppLocalizations.of(context).translate("version") + " 1.0.0",
                 applicationLegalese: "©2021 Shapp",
                 aboutBoxChildren: [
                   SizedBox(
                     height: 20,
                   ),
-                  ListTile(
-                      title: Text(AppLocalizations.of(context)
-                          .translate("general_conditions")),
-                      onTap: () {}),
-                  ListTile(
-                      title: Text(AppLocalizations.of(context)
-                          .translate("privacy_policy")),
-                      onTap: () {}),
-                  ListTile(
-                      title: Text(AppLocalizations.of(context)
-                          .translate("cookie_policy")),
-                      onTap: () {}),
+                  ListTile(title: Text(AppLocalizations.of(context).translate("general_conditions")), onTap: () {}),
+                  ListTile(title: Text(AppLocalizations.of(context).translate("privacy_policy")), onTap: () {}),
+                  ListTile(title: Text(AppLocalizations.of(context).translate("cookie_policy")), onTap: () {}),
                 ],
-                applicationIcon: Placeholder(
-                  fallbackWidth: 50,
-                  fallbackHeight: 50,
+                applicationIcon: Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset("assets/launcher/icon.png", height: 70),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x54000000),
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               ListTile(
@@ -87,19 +83,14 @@ class DrawerPage extends StatelessWidget {
                 onTap: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context)
-                              .translate("alert_logout")),
+                          title: Text(AppLocalizations.of(context).translate("alert_logout")),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(context)
-                                  .translate("no")
-                                  .toUpperCase()),
+                              child: Text(AppLocalizations.of(context).translate("no").toUpperCase()),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             TextButton(
-                              child: Text(AppLocalizations.of(context)
-                                  .translate("yes")
-                                  .toUpperCase()),
+                              child: Text(AppLocalizations.of(context).translate("yes").toUpperCase()),
                               onPressed: () => auth.signOut(),
                             ),
                           ],
