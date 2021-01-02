@@ -93,17 +93,17 @@ class OrderOverviewPage extends StatelessWidget {
                 ListTile(
                     title: Text(AppLocalizations.of(context).translate("description")),
                     subtitle: Text(order.description),
-                    trailing: order.imageReference != null
+                    trailing: order.image != null
                         ? InkWell(
                             onTap: () => showDialog(
                                 context: context,
                                 builder: (BuildContext context) =>
-                                    AlertDialog(content: Image.network(order.imageReference))),
+                                    AlertDialog(content: Image.network(order.image))),
                             borderRadius: BorderRadius.circular(300.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(300.0),
                               child: Image.network(
-                                order.imageReference,
+                                order.image,
                                 fit: BoxFit.cover,
                                 height: 50,
                                 width: 50,

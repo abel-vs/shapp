@@ -19,7 +19,7 @@ abstract class Database {
   Stream<Order> orderStream({@required String oid});
 
   Stream<List<Order>> ordersStream();
-  
+
   Future<String> setImage(File image);
 }
 
@@ -43,7 +43,7 @@ class FirestoreDatabase implements Database {
       extraInfo: data["extraInfo"],
       source: stripe.Source(sourceId: data["stripeSource"]),
       state: data["state"],
-      imageReference: data["image"],
+      image: data["image"],
     );
   };
 
@@ -58,8 +58,8 @@ class FirestoreDatabase implements Database {
   Future<void> placeOrder(Order order) async {
     String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
     order.state = OrderState.Submitted;
-    await setImage(order.image).then((downloadURL) {
-      order.imageReference = downloadURL;
+    await setImage(order.imageFile).then((downloadURL) {
+      order.image = downloadURL;
     });
     _service.setData(
       path: FirebasePath.order(oid),

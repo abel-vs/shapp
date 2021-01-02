@@ -143,13 +143,13 @@ class Order {
   double deliveryCosts;
   String extraInfo;
   stripe.Source source;
-  String imageReference;
-  File image;
+  String image;
+  File imageFile;
 
   Order({
     this.id,
     String state,
-    this.imageReference,
+    this.image,
     this.description = "",
     this.deliveryDay,
     this.deliveryTime,
@@ -189,7 +189,7 @@ class Order {
       'createdAt': FieldValue.serverTimestamp(),
       'user': FirebaseAuth.instance.currentUser.uid,
       'state': state.toString(),
-      'image': imageReference,
+      'image': image,
     };
   }
 }
