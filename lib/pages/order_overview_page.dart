@@ -37,7 +37,7 @@ class OrderOverviewPage extends StatelessWidget {
                               ? AppLocalizations.of(context).translate("delivered_at") + ": "
                               : AppLocalizations.of(context).translate("delivered_at") + ": "),
                       TextSpan(
-                        text: order.deliveryTime.toReadableString(context),
+                        text: order.deliveryTime.toReadableString(context, order.today),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -93,24 +93,7 @@ class OrderOverviewPage extends StatelessWidget {
                 ListTile(
                     title: Text(AppLocalizations.of(context).translate("description")),
                     subtitle: Text(order.description),
-                    trailing: order.image != null
-                        ? InkWell(
-                            onTap: () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    AlertDialog(content: Image.network(order.image))),
-                            borderRadius: BorderRadius.circular(300.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(300.0),
-                              child: Image.network(
-                                order.image,
-                                fit: BoxFit.cover,
-                                height: 50,
-                                width: 50,
-                              ),
-                            ),
-                          )
-                        : Container()),
+                    trailing: order.image != null ? buildImageButton(context) : SizedBox(height: 10)),
                 order.extraInfo.isNotEmpty
                     ? ListTile(
                         title: Text(AppLocalizations.of(context).translate("extra_info")),
@@ -127,7 +110,7 @@ class OrderOverviewPage extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context).translate("when_to_deliver")),
-                  subtitle: Text(order.deliveryDay.toString() + " " + order.deliveryTime.toString()),
+                  subtitle: Text(order.deliveryDay.toReadableString() + ": " + order.deliveryTime.toReadableString(context, order.today)),
                 ),
                 ListTile(
                   title: Text(AppLocalizations.of(context).translate("deposit")),
@@ -145,6 +128,23 @@ class OrderOverviewPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  InkWell buildImageButton(BuildContext context) {
+    return InkWell(
+      onTap: () => showDialog(
+          context: context, builder: (BuildContext context) => AlertDialog(content: Image.network(order.image))),
+      borderRadius: BorderRadius.circular(300.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(300.0),
+        child: Image.network(
+          order.image,
+          fit: BoxFit.cover,
+          height: 50,
+          width: 50,
+        ),
       ),
     );
   }

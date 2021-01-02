@@ -61,6 +61,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.7.0
+  flutter_native_splash: ^0.1.4
 
 flutter_icons:
   ios: true

@@ -17,7 +17,7 @@ extension DateExtension on DateTime {
         ? "Vandaag"
         : this.isSameDate(DateTime.now().add(Duration(days: 1)))
             ? "Morgen"
-            : this.asWeekDay + " " + DateFormat('dd-MM').format(this);
+            : this.asWeekDay + " " + DateFormat('dd-MM-yyyy').format(this);
   }
 
   // ignore: missing_return
@@ -46,11 +46,11 @@ extension TimeExtension on TimeOfDay {
     return TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: TimeOfDay.now().minute);
   }
 
-  String toReadableString(context) {
-    return this.isAsap() ? "Zo snel mogelijk" : this.format(context);
+  String toReadableString(context, bool today) {
+    return today && this.lessThanOneHour() ? "Zo snel mogelijk" : this.format(context);
   }
 
-  bool isAsap() {
+  bool lessThanOneHour() {
     TimeOfDay now = TimeOfDay.now();
     return (this.hour < now.hour + 1) || (this.hour == now.hour + 1 && this.minute <= now.minute);
   }
@@ -145,6 +145,10 @@ class Order {
   stripe.Source source;
   String image;
   File imageFile;
+
+  bool get today{
+    return DateTime.now().isSameDate(this.deliveryDay);
+  }
 
   Order({
     this.id,

@@ -68,7 +68,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
               ),
               ListTile(
                 title: Text(AppLocalizations.of(context).translate("when_to_deliver")),
-                subtitle: Text(order.deliveryDay.toString() + " " + order.deliveryTime.toString()),
+                subtitle: Text(order.deliveryDay.toReadableString() + ": " + order.deliveryTime.toReadableString(context, order.today)),
               ),
               ListTile(
                 title: Text(AppLocalizations.of(context).translate("extra_info")),

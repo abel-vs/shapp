@@ -24,7 +24,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     order = Provider.of<Order>(context);
     pageController = Provider.of<PageController>(context);
     dayController.text = order.deliveryDay.toReadableString();
-    timeController.text = order.deliveryTime.toReadableString(context);
+    timeController.text = order.deliveryTime.toReadableString(context, order.today);
 
     return Form(
       key: _formKey,
@@ -141,7 +141,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                           onTap: () {
                             order.deliveryTime = TimeExtension.asap();
                             timeController.text =
-                                order.deliveryTime.toReadableString(context);
+                                order.deliveryTime.toReadableString(context, order.today);
                             Navigator.of(context).pop();
                           },
                         ),
@@ -157,7 +157,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             if (time != null) {
                               order.deliveryTime = time;
                               timeController.text =
-                                  order.deliveryTime.toReadableString(context);
+                                  order.deliveryTime.toReadableString(context, order.today);
                             }
                             Navigator.of(context).pop();
                           },

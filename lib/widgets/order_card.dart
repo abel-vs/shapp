@@ -89,7 +89,7 @@ class OrderCard extends StatelessWidget {
                                       ? AppLocalizations.of(context).translate("delivered_at") + ": "
                                       : AppLocalizations.of(context).translate("delivered_at") + ": "),
                               TextSpan(
-                                text: order.deliveryTime.toReadableString(context),
+                                text: order.deliveryTime.toReadableString(context, order.today),
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
