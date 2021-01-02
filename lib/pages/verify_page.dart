@@ -18,6 +18,7 @@ class VerifyPage extends StatefulWidget {
 class _VerifyPageState extends State<VerifyPage> {
   String otp = "";
   FocusNode focus = FocusNode();
+  bool _loading = false;
 
   @override
   void initState() {
@@ -99,9 +100,16 @@ class _VerifyPageState extends State<VerifyPage> {
                       children: [
                         ExpandedButton(
                           text: AppLocalizations.of(context).translate("verify"),
-                          function: () {
-                            auth.signIn(otp);
-                            Navigator.of(context).pop();
+                          loading: _loading,
+                          function: () async {
+                            setState(() {
+                              _loading = true;
+                            });
+                            await auth.signIn(otp);
+                            setState(() {
+                              _loading = false;
+                            });
+                            Navigator.of(context).popUntil((route) => route.isFirst);
                           },
                         ),
                       ],

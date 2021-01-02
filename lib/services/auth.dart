@@ -51,7 +51,7 @@ class Auth implements AuthBase {
         // ANDROID ONLY!
         // Sign the user in (or link) with the auto-generated credential
         await auth.signInWithCredential(credential);
-        Navigator.of(context).pop();
+        Navigator.of(context).popUntil((route) => route.isFirst);
       },
       verificationFailed: (FirebaseAuthException e) {
         Scaffold.of(context).showSnackBar(

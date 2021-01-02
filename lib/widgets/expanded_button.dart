@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ExpandedButton extends StatefulWidget {
-  const ExpandedButton({this.text, this.function});
+  const ExpandedButton({this.text, this.function, this.loading = false});
 
   final String text;
   final Function function;
+  final bool loading;
 
   @override
   _ExpandedButtonState createState() => _ExpandedButtonState();
@@ -12,14 +13,12 @@ class ExpandedButton extends StatefulWidget {
 
 class _ExpandedButtonState extends State<ExpandedButton> {
 
-  bool loading = false;
-
   @override
   Widget build(BuildContext context) {
 
     return Expanded(
       child: RaisedButton(
-        child: loading
+        child: widget.loading
             ? LinearProgressIndicator(
                 backgroundColor: Colors.transparent,
                 valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).canvasColor),

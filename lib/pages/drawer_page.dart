@@ -90,7 +90,10 @@ class DrawerPage extends StatelessWidget {
                             ),
                             TextButton(
                               child: Text(AppLocalizations.of(context).translate("yes").toUpperCase()),
-                              onPressed: () => auth.signOut(),
+                              onPressed: () {
+                                auth.signOut();
+                                Navigator.of(context).pop();
+                              },
                             ),
                           ],
                         )),
