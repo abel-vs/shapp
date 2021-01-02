@@ -44,30 +44,30 @@ class OrderOverviewPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(
-                        OrderStatus.Submitted.toStatusIcon(),
+                        OrderState.Submitted.toStatusIcon(),
                         size: 40,
-                        color: OrderStatus.Submitted.hasPassed(order.state)
+                        color: OrderState.Submitted.hasPassed(order.state)
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).disabledColor,
                       ),
                       Icon(
-                        OrderStatus.Collecting.toStatusIcon(),
+                        OrderState.Collecting.toStatusIcon(),
                         size: 40,
-                        color: OrderStatus.Collecting.hasPassed(order.state)
+                        color: OrderState.Collecting.hasPassed(order.state)
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).disabledColor,
                       ),
                       Icon(
-                        OrderStatus.Delivering.toStatusIcon(),
+                        OrderState.Delivering.toStatusIcon(),
                         size: 40,
-                        color: OrderStatus.Delivering.hasPassed(order.state)
+                        color: OrderState.Delivering.hasPassed(order.state)
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).disabledColor,
                       ),
                       Icon(
-                        OrderStatus.Done.toStatusIcon(),
+                        OrderState.Done.toStatusIcon(),
                         size: 40,
-                        color: OrderStatus.Done.hasPassed(order.state)
+                        color: OrderState.Done.hasPassed(order.state)
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).disabledColor,
                       ),

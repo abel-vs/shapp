@@ -19,7 +19,6 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   PageController pageController;
   Order order;
   ImagePicker picker = ImagePicker();
-  File _image;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -95,7 +94,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     return Positioned(
       right: 20,
       bottom: 20,
-      child: _image == null
+      child: order.image == null
           ? FloatingActionButton(
               child: Icon(
                 Icons.add_photo_alternate_outlined,
@@ -109,7 +108,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(300.0),
                 child: Image.file(
-                  _image,
+                  order.image,
                   fit: BoxFit.cover,
                   height: 50,
                   width: 50,
@@ -152,7 +151,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
     );
 
     setState(() {
-      if (pickedFile != null) _image = File(pickedFile.path);
+      if (pickedFile != null) order.image = File(pickedFile.path);
     });
   }
 
@@ -161,7 +160,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: Text(AppLocalizations.of(context).translate("delete_image")),
-        content: Image.file(_image),
+        content: Image.file(order.image),
         actions: [
           FlatButton(
             child: Text(AppLocalizations.of(context).translate("no")),
@@ -171,7 +170,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
             child: Text(AppLocalizations.of(context).translate("yes")),
             onPressed: () {
               setState(() {
-                _image = null;
+                order.image = null;
               });
               Navigator.pop(context);
             },

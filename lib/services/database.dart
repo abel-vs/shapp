@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/services/firebase_path.dart';
 import 'package:stripe_payment/stripe_payment.dart' as stripe;
@@ -15,13 +19,19 @@ abstract class Database {
   Stream<Order> orderStream({@required String oid});
 
   Stream<List<Order>> ordersStream();
+
+  Future<Image> getImage(String image);
+
+  Future<String> setImage(File image);
 }
 
 class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
+  final _storage = FirebaseStorage.instance;
 
   Function orderBuilder = (data, documentId) {
     DateTime deliveryMoment = data["deliveryMoment"].toDate();
+
     return Order(
       id: documentId,
       description: data["description"],
@@ -35,6 +45,7 @@ class FirestoreDatabase implements Database {
       extraInfo: data["extraInfo"],
       source: stripe.Source(sourceId: data["stripeSource"]),
       state: data["state"],
+      imageReference: data["image"],
     );
   };
 
@@ -48,6 +59,10 @@ class FirestoreDatabase implements Database {
   @override
   Future<void> placeOrder(Order order) async {
     String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
+    order.state = OrderState.Submitted;
+    await setImage(order.image).then((downloadURL) {
+      order.imageReference = downloadURL;
+    });
     _service.setData(
       path: FirebasePath.order(oid),
       data: order.toJson(),
@@ -71,5 +86,30 @@ class FirestoreDatabase implements Database {
       builder: orderBuilder,
       queryBuilder: (query) => query.where("user", isEqualTo: uid),
     );
+  }
+
+  @override
+  Future<Image> getImage(String image) async {
+    Image m;
+    await _storage.refFromURL(image).getDownloadURL().then((downloadUrl) {
+      m = Image.network(
+        downloadUrl.toString(),
+        fit: BoxFit.scaleDown,
+      );
+    });
+    return m;
+  }
+
+  @override
+  Future<String> setImage(File image) async {
+    String url;
+    Reference storageReference = _storage.ref().child('orders/${basename(image.path)}');
+    try {
+      await storageReference.putFile(image);
+      await storageReference.getDownloadURL().then((downloadURL) => url = downloadURL);
+    } on FirebaseException catch (e) {
+      print("Exception: " + e.toString());
+    }
+    return url;
   }
 }

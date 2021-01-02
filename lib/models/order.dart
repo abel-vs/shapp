@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -57,18 +59,18 @@ extension TimeExtension on TimeOfDay {
 
 }
 
-enum OrderStatus { Submitted, Collecting, Delivering, Done }
+enum OrderState { Submitted, Collecting, Delivering, Done }
 
-extension OrderStatusExtension on OrderStatus {
+extension OrderStateExtension on OrderState {
   String toReadableString(BuildContext context) {
     switch (this) {
-      case OrderStatus.Submitted:
+      case OrderState.Submitted:
         return AppLocalizations.of(context).translate("order_submitted");
-      case OrderStatus.Collecting:
+      case OrderState.Collecting:
         return AppLocalizations.of(context).translate("order_collecting");
-      case OrderStatus.Delivering:
+      case OrderState.Delivering:
         return AppLocalizations.of(context).translate("order_delivering");
-      case OrderStatus.Done:
+      case OrderState.Done:
         return AppLocalizations.of(context).translate("order_delivered");
       default:
         return AppLocalizations.of(context).translate("no_status");
@@ -77,13 +79,13 @@ extension OrderStatusExtension on OrderStatus {
 
   IconData toStatusIcon() {
     switch (this) {
-      case OrderStatus.Submitted:
+      case OrderState.Submitted:
         return Icons.send;
-      case OrderStatus.Collecting:
+      case OrderState.Collecting:
         return Icons.shopping_cart;
-      case OrderStatus.Delivering:
+      case OrderState.Delivering:
         return Icons.directions_bike;
-      case OrderStatus.Done:
+      case OrderState.Done:
         return Icons.check_circle;
       default:
         return Icons.help_outline;
@@ -92,34 +94,34 @@ extension OrderStatusExtension on OrderStatus {
 
   double toPercentage(){
     switch (this) {
-      case OrderStatus.Submitted:
+      case OrderState.Submitted:
         return 0.2;
-      case OrderStatus.Collecting:
+      case OrderState.Collecting:
         return 0.5;
-      case OrderStatus.Delivering:
+      case OrderState.Delivering:
         return 0.8;
-      case OrderStatus.Done:
+      case OrderState.Done:
         return 1;
       default:
         return 0;
     }
   }
 
-  bool hasPassed(OrderStatus state){
+  bool hasPassed(OrderState state){
     return this.toPercentage() <= state.toPercentage();
   }
 
 
-  static OrderStatus create(String state){
+  static OrderState create(String state){
     switch (state) {
       case "OrderState.Submitted":
-        return OrderStatus.Submitted;
+        return OrderState.Submitted;
       case "OrderState.Collecting":
-        return OrderStatus.Collecting;
+        return OrderState.Collecting;
       case "OrderState.Delivering":
-        return OrderStatus.Delivering;
+        return OrderState.Delivering;
       case "OrderState.Done":
-        return OrderStatus.Done;
+        return OrderState.Done;
       default:
         return null;
     }
@@ -129,7 +131,7 @@ extension OrderStatusExtension on OrderStatus {
 
 class Order {
   String id;
-  OrderStatus state;
+  OrderState state;
   String description;
   DateTime deliveryDay;
   TimeOfDay deliveryTime;
@@ -141,10 +143,13 @@ class Order {
   double deliveryCosts;
   String extraInfo;
   stripe.Source source;
+  String imageReference;
+  File image;
 
   Order({
     this.id,
     String state,
+    String imageReference,
     this.description = "",
     this.deliveryDay,
     this.deliveryTime,
@@ -156,8 +161,8 @@ class Order {
     this.extraInfo = "",
     this.source,
   }) {
-    this.state = OrderStatusExtension.create(state);
-    this.delivered = this.state == OrderStatus.Done;
+    this.state = OrderStateExtension.create(state);
+    this.delivered = this.state == OrderState.Done;
     if (this.deliveryDay == null) deliveryDay = DateTime.now();
     if (this.deliveryTime == null) deliveryTime = TimeExtension.asap();
   }
@@ -184,6 +189,7 @@ class Order {
       'createdAt': FieldValue.serverTimestamp(),
       'user': FirebaseAuth.instance.currentUser.uid,
       'state': state.toString(),
+      'image': imageReference,
     };
   }
 }
