@@ -149,7 +149,7 @@ class Order {
   Order({
     this.id,
     String state,
-    String imageReference,
+    this.imageReference,
     this.description = "",
     this.deliveryDay,
     this.deliveryTime,

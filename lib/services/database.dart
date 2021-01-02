@@ -19,9 +19,7 @@ abstract class Database {
   Stream<Order> orderStream({@required String oid});
 
   Stream<List<Order>> ordersStream();
-
-  Future<Image> getImage(String image);
-
+  
   Future<String> setImage(File image);
 }
 
@@ -86,18 +84,6 @@ class FirestoreDatabase implements Database {
       builder: orderBuilder,
       queryBuilder: (query) => query.where("user", isEqualTo: uid),
     );
-  }
-
-  @override
-  Future<Image> getImage(String image) async {
-    Image m;
-    await _storage.refFromURL(image).getDownloadURL().then((downloadUrl) {
-      m = Image.network(
-        downloadUrl.toString(),
-        fit: BoxFit.scaleDown,
-      );
-    });
-    return m;
   }
 
   @override
