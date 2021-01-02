@@ -14,6 +14,9 @@ import 'package:shapp/pages/loading_page.dart';
 import 'package:shapp/services/database.dart';
 
 class App extends StatelessWidget {
+
+  GlobalKey<NavigatorState> _navKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     Database database = Provider.of<Database>(context);
@@ -23,47 +26,53 @@ class App extends StatelessWidget {
           value: database.ordersStream().asBroadcastStream(),
         ),
       ],
-      child: Navigator(
-        initialRoute: 'home',
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case 'home':
-              return MaterialPageRoute(builder: (context) => HomePage());
-              break;
-            case 'order':
-              return MaterialPageRoute(builder: (context) => OrderPage());
-              break;
-            case 'orders':
-              return MaterialPageRoute(builder: (context) => OrdersPage());
-              break;
-            case 'order_overview':
-              return MaterialPageRoute(builder: (context) => OrderOverviewPage(order: settings.arguments));
-              break;
-            case 'order_confirmed':
-              return MaterialPageRoute(builder: (context) => OrderConfirmedPage(order: settings.arguments));
-              break;
-            case 'loading':
-              return MaterialPageRoute(builder: (context) => LoadingPage(text: settings.arguments));
-              break;
-            case 'faq':
-              return MaterialPageRoute(builder: (context) => FaqPage());
-              break;
-            case 'feedback':
-              return MaterialPageRoute(builder: (context) => FeedbackPage());
-              break;
-            case 'settings':
-              return MaterialPageRoute(builder: (context) => SettingsPage());
-              break;
-            default:
-              return MaterialPageRoute(
-                builder: (context) => InfoPage(
-                  icon: Icons.sentiment_dissatisfied_outlined,
-                  title: "Page Not Found",
-                  body: Container(),
-                ),
-              );
-          }
+      child: WillPopScope(
+        onWillPop: () async {
+          return ! await _navKey.currentState.maybePop();
         },
+        child: Navigator(
+          initialRoute: 'home',
+          key: _navKey,
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case 'home':
+                return MaterialPageRoute(builder: (context) => HomePage());
+                break;
+              case 'order':
+                return MaterialPageRoute(builder: (context) => OrderPage());
+                break;
+              case 'orders':
+                return MaterialPageRoute(builder: (context) => OrdersPage());
+                break;
+              case 'order_overview':
+                return MaterialPageRoute(builder: (context) => OrderOverviewPage(order: settings.arguments));
+                break;
+              case 'order_confirmed':
+                return MaterialPageRoute(builder: (context) => OrderConfirmedPage(order: settings.arguments));
+                break;
+              case 'loading':
+                return MaterialPageRoute(builder: (context) => LoadingPage(text: settings.arguments));
+                break;
+              case 'faq':
+                return MaterialPageRoute(builder: (context) => FaqPage());
+                break;
+              case 'feedback':
+                return MaterialPageRoute(builder: (context) => FeedbackPage());
+                break;
+              case 'settings':
+                return MaterialPageRoute(builder: (context) => SettingsPage());
+                break;
+              default:
+                return MaterialPageRoute(
+                  builder: (context) => InfoPage(
+                    icon: Icons.sentiment_dissatisfied_outlined,
+                    title: "Page Not Found",
+                    body: Container(),
+                  ),
+                );
+            }
+          },
+        ),
       ),
     );
   }
