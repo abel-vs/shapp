@@ -5,10 +5,12 @@ import 'package:shapp/pages/faq_page.dart';
 import 'package:shapp/pages/feedback_page.dart';
 import 'package:shapp/pages/home_page.dart';
 import 'package:shapp/pages/info_page.dart';
+import 'package:shapp/pages/order_confirmed_page.dart';
 import 'package:shapp/pages/order_overview_page.dart';
 import 'package:shapp/pages/order_page.dart';
 import 'package:shapp/pages/orders_page.dart';
 import 'package:shapp/pages/settings_page.dart';
+import 'package:shapp/pages/loading_page.dart';
 import 'package:shapp/services/database.dart';
 
 class App extends StatelessWidget {
@@ -35,10 +37,13 @@ class App extends StatelessWidget {
               return MaterialPageRoute(builder: (context) => OrdersPage());
               break;
             case 'order_overview':
-              return MaterialPageRoute(
-                  builder: (context) => OrderOverviewPage(
-                        order: settings.arguments,
-                      ));
+              return MaterialPageRoute(builder: (context) => OrderOverviewPage(order: settings.arguments));
+              break;
+            case 'order_confirmed':
+              return MaterialPageRoute(builder: (context) => OrderConfirmedPage(order: settings.arguments));
+              break;
+            case 'loading':
+              return MaterialPageRoute(builder: (context) => LoadingPage(text: settings.arguments));
               break;
             case 'faq':
               return MaterialPageRoute(builder: (context) => FaqPage());

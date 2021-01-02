@@ -13,19 +13,16 @@ class Payments {
     return StripePayment.createSourceWithParams(SourceParams(
       type: 'ideal',
       amount: ((order.estimatedPrice + 2) * 100).toInt(),
-      statementDescriptor: "Shapp bestelling: " + order.description,
+      statementDescriptor: "Shapp " + AppLocalizations.of(context).translate("order").toLowerCase() + ": " + order.description,
       currency: 'eur',
       returnURL: 'example://stripe-redirect',
-    )).then((source) {
+    )).then((source) async {
       order.source = source;
-      database.placeOrder(order);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => OrderConfirmedPage(order: order),
-        ),
-      );
+      Navigator.of(context).pushNamed("loading", arguments: AppLocalizations.of(context).translate("sending"));
+      await database.placeOrder(order).catchError((err) => Navigator.of(context).pop());
+      Navigator.of(context).pushNamed("order_confirmed", arguments: order);
     }).catchError((err) {
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context).translate("something_went_wrong")),
           backgroundColor: Colors.redAccent,

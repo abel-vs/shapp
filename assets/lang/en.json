@@ -106,5 +106,6 @@
   "delivery_at": "Delivery at",
   "no_orders": "No orders yet...",
   "description_required": "A description is required.",
-  "location_required": "A location is required."
+  "location_required": "A location is required.",
+  "sending": "Sending..."
 }
