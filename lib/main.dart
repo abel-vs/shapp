@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:shapp/navigation/landing_page.dart';
 import 'package:shapp/pages/error_page.dart';
+import 'package:shapp/pages/policy_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/services/preferences_provider.dart';
@@ -67,6 +68,12 @@ class MyApp extends StatelessWidget {
 
               /// Navigation
               home: child,
+              routes: {
+                // When navigating to the "/" route, build the FirstScreen widget.
+                'privacy_policy': (context) => PolicyPage(title: "privacy_policy", content: AppLocalizations.of(context).translate("privacy_policy_link")),
+                // When navigating to the "/second" route, build the SecondScreen widget.
+                'general_conditions': (context) => PolicyPage(title: "general_conditions", content: AppLocalizations.of(context).translate("general_conditions_link")),
+              },
 
               /// Localization
               localizationsDelegates: [

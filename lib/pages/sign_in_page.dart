@@ -63,6 +63,7 @@ class _SignInPageState extends State<SignInPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Spacer(),
                 InputDecorator(
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).translate("phone_number"),
@@ -81,7 +82,8 @@ class _SignInPageState extends State<SignInPage> {
                               showFlags: true,
                               backgroundColor: Theme.of(context).canvasColor,
                             ),
-                            searchBoxDecoration: InputDecoration(hintText: AppLocalizations.of(context).translate("search_country_code")),
+                            searchBoxDecoration: InputDecoration(
+                                hintText: AppLocalizations.of(context).translate("search_country_code")),
                             locale: "nl",
                             initialValue: phoneNumber,
                             textFieldController: phoneController,
@@ -126,6 +128,29 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ],
                   ),
+                ),
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).translate("policy_note"),
+                      textAlign: TextAlign.center,
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          child: Text(AppLocalizations.of(context).translate("general_conditions")),
+                          onPressed: () => Navigator.of(context).pushNamed('general_conditions'),
+                        ),
+                        Spacer(),
+                        TextButton(
+                          child: Text(AppLocalizations.of(context).translate("privacy_policy")),
+                          onPressed: () => Navigator.of(context).pushNamed('privacy_policy'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
