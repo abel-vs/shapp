@@ -107,5 +107,7 @@
   "no_orders": "No orders yet...",
   "description_required": "A description is required.",
   "location_required": "A location is required.",
-  "sending": "Sending..."
+  "sending": "Sending...",
+  "general_conditions_link": "assets/policies/en/general_conditions.md",
+  "privacy_policy_link": "assets/policies/en/privacy_policy.md"
 }

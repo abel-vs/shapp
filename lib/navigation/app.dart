@@ -3,16 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
 import 'package:shapp/pages/faq_page.dart';
 import 'package:shapp/pages/feedback_page.dart';
-import 'package:shapp/pages/general_conditions_page.dart';
 import 'package:shapp/pages/home_page.dart';
 import 'package:shapp/pages/info_page.dart';
 import 'package:shapp/pages/order_confirmed_page.dart';
 import 'package:shapp/pages/order_overview_page.dart';
 import 'package:shapp/pages/order_page.dart';
 import 'package:shapp/pages/orders_page.dart';
-import 'package:shapp/pages/privacy_policy_page.dart';
+import 'package:shapp/pages/policy_page.dart';
 import 'package:shapp/pages/settings_page.dart';
 import 'package:shapp/pages/loading_page.dart';
+import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 
 class App extends StatelessWidget {
@@ -55,9 +55,9 @@ class App extends StatelessWidget {
               case 'settings':
                 return MaterialPageRoute(builder: (context) => SettingsPage());
               case 'privacy_policy':
-                return MaterialPageRoute(builder: (context) => PrivacyPolicyPage());
+                return MaterialPageRoute(builder: (context) => PolicyPage(title: "privacy_policy", content: AppLocalizations.of(context).translate("privacy_policy_link")));
               case 'general_conditions':
-                return MaterialPageRoute(builder: (context) => GeneralConditionsPage());
+                return MaterialPageRoute(builder: (context) => PolicyPage(title: "general_conditions", content: AppLocalizations.of(context).translate("general_conditions_link")));
               default:
                 return MaterialPageRoute(
                   builder: (context) => InfoPage(

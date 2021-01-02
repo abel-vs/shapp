@@ -51,8 +51,10 @@ dependencies:
   intl_phone_number_input: ^0.5.2+2
   code_input: ^1.0.3
   devicelocale: ^0.3.3
+  flutter_markdown: ^0.5.1
 
   stripe_payment: ^1.0.8
+
 
 dependency_overrides:
   intl: ^0.17.0-nullsafety.2
@@ -95,6 +97,9 @@ flutter:
     - assets/launcher/icon.png
     - assets/lang/en.json
     - assets/lang/nl.json
+    - assets/policies/privacy_policy.md
+    - assets/policies/general_conditions.md
+
 
   fonts:
     - family: Abel

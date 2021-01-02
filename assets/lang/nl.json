@@ -107,5 +107,7 @@
   "no_orders": "Nog geen bestellingen...",
   "description_required": "Een beschrijving is verplicht.",
   "location_required": "Een locatie is verplicht.",
-  "sending": "Verzenden..."
+  "sending": "Verzenden...",
+  "general_conditions_link": "assets/policies/nl/general_conditions.md",
+  "privacy_policy_link": "assets/policies/nl/privacy_policy.md"
 }
