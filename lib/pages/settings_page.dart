@@ -43,12 +43,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (context) => buildDarkModeDialog(context),
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.notifications,
-              ),
-              title: Text(AppLocalizations.of(context).translate("notifications")),
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.notifications,
+            //   ),
+            //   title: Text(AppLocalizations.of(context).translate("notifications")),
+            // ),
           ],
         ),
       ),

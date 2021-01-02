@@ -45,18 +45,20 @@ class DrawerPage extends StatelessWidget {
                 applicationVersion: AppLocalizations.of(context).translate("version") + " 1.0.0",
                 applicationLegalese: "©2021 Shapp",
                 aboutBoxChildren: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ListTile(title: Text(AppLocalizations.of(context).translate("general_conditions")), onTap: () {}),
-                  ListTile(title: Text(AppLocalizations.of(context).translate("privacy_policy")), onTap: () {}),
-                  ListTile(title: Text(AppLocalizations.of(context).translate("cookie_policy")), onTap: () {}),
+                  SizedBox(height: 20),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context).translate("general_conditions")),
+                      onTap: () => Navigator.of(context).pushNamed("general_conditions")),
+                  ListTile(
+                      title: Text(AppLocalizations.of(context).translate("privacy_policy")),
+                      onTap: () => Navigator.of(context).pushNamed("privacy_policy")),
                 ],
                 applicationIcon: Container(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset("assets/launcher/icon.png", height: 70),
                   ),
+                  padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
                     boxShadow: [
