@@ -21,7 +21,7 @@ void main() async {
   await Firebase.initializeApp();
   StripePayment.setOptions(StripeOptions(
       publishableKey:
-          "pk_test_51HoqjPCn8fuy3fijvWHsIaEjvVhPBvIkB4hTnavS9gSMFcFxS9HCXsLCvpMb9uaVMD9mAFCOIbfZXVVDKNSnvipI00WnlnLe5X",
+          "pk_live_51HoqjPCn8fuy3fijbmvcV2VTTDOH87JjHj1coI6n9FsmVRGueXQkgdQgMvMRxvIUDQqwPAfjZL8j2un6e51w8v4P00YpVNZpIw",
       //YOUR_PUBLISHABLE_KEY
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
