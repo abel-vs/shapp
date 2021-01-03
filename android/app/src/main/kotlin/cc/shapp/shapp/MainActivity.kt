@@ -1,4 +1,4 @@
-package com.shapp.shapp
+package cc.shapp.shapp
 
 import io.flutter.embedding.android.FlutterActivity
 
