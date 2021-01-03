@@ -42,7 +42,10 @@ class _OrderPayPageState extends State<OrderPayPage> {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    title: Text(AppLocalizations.of(context).translate("payment_explanation_title"), style: Theme.of(context).textTheme.headline3,),
+                    title: Text(
+                      AppLocalizations.of(context).translate("payment_explanation_title"),
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
                     content: Text(AppLocalizations.of(context).translate("payment_explanation")),
                   ),
                 );
@@ -68,21 +71,27 @@ class _OrderPayPageState extends State<OrderPayPage> {
               ),
               ListTile(
                 title: Text(AppLocalizations.of(context).translate("when_to_deliver")),
-                subtitle: Text(order.deliveryDay.toReadableString() + ": " + order.deliveryTime.toReadableString(context, order.today)),
+                subtitle: Text(order.deliveryDay.toReadableString() +
+                    ": " +
+                    order.deliveryTime.toReadableString(context, order.today)),
               ),
+              order.extraInfo.isNotEmpty
+                  ? ListTile(
+                      title: Text(AppLocalizations.of(context).translate("extra_info")),
+                      subtitle: Text(order.extraInfo),
+                    )
+                  : Container(),
               ListTile(
-                title: Text(AppLocalizations.of(context).translate("extra_info")),
-                subtitle: Text(order.extraInfo),
-              ),
-              ListTile(
-                title: Text(AppLocalizations.of(context).translate("deposit"), style: Theme.of(context).textTheme.headline5),
+                title: Text(AppLocalizations.of(context).translate("deposit"),
+                    style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
                   "€ " + order.estimatedPrice.toStringAsFixed(2),
                   style: TextStyle(fontSize: 20),
                 ),
               ),
               ListTile(
-                title: Text(AppLocalizations.of(context).translate("delivery_costs"), style: Theme.of(context).textTheme.headline5),
+                title: Text(AppLocalizations.of(context).translate("delivery_costs"),
+                    style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
                   "€ 2,00",
                   style: TextStyle(fontSize: 20),

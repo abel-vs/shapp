@@ -35,7 +35,7 @@ class OrderOverviewPage extends StatelessWidget {
                       TextSpan(
                           text: order.delivered
                               ? AppLocalizations.of(context).translate("delivered_at") + ": "
-                              : AppLocalizations.of(context).translate("delivered_at") + ": "),
+                              : AppLocalizations.of(context).translate("delivery_at") + ": "),
                       TextSpan(
                         text: order.deliveryTime.toReadableString(context, order.today),
                         style: TextStyle(fontWeight: FontWeight.bold),
