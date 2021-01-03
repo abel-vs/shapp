@@ -48,10 +48,16 @@ class DrawerPage extends StatelessWidget {
                   SizedBox(height: 20),
                   ListTile(
                       title: Text(AppLocalizations.of(context).translate("general_conditions")),
-                      onTap: () => Navigator.of(context).pushNamed("general_conditions")),
+                      onTap: () {
+                        Navigator.of(context).pushNamed("general_conditions");
+                        Navigator.of(context, rootNavigator: true).pop();
+                      }),
                   ListTile(
                       title: Text(AppLocalizations.of(context).translate("privacy_policy")),
-                      onTap: () => Navigator.of(context).pushNamed("privacy_policy")),
+                      onTap: () {
+                        Navigator.of(context).pushNamed("privacy_policy");
+                        Navigator.of(context, rootNavigator: true).pop();
+                      }),
                 ],
                 applicationIcon: Container(
                   child: ClipRRect(
@@ -60,12 +66,11 @@ class DrawerPage extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x54000000),
-                        spreadRadius: 2,
-                        blurRadius: 10,
+                        color: Color(0x54888888),
+                        blurRadius: 5,
                       ),
                     ],
                   ),
