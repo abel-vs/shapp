@@ -139,9 +139,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                           title: Text(
                               AppLocalizations.of(context).translate("asap")),
                           onTap: () {
-                            order.deliveryTime = TimeExtension.asap();
-                            timeController.text =
-                                order.deliveryTime.toReadableString(context, order.today);
+                            setState(() {
+                              order.deliveryDay = DateTime.now();
+                              order.deliveryTime = TimeExtension.asap();
+                              timeController.text =
+                                  order.deliveryTime.toReadableString(context, order.today);
+                            });
                             Navigator.of(context).pop();
                           },
                         ),
@@ -155,9 +158,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               initialTime: TimeExtension.asap(),
                             );
                             if (time != null) {
-                              order.deliveryTime = time;
-                              timeController.text =
-                                  order.deliveryTime.toReadableString(context, order.today);
+                              setState(() {
+                                order.deliveryTime = time;
+                                timeController.text =
+                                    order.deliveryTime.toReadableString(context, order.today);
+                              });
                             }
                             Navigator.of(context).pop();
                           },
@@ -185,8 +190,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             lastDate: DateTime.now().add(Duration(days: 7)),
           );
           if (day != null) {
-            order.deliveryDay = day;
-            dayController.text = day.toReadableString();
+            setState(() {
+              order.deliveryDay = day;
+              dayController.text = day.toReadableString();
+            });
           }
         },
         readOnly: true,
