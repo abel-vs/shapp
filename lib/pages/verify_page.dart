@@ -44,7 +44,7 @@ class _VerifyPageState extends State<VerifyPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Flexible(
+          Expanded(
             child: Container(
               width: double.maxFinite,
               color: Theme.of(context).primaryColor,
@@ -52,16 +52,27 @@ class _VerifyPageState extends State<VerifyPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppLocalizations.of(context).translate("verification").toUpperCase(),
+                    AppLocalizations.of(context)
+                        .translate("verification")
+                        .toUpperCase(),
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 60),
+                    style: TextStyle(
+                        color: Theme.of(context).canvasColor, fontSize: 60),
                   ),
                   RichText(
                     text: TextSpan(
-                        style: TextStyle(color: Theme.of(context).canvasColor, fontSize: 16, fontFamily: 'Abel'),
+                        style: TextStyle(
+                            color: Theme.of(context).canvasColor,
+                            fontSize: 16,
+                            fontFamily: 'Abel'),
                         children: [
-                          TextSpan(text: AppLocalizations.of(context).translate("code_sent") + " "),
-                          TextSpan(text: widget.phoneNumber.phoneNumber, style: TextStyle(fontWeight: FontWeight.bold))
+                          TextSpan(
+                              text: AppLocalizations.of(context)
+                                      .translate("code_sent") +
+                                  " "),
+                          TextSpan(
+                              text: widget.phoneNumber.phoneNumber,
+                              style: TextStyle(fontWeight: FontWeight.bold))
                         ]),
                   ),
                   SizedBox(height: kToolbarHeight),
@@ -69,55 +80,70 @@ class _VerifyPageState extends State<VerifyPage> {
               ),
             ),
           ),
-          Flexible(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(),
-                CodeInput(
-                  length: 6,
-                  focusNode: focus,
-                  keyboardType: TextInputType.number,
-                  builder: codeDecoration(context),
-                  onFilled: (value) => setState(() {
-                    otp = value;
-                  }),
-                ),
-                SizedBox(height: 20),
-                TextButton(
-                  child: Text(
-                    AppLocalizations.of(context).translate("code_new").toUpperCase(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 40),
+              FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: CodeInput(
+                    length: 6,
+                    focusNode: focus,
+                    keyboardType: TextInputType.number,
+                    builder: codeDecoration(context),
+                    onFilled: (value) => setState(() {
+                      otp = value;
+                    }),
                   ),
-                  onPressed: () {},
                 ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    child: Row(
-                      children: [
-                        ExpandedButton(
-                          text: AppLocalizations.of(context).translate("verify"),
-                          loading: _loading,
-                          function: () async {
-                            setState(() {
-                              _loading = true;
-                            });
-                            await auth.signIn(otp);
+              ),
+              SizedBox(height: 20),
+              // TextButton(
+              //   child: Text(
+              //     AppLocalizations.of(context).translate("code_new").toUpperCase(),
+              //     style: TextStyle(fontWeight: FontWeight.bold),
+              //   ),
+              //   onPressed: () {},
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: Row(
+                    children: [
+                      ExpandedButton(
+                        text:
+                            AppLocalizations.of(context).translate("verify"),
+                        loading: _loading,
+                        function: () async {
+                          setState(() {
+                            _loading = true;
+                          });
+                          await auth.signIn(otp).catchError((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Something went wrong..."),
+                                backgroundColor: Colors.redAccent,
+                              ),
+                            );
+                            return;
+                          }).then((value) {
                             setState(() {
                               _loading = false;
                             });
-                            Navigator.of(context).popUntil((route) => route.isFirst);
-                          },
-                        ),
-                      ],
-                    ),
+                            if (value != null)
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
