@@ -42,8 +42,8 @@ dependencies:
 #  firebase_messaging: ^7.0.3
 #  firebase_crashlytics: ^0.2.3
 
-  google_maps_flutter: ^1.0.2
-  location: ^3.0.2
+#  google_maps_flutter: ^1.0.2
+#  location: ^3.0.2
 
   share: ^0.6.5
   dots_indicator: ^1.2.0
