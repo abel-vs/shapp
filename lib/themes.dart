@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 const Color OCEAN_GREEN = Color(0xff57BE92);
@@ -19,16 +21,22 @@ TextTheme textTheme = TextTheme(
     fontWeight: FontWeight.bold,
     fontSize: 24,
   ),
+  headline3: TextStyle(
+    color: OCEAN_GREEN,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
+  headline4: TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  ),
   headline5: TextStyle(
     color: OCEAN_GREEN,
     fontSize: 18,
   ),
   headline6: TextStyle(
-    fontWeight: FontWeight.bold,
     fontSize: 18,
   ),
-  bodyText1: TextStyle(color: Colors.black),
-  bodyText2: TextStyle(color: Colors.grey),
 );
 
 TextSelectionThemeData textSelectionTheme = TextSelectionThemeData(
@@ -49,6 +57,7 @@ ThemeData lightTheme = ThemeData(
         fontFamily: 'Abel',
       ),
     ),
+    iconTheme: IconThemeData(color: OCEAN_GREEN),
   ),
 
   bottomNavigationBarTheme: BottomNavigationBarThemeData(backgroundColor: Colors.white),
@@ -61,6 +70,8 @@ ThemeData lightTheme = ThemeData(
   textSelectionTheme: textSelectionTheme,
   fontFamily: 'Abel',
   textTheme: textTheme,
+
+  primarySwatch: generateMaterialColor(OCEAN_GREEN),
 );
 
 ThemeData darkTheme = ThemeData(
@@ -83,4 +94,32 @@ ThemeData darkTheme = ThemeData(
   accentColor: OCEAN_GREEN,
   fontFamily: 'Abel',
   textTheme: textTheme,
+  primarySwatch: generateMaterialColor(OCEAN_GREEN),
 );
+
+
+
+///For Calculating the swatches
+MaterialColor generateMaterialColor(Color color) {
+  return MaterialColor(color.value, {
+    50: tintColor(color, 0.5),
+    100: tintColor(color, 0.4),
+    200: tintColor(color, 0.3),
+    300: tintColor(color, 0.2),
+    400: tintColor(color, 0.1),
+    500: tintColor(color, 0),
+    600: tintColor(color, -0.1),
+    700: tintColor(color, -0.2),
+    800: tintColor(color, -0.3),
+    900: tintColor(color, -0.4),
+  });
+}
+
+int tintValue(int value, double factor) =>
+    max(0, min((value + ((255 - value) * factor)).round(), 255));
+
+Color tintColor(Color color, double factor) => Color.fromRGBO(
+    tintValue(color.red, factor),
+    tintValue(color.green, factor),
+    tintValue(color.blue, factor),
+    1);

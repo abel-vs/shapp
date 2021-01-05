@@ -1,8 +1,8 @@
 class FirebasePath {
-  static String products() => 'products';
-  static String product(String pid) => 'products/$pid';
-  static String stores() => 'stores';
-  static String store(String sid) => 'stores/$sid';
-  static String promotion(String pid) => 'promotions/$pid';
-  static String productStores(String pid) => 'products/$pid/stores';
+  static String orders() => 'orders';
+  static String order(String oid) => 'orders/$oid';
+  static String feedback() => 'feedback';
+  static String user(String uid) => 'users/$uid';
+  static String userOrders(String uid) => 'users/$uid/orders';
+  static String userOrder(String uid, String oid) => 'users/$uid/orders/$oid';
 }

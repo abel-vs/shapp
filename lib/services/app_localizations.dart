@@ -4,8 +4,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+const supportedLocales = {'en': Locale('en', 'US'), 'nl': Locale('nl', 'NL')};
+
+Locale localeResolution(Locale locale, Iterable<Locale> supportedLocales) {
+  for (var supportedLocale in supportedLocales) {
+    if (supportedLocale.languageCode == locale.languageCode) {
+      return supportedLocale;
+    }
+  }
+  print("Locale not found: " + locale.languageCode + " " + locale.countryCode);
+  return supportedLocales.first;
+}
+
+
+
 class AppLocalizations {
-  final Locale locale;
+  Locale locale;
 
   AppLocalizations(this.locale);
 
@@ -16,15 +31,13 @@ class AppLocalizations {
   }
 
   // Static member to have a simple access to the delegate from the MaterialApp
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-  _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
-    String jsonString =
-    await rootBundle.loadString('assets/lang/${locale.languageCode}.json');
+    String jsonString = await rootBundle.loadString('assets/lang/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -42,8 +55,7 @@ class AppLocalizations {
 
 // LocalizationsDelegate is a factory for a set of localized resources
 // In this case, the localized strings will be gotten in an AppLocalizations object
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   // This delegate instance will never change (it doesn't even have fields!)
   // It can provide a constant constructor.
   const _AppLocalizationsDelegate();
@@ -51,7 +63,7 @@ class _AppLocalizationsDelegate
   @override
   bool isSupported(Locale locale) {
     // Include all of your supported language codes here
-    return ['en', 'nl'].contains(locale.languageCode);
+    return supportedLocales.keys.contains(locale.languageCode);
   }
 
   @override

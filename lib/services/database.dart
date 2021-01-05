@@ -1,82 +1,111 @@
-import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:shapp/models/category.dart';
-import 'package:shapp/models/product.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:shapp/models/order.dart';
 import 'package:shapp/services/firebase_path.dart';
+import 'package:stripe_payment/stripe_payment.dart' as stripe;
 
 import 'firestore_service.dart';
 
 abstract class Database {
-  Stream<Product> productStream(String id);
+  sendFeedback(String feedback);
 
-  Stream<List<Product>> productsStream();
+  Future<void> placeOrder(Order order);
 
-  Stream<List<Product>> productCategoryStream(Category category);
+  Stream<Order> orderStream({@required String oid});
 
-  Stream<List<Stream<Product>>> promotedProductsStream(String promotion);
+  Stream<List<Order>> ordersStream();
 
-  Stream<double> lowestProductPrice(String id);
+  Future<String> setImage(File image);
 }
 
 class FirestoreDatabase implements Database {
   final _service = FirestoreService.instance;
+  final _storage = FirebaseStorage.instance;
 
-  Function productBuilder = (data, documentID) {
-    return Product(
-        id: documentID,
-        name: data['name'],
-        brand: data['brand'],
-        image: data['image'],
-        category: data['category'],
-        price: data['price'],
-        info: data['info']);
+  Function orderBuilder = (data, documentId) {
+    DateTime deliveryMoment = data["deliveryMoment"].toDate();
+
+    return Order(
+      id: documentId,
+      description: data["description"],
+      deliveryDay: deliveryMoment,
+      deliveryTime:
+          TimeOfDay(hour: deliveryMoment.hour, minute: deliveryMoment.minute),
+      asap: data["asap"],
+      deliveryLocation: data["deliveryLocation"],
+      pickUpLocation: data["pickUpLocation"],
+      estimatedPrice: data["estimatedPrice"].toDouble(),
+      deliveryCosts: data["deliveryCosts"].toDouble(),
+      extraInfo: data["extraInfo"],
+      source: stripe.Source(sourceId: data["stripeSource"]),
+      state: data["state"],
+      image: data["image"],
+    );
   };
 
   @override
-  Stream<List<Product>> productsStream() {
-    return _service.collectionStream(path: FirebasePath.products(), builder: productBuilder);
+  sendFeedback(String feedback) {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    Map<String, dynamic> data = {
+      'text': feedback,
+      'user': uid,
+      'createdAt': FieldValue.serverTimestamp()
+    };
+    _service.addData(path: FirebasePath.feedback(), data: data);
   }
 
   @override
-  Stream<Product> productStream(String id) {
-    return Rx.combineLatest2<Map<String, dynamic>, double, Product>(
-        _service.documentStream(path: FirebasePath.product(id), builder: (data, documentID) => data),
-        lowestProductPrice(id), (Map<String, dynamic> data, double price) {
-      data.addEntries([MapEntry('price', price)]);
-      return productBuilder(data, id);
-    });
+  Future<void> placeOrder(Order order) async {
+    String oid = order.source.sourceId.substring(
+        4); //This gives all orders the same id as their stripe payment
+    order.state = OrderState.Submitted;
+    if (order.imageFile != null)
+      await setImage(order.imageFile).then((downloadURL) {
+        order.image = downloadURL;
+      });
+    _service.setData(
+      path: FirebasePath.order(oid),
+      data: order.toJson(),
+    );
   }
 
   @override
-  Stream<List<Product>> productCategoryStream(Category category) {
-    return _service.collectionStream(
-        path: FirebasePath.products(),
-        builder: productBuilder,
-        queryBuilder: (query) => query.where('category', isEqualTo: category.name));
-  }
-
-  @override
-  Stream<List<Stream<Product>>> promotedProductsStream(String promotion) {
+  Stream<Order> orderStream({String oid}) {
     return _service.documentStream(
-        path: FirebasePath.promotion(promotion),
-        builder: (data, documentID) {
-          /// Gets a stream of all products in the specific promotion
-          List<String> productIDs = data['products'].map<String>((e) => e.toString()).toList();
-
-          /// Maps each element of the stream, each new updated list of product IDs, to a list of Product Streams
-          List<Stream<Product>> products = productIDs.map<Stream<Product>>((id) => productStream(id)).toList();
-          return products;
-        });
+      path: FirebasePath.order(oid),
+      builder: orderBuilder,
+    );
   }
 
   @override
-  Stream<double> lowestProductPrice(String id) {
-    Query query =
-        FirebaseFirestore.instance.collection("products").doc(id).collection("stores").orderBy("price").limit(1);
-    Stream<QuerySnapshot> snapshots = query.snapshots();
-    Stream<double> price = snapshots.map((snapshot) => snapshot.docs.first.data()['price'].toDouble());
-    return price;
+  Stream<List<Order>> ordersStream() {
+    print('Getting orders');
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    return _service.collectionStream(
+      path: FirebasePath.orders(),
+      builder: orderBuilder,
+      queryBuilder: (query) => query.where("user", isEqualTo: uid),
+    );
+  }
+
+  @override
+  Future<String> setImage(File image) async {
+    String url;
+    Reference storageReference =
+        _storage.ref().child('orders/${basename(image.path)}');
+    try {
+      await storageReference.putFile(image);
+      await storageReference
+          .getDownloadURL()
+          .then((downloadURL) => url = downloadURL);
+    } on FirebaseException catch (e) {
+      print("Exception: " + e.toString());
+    }
+    return url;
   }
 }
