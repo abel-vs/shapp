@@ -34,7 +34,8 @@ class FirestoreDatabase implements Database {
       id: documentId,
       description: data["description"],
       deliveryDay: deliveryMoment,
-      deliveryTime: TimeOfDay(hour: deliveryMoment.hour, minute: deliveryMoment.minute),
+      deliveryTime:
+          TimeOfDay(hour: deliveryMoment.hour, minute: deliveryMoment.minute),
       asap: data["asap"],
       deliveryLocation: data["deliveryLocation"],
       pickUpLocation: data["pickUpLocation"],
@@ -50,17 +51,23 @@ class FirestoreDatabase implements Database {
   @override
   sendFeedback(String feedback) {
     String uid = FirebaseAuth.instance.currentUser.uid;
-    Map<String, dynamic> data = {'text': feedback, 'user': uid, 'createdAt': FieldValue.serverTimestamp()};
+    Map<String, dynamic> data = {
+      'text': feedback,
+      'user': uid,
+      'createdAt': FieldValue.serverTimestamp()
+    };
     _service.addData(path: FirebasePath.feedback(), data: data);
   }
 
   @override
   Future<void> placeOrder(Order order) async {
-    String oid = order.source.sourceId.substring(4); //This gives all orders the same id as their stripe payment
+    String oid = order.source.sourceId.substring(
+        4); //This gives all orders the same id as their stripe payment
     order.state = OrderState.Submitted;
-    await setImage(order.imageFile).then((downloadURL) {
-      order.image = downloadURL;
-    });
+    if (order.imageFile != null)
+      await setImage(order.imageFile).then((downloadURL) {
+        order.image = downloadURL;
+      });
     _service.setData(
       path: FirebasePath.order(oid),
       data: order.toJson(),
@@ -89,10 +96,13 @@ class FirestoreDatabase implements Database {
   @override
   Future<String> setImage(File image) async {
     String url;
-    Reference storageReference = _storage.ref().child('orders/${basename(image.path)}');
+    Reference storageReference =
+        _storage.ref().child('orders/${basename(image.path)}');
     try {
       await storageReference.putFile(image);
-      await storageReference.getDownloadURL().then((downloadURL) => url = downloadURL);
+      await storageReference
+          .getDownloadURL()
+          .then((downloadURL) => url = downloadURL);
     } on FirebaseException catch (e) {
       print("Exception: " + e.toString());
     }

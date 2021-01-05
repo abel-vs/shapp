@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/models/order.dart';
-import 'package:shapp/pages/order_confirmed_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -19,15 +18,20 @@ class Payments {
     )).then((source) async {
       order.source = source;
       Navigator.of(context).pushNamed("loading", arguments: AppLocalizations.of(context).translate("sending"));
-      await database.placeOrder(order).catchError((err) => Navigator.of(context).pop());
-      Navigator.of(context).pushNamed("order_confirmed", arguments: order);
-    }).catchError((err) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context).translate("something_went_wrong")),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      try{
+        await database.placeOrder(order);
+        Navigator.of(context).pushNamed("order_confirmed", arguments: order);
+      }
+      catch (err){
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).translate("something_went_wrong") + ": " + err.toString()),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+        Navigator.of(context).pop();
+      }
+      return;
     });
   }
 
