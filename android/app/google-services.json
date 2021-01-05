@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "776430906609",
+    "firebase_url": "https://shapp-289309.firebaseio.com",
+    "project_id": "shapp-289309",
+    "storage_bucket": "shapp-289309.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776430906609:android:883f92e41de576d5cd0d50",
+        "android_client_info": {
+          "package_name": "cc.shapp.shapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776430906609-4ajtiptrba67hdt7q567g2ivd604ifjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cc.shapp.shapp",
+            "certificate_hash": "c37127637d77fe4580f0855af6166765cfd29cb9"
+          }
+        },
+        {
+          "client_id": "776430906609-v8m8n96k4a2kc4c2no2d7t1nupf2ed4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCULXv3pCXsAwu6ArQu-OGIlVyW6Zk0a_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776430906609-v8m8n96k4a2kc4c2no2d7t1nupf2ed4m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "776430906609-m63vrv95a7ocsri84kelmr3rck0lvuol.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.shapp.shapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

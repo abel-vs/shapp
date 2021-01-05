@@ -1,7 +1,6 @@
-import 'package:Shapp/widgets/intro_info.dart';
+import 'package:shapp/services/app_localizations.dart';
+import 'package:shapp/widgets/intro_info.dart';
 import 'package:flutter/material.dart';
-
-import 'home_page.dart';
 
 class IntroPage extends StatefulWidget {
   @override
@@ -27,7 +26,9 @@ class _IntroPageState extends State<IntroPage> {
             children: <Widget>[
               IntroInfo('assets/images/basket.png', 'Find whatever you need',
                   'You can search through all products offered by partnered stores.'),
-              IntroInfo('assets/images/supermarket_location.png', 'Clear information',
+              IntroInfo(
+                  'assets/images/supermarket_location.png',
+                  'Clear information',
                   'You can find all information you need, such as price, availability, allergies, and much more.'),
               IntroInfo('assets/images/map.png', 'Go get it',
                   'You can easily view which stores have the product you selected.'),
@@ -81,7 +82,7 @@ class _IntroPageState extends State<IntroPage> {
                       ? FlatButton(
                           splashColor: Colors.transparent,
                           child: Text(
-                            'Next',
+                            AppLocalizations.of(context).translate("next"),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -97,17 +98,13 @@ class _IntroPageState extends State<IntroPage> {
                       : FlatButton(
                           splashColor: Colors.transparent,
                           child: Text(
-                            'Finish',
+                            AppLocalizations.of(context).translate("ready"),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
                           ),
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                          },
+                          onPressed: () => Navigator.of(context).pop(),
                         ),
                 ],
               ),
