@@ -23,15 +23,22 @@ class Payments {
         Navigator.of(context).pushNamed("order_confirmed", arguments: order);
       }
       catch (err){
+        Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context).translate("something_went_wrong") + ": " + err.toString()),
+            content: Text(AppLocalizations.of(context).translate("something_went_wrong")),
             backgroundColor: Colors.redAccent,
           ),
         );
-        Navigator.of(context).pop();
       }
       return;
+    }).catchError((err){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).translate("payment_cancelled")),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
     });
   }
 

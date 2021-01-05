@@ -110,5 +110,6 @@
   "sending": "Sending...",
   "general_conditions_link": "assets/policies/en/general_conditions.md",
   "privacy_policy_link": "assets/policies/en/privacy_policy.md",
-  "policy_note": "By signing up you agree with our general conditions and our privacy policy."
+  "policy_note": "By signing up you agree with our general conditions and our privacy policy.",
+  "payment_cancelled": "Payment was cancelled..."
 }

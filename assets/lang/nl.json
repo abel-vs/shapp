@@ -110,5 +110,6 @@
   "sending": "Verzenden...",
   "general_conditions_link": "assets/policies/nl/general_conditions.md",
   "privacy_policy_link": "assets/policies/nl/privacy_policy.md",
-  "policy_note": "Door je te registreren ga je akkoord met onze algemene voorwaarden en ons privacybeleid."
+  "policy_note": "Door je te registreren ga je akkoord met onze algemene voorwaarden en ons privacybeleid.",
+  "payment_cancelled": "Betaling is geannuleerd..."
 }
