@@ -111,5 +111,6 @@
   "general_conditions_link": "assets/policies/en/general_conditions.md",
   "privacy_policy_link": "assets/policies/en/privacy_policy.md",
   "policy_note": "By signing up you agree with our general conditions and our privacy policy.",
-  "payment_cancelled": "Payment was cancelled..."
+  "payment_cancelled": "Payment was cancelled...",
+  "search_place": "Search a place"
 }
