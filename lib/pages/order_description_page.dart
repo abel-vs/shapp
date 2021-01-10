@@ -32,11 +32,32 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          OrderTitleBlock(
-              title:
-                  AppLocalizations.of(context).translate("description_title"),
-              subtitle: AppLocalizations.of(context)
-                  .translate("description_subtitle")),
+          Row(
+            children: [
+              OrderTitleBlock(
+                  title: AppLocalizations.of(context).translate("description_title"),
+                  subtitle: AppLocalizations.of(context).translate("description_subtitle")),
+              Spacer(),
+              IconButton(
+                icon: Icon(Icons.help),
+                color: Theme.of(context).primaryColor,
+                iconSize: 30,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Text(
+                        AppLocalizations.of(context).translate("order_explanation_title"),
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      content: Text(AppLocalizations.of(context).translate("order_explanation")),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(width: 20)
+            ],
+          ),
           buildBody(),
           buildNextButton(context),
         ],
@@ -53,9 +74,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
             text: AppLocalizations.of(context).translate("next"),
             function: () {
               if (_formKey.currentState.validate()) {
-                pageController.nextPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
+                pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               }
             },
           ),
@@ -78,8 +97,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
   TextFormField buildDescriptionField() {
     return TextFormField(
       textAlignVertical: TextAlignVertical.top,
-      decoration: fieldDecoration(
-          labelText: AppLocalizations.of(context).translate("description")),
+      decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("description")),
       keyboardType: TextInputType.multiline,
       expands: true,
       maxLines: null,
@@ -137,8 +155,7 @@ class _OrderDescriptionPageState extends State<OrderDescriptionPage> {
             ),
             Divider(height: 0),
             ListTile(
-              title:
-                  Text(AppLocalizations.of(context).translate("pick_gallery")),
+              title: Text(AppLocalizations.of(context).translate("pick_gallery")),
               leading: Icon(Icons.camera_alt),
               onTap: () async {
                 pickedFile = await picker.getImage(source: ImageSource.gallery);

@@ -81,6 +81,7 @@
   "payment_explanation": "Je betaalt een voorschot voor de producten die je laat leveren.\n\nHet verschil in prijs wordt bij de levering afgehandeld.\n\nAls je voorschot te veel was krijg je de rest terug.\n\nAls je voorschot te weinig was betaal je het overige bij de levering.\n\nAls de werkelijke prijs te hard afwijkt wordt je nog gecontacteerd voor we de aankoop maken.",
   "order_explanation_title": "Wat kan ik bestellen?",
   "order_explanation": "Je kan bestellen wat je maar wil. Zolang we het voor je kunnen vinden en leveren zullen, we dat doen.",
+  "questions_code": "questions_nl",
   "total": "Totaal",
   "pay": "Betaal",
   "orders": "Bestellingen",
@@ -111,5 +112,7 @@
   "general_conditions_link": "assets/policies/nl/general_conditions.md",
   "privacy_policy_link": "assets/policies/nl/privacy_policy.md",
   "policy_note": "Door je te registreren ga je akkoord met onze algemene voorwaarden en ons privacybeleid.",
-  "payment_cancelled": "Betaling is geannuleerd..."
+  "payment_cancelled": "Betaling is geannuleerd...",
+  "search_place": "Zoek een plaats",
+  "location_must_delft": "Locatie moet in Delft zijn"
 }
