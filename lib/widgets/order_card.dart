@@ -41,7 +41,7 @@ class OrderCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline3,
                         ),
                         Text(
-                          order.deliveryLocation,
+                          order.pickUpLocation,
                           overflow: TextOverflow.fade,
                           softWrap: false,
                         ),
