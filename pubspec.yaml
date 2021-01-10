@@ -39,11 +39,13 @@ dependencies:
   firebase_auth: ^0.18.2
   firebase_analytics: ^6.2.0
   firebase_storage: ^5.2.0
+  firebase_remote_config: ^0.4.3
 #  firebase_messaging: ^7.0.3
 #  firebase_crashlytics: ^0.2.3
 
-#  google_maps_flutter: ^1.0.2
-#  location: ^3.0.2
+  google_maps_flutter: ^1.0.2
+  location: ^3.0.2
+  google_map_location_picker: ^4.1.2+1
 
   share: ^0.6.5
   dots_indicator: ^1.2.0

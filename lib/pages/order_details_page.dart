@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/decorations/field_decoration.dart';
+import 'package:shapp/models/location_picker.dart';
 import 'package:shapp/models/order.dart';
+import 'package:shapp/pages/map_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/validators.dart';
 import 'package:shapp/widgets/expanded_button.dart';
@@ -17,6 +20,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   Order order;
   final TextEditingController timeController = TextEditingController();
   final TextEditingController dayController = TextEditingController();
+  final TextEditingController pickUpController = TextEditingController();
+  final TextEditingController deliveryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -33,8 +38,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         children: [
           OrderTitleBlock(
             title: AppLocalizations.of(context).translate("details_title"),
-            subtitle:
-                AppLocalizations.of(context).translate("details_subtitle"),
+            subtitle: AppLocalizations.of(context).translate("details_subtitle"),
           ),
           buildFields(context),
           buildButtons(context),
@@ -48,9 +52,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       child: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           child: ConstrainedBox(
-            constraints: BoxConstraints(
-                minWidth: constraints.maxWidth,
-                minHeight: constraints.maxHeight),
+            constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -85,8 +87,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     return Expanded(
       child: TextFormField(
         textAlignVertical: TextAlignVertical.top,
-        decoration: fieldDecoration(
-            labelText: AppLocalizations.of(context).translate("extra_info")),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("extra_info")),
         keyboardType: TextInputType.multiline,
         minLines: null,
         maxLines: null,
@@ -107,14 +108,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       ),
       child: Row(
         children: [
-          Text(AppLocalizations.of(context).translate("approximately") +
-              " €" +
-              order.estimatedPrice.toStringAsFixed(0)),
+          Text(
+              AppLocalizations.of(context).translate("approximately") + " €" + order.estimatedPrice.toStringAsFixed(0)),
           Expanded(
             child: Slider(
                 value: order.estimatedPrice,
-                onChanged: (price) =>
-                    setState(() => order.estimatedPrice = price),
+                onChanged: (price) => setState(() => order.estimatedPrice = price),
                 min: 10,
                 max: 50,
                 divisions: 4,
@@ -136,22 +135,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text(
-                              AppLocalizations.of(context).translate("asap")),
+                          title: Text(AppLocalizations.of(context).translate("asap")),
                           onTap: () {
                             setState(() {
                               order.deliveryDay = DateTime.now();
                               order.deliveryTime = TimeExtension.asap();
-                              timeController.text =
-                                  order.deliveryTime.toReadableString(context, order.today);
+                              timeController.text = order.deliveryTime.toReadableString(context, order.today);
                             });
                             Navigator.of(context).pop();
                           },
                         ),
                         Divider(height: 0),
                         ListTile(
-                          title: Text(AppLocalizations.of(context)
-                              .translate("choose_other_time")),
+                          title: Text(AppLocalizations.of(context).translate("choose_other_time")),
                           onTap: () async {
                             TimeOfDay time = await showTimePicker(
                               context: context,
@@ -160,8 +156,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             if (time != null) {
                               setState(() {
                                 order.deliveryTime = time;
-                                timeController.text =
-                                    order.deliveryTime.toReadableString(context, order.today);
+                                timeController.text = order.deliveryTime.toReadableString(context, order.today);
                               });
                             }
                             Navigator.of(context).pop();
@@ -173,8 +168,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: timeController,
-        decoration: fieldDecoration(
-            labelText: AppLocalizations.of(context).translate("time")),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("time")),
       ),
     );
   }
@@ -198,54 +192,51 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         },
         readOnly: true,
         controller: dayController,
-        decoration: fieldDecoration(
-            labelText: AppLocalizations.of(context).translate("day")),
+        decoration: fieldDecoration(labelText: AppLocalizations.of(context).translate("day")),
       ),
     );
   }
 
   Widget buildPickUpLocationField() {
     return TextFormField(
-      // onTap: () => Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //     builder: (context) => MapPage(),
-      //   ),
-      // ),
+      onTap: () async {
+        LocationResult location = await pickLocation(context);
+        setState(() {
+          order.pickUpLocation = location.address ?? "";
+          pickUpController.text = location.address ?? "";
+        });
+      },
       onChanged: (text) => setState(() => order.pickUpLocation = text),
-      // readOnly: true,
-      initialValue: order.pickUpLocation.toString(),
+      // onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => MapPage())),
+      readOnly: true,
+      controller: pickUpController,
       decoration: fieldDecoration(
         labelText: AppLocalizations.of(context).translate("where_to_find"),
         hintText: AppLocalizations.of(context).translate("where_to_find_hint"),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => emptyValidator(
-        value,
-        AppLocalizations.of(context).translate("location_required"),
-      ),
+      validator: (value) => locationValidator(context, value),
     );
   }
 
   Widget buildDeliveryLocationField() {
     return TextFormField(
-      // onTap: () => Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //     builder: (context) => MapPage(),
-      //   ),
-      // ),
+      onTap: () async {
+        LocationResult location = await pickLocation(context);
+        setState(() {
+          order.deliveryLocation = location.address ?? "";
+          deliveryController.text = location.address ?? "";
+        });
+      },
       onChanged: (text) => setState(() => order.deliveryLocation = text),
-      // readOnly: true,
-      initialValue: order.deliveryLocation.toString(),
+      readOnly: true,
+      controller: deliveryController,
       decoration: fieldDecoration(
         labelText: AppLocalizations.of(context).translate("where_to_deliver"),
-        hintText:
-            AppLocalizations.of(context).translate("where_to_deliver_hint"),
+        hintText: AppLocalizations.of(context).translate("where_to_deliver_hint"),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => emptyValidator(
-        value,
-        AppLocalizations.of(context).translate("location_required"),
-      ),
+      validator: (value) => locationValidator(context, value),
     );
   }
 
@@ -259,9 +250,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             ExpandedButton(
               text: AppLocalizations.of(context).translate("back"),
               function: () {
-                pageController.previousPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
+                pageController.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
               },
             ),
             SizedBox(width: 10),
@@ -269,9 +258,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
               text: AppLocalizations.of(context).translate("next"),
               function: () {
                 if (_formKey.currentState.validate()) {
-                  pageController.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOut);
+                  pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                 }
               },
             ),

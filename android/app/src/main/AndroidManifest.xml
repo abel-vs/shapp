@@ -5,6 +5,11 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.location.network"/>
+    <uses-feature android:name="android.hardware.location.gps"/>
+
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Shapp"
@@ -46,6 +51,7 @@
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC91byt3oXKik2bcw26gneeiBT-o3juAQs"/>
+
     </application>
 
 <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
