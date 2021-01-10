@@ -215,10 +215,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         hintText: AppLocalizations.of(context).translate("where_to_find_hint"),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => emptyValidator(
-        value,
-        AppLocalizations.of(context).translate("location_required"),
-      ),
+      validator: (value) => locationValidator(context, value),
     );
   }
 
@@ -239,10 +236,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         hintText: AppLocalizations.of(context).translate("where_to_deliver_hint"),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => emptyValidator(
-        value,
-        AppLocalizations.of(context).translate("location_required"),
-      ),
+      validator: (value) => locationValidator(context, value),
     );
   }
 

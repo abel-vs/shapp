@@ -12,6 +12,7 @@ import 'package:shapp/pages/policy_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/services/preferences_provider.dart';
+import 'package:shapp/services/remote_config.dart';
 import 'package:shapp/themes.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
@@ -47,6 +48,13 @@ class MyApp extends StatelessWidget {
         Provider<Database>(create: (context) => FirestoreDatabase()),
         Provider<FirebaseAnalytics>(create: (context) => analytics),
         ChangeNotifierProvider<PreferencesProvider>(create: (context) => PreferencesProvider()),
+        FutureProvider<RemoteConfigService>(
+          create: (context) => RemoteConfigService.getInstance().then((remoteConfig) {
+            remoteConfig.initialise();
+            return remoteConfig;
+          }),
+          lazy: false,
+        ),
       ],
       child: Builder(
         builder: (BuildContext context) => Consumer<PreferencesProvider>(

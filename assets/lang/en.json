@@ -81,6 +81,7 @@
   "payment_explanation": "You pay a deposit for the products being delivered.\n\nThe resting difference in price gets handled at the delivery.\n\nIf your deposit was too much the difference gets refunded.\n\nIf your deposit was too little you pay the resting difference at delivery.\n\nIf the actual price differs too hard from the deposit you will be contacted before the purchase is made.",
   "order_explanation_title": "What can I order?",
   "order_explanation": "You can order whatever you want. As long as we can find it for you and we can deliver it, we will.",
+  "questions_code": "questions_en",
   "total": "Total",
   "pay": "Pay",
   "orders": "Orders",
@@ -112,5 +113,6 @@
   "privacy_policy_link": "assets/policies/en/privacy_policy.md",
   "policy_note": "By signing up you agree with our general conditions and our privacy policy.",
   "payment_cancelled": "Payment was cancelled...",
-  "search_place": "Search a place"
+  "search_place": "Search a place",
+  "location_must_delft": "Location must be in Delft"
 }
