@@ -9,7 +9,7 @@ import 'package:shapp/services/app_localizations.dart';
 
 const CameraPosition Delft = CameraPosition(
   target: LatLng(52.00667, 4.35556),
-  zoom: 10,
+  zoom: 13,
 );
 
 const String androidKey = 'AIzaSyCgXaBGdT_dl7zcyQ77wQ5vU1HsyCMsAIA';
@@ -45,5 +45,6 @@ Future<LocationResult> pickLocation(BuildContext context) {
     hintText: AppLocalizations.of(context).translate("search_place"),
     resultCardConfirmIcon: resultConfirmIcon,
     searchBarBoxDecoration: searchBarDecoration,
+    automaticallyAnimateToCurrentLocation: false,
   );
 }
