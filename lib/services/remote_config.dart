@@ -18,7 +18,6 @@ class RemoteConfigService {
   static RemoteConfigService _instance;
 
   static Future<RemoteConfigService> getInstance() async {
-    print("Yeet");
     if (_instance == null) {
       _instance = RemoteConfigService(
         remoteConfig: await RemoteConfig.instance,
