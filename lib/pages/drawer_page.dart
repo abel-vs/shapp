@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shapp/services/app_localizations.dart';
@@ -10,6 +11,7 @@ class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Auth auth = Provider.of<AuthBase>(context);
+    PackageInfo packageInfo = Provider.of<PackageInfo>(context);
 
     return Drawer(
       child: ListTileTheme(
@@ -28,32 +30,43 @@ class DrawerPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.share),
-                title: Text(AppLocalizations.of(context).translate("spread_the_love")),
-                onTap: () => Share.share(AppLocalizations.of(context).translate("share_message"), subject: 'Shapp'),
+                title: Text(
+                    AppLocalizations.of(context).translate("spread_the_love")),
+                onTap: () => Share.share(
+                    AppLocalizations.of(context).translate("share_message"),
+                    subject: 'Shapp'),
               ),
               ListTile(
                   leading: Icon(Icons.star),
-                  title: Text(AppLocalizations.of(context).translate("feedback")),
+                  title:
+                      Text(AppLocalizations.of(context).translate("feedback")),
                   onTap: () => Navigator.of(context).pushNamed("feedback")),
               ListTile(
                 leading: Icon(Icons.help_outline),
-                title: Text(AppLocalizations.of(context).translate("frequent_questions")),
+                title: Text(AppLocalizations.of(context)
+                    .translate("frequent_questions")),
                 onTap: () => Navigator.of(context).pushNamed("faq"),
               ),
               AboutListTile(
                 icon: Icon(Icons.info_outline),
-                applicationVersion: AppLocalizations.of(context).translate("version") + " 1.0.0",
+                applicationVersion:
+                    AppLocalizations.of(context).translate("version") +
+                            " " +
+                            packageInfo.version ??
+                        "1.0",
                 applicationLegalese: "©2021 Shapp",
                 aboutBoxChildren: [
                   SizedBox(height: 20),
                   ListTile(
-                      title: Text(AppLocalizations.of(context).translate("general_conditions")),
+                      title: Text(AppLocalizations.of(context)
+                          .translate("general_conditions")),
                       onTap: () {
                         Navigator.of(context).pushNamed("general_conditions");
                         Navigator.of(context, rootNavigator: true).pop();
                       }),
                   ListTile(
-                      title: Text(AppLocalizations.of(context).translate("privacy_policy")),
+                      title: Text(AppLocalizations.of(context)
+                          .translate("privacy_policy")),
                       onTap: () {
                         Navigator.of(context).pushNamed("privacy_policy");
                         Navigator.of(context, rootNavigator: true).pop();
@@ -87,14 +100,19 @@ class DrawerPage extends StatelessWidget {
                 onTap: () => showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                          title: Text(AppLocalizations.of(context).translate("alert_logout")),
+                          title: Text(AppLocalizations.of(context)
+                              .translate("alert_logout")),
                           actions: [
                             TextButton(
-                              child: Text(AppLocalizations.of(context).translate("no").toUpperCase()),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate("no")
+                                  .toUpperCase()),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
                             TextButton(
-                              child: Text(AppLocalizations.of(context).translate("yes").toUpperCase()),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate("yes")
+                                  .toUpperCase()),
                               onPressed: () {
                                 auth.signOut();
                                 Navigator.of(context).pop();
