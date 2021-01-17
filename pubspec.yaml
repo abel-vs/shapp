@@ -54,6 +54,7 @@ dependencies:
   code_input: ^1.0.3
   devicelocale: ^0.3.3
   flutter_markdown: ^0.5.1
+  package_info: ^0.4.3
 
   stripe_payment: ^1.0.8
 

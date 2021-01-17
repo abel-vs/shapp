@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:shapp/navigation/landing_page.dart';
 import 'package:shapp/pages/error_page.dart';
@@ -29,7 +30,8 @@ void main() async {
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
   // Set custom error screen
-  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) => ErrorPage(flutterErrorDetails.exception);
+  ErrorWidget.builder = (FlutterErrorDetails flutterErrorDetails) =>
+      ErrorPage(flutterErrorDetails.exception);
   runApp(MyApp());
 }
 
@@ -40,19 +42,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
     return MultiProvider(
       providers: [
         Provider<AuthBase>(create: (context) => Auth()),
         Provider<Database>(create: (context) => FirestoreDatabase()),
         Provider<FirebaseAnalytics>(create: (context) => analytics),
-        ChangeNotifierProvider<PreferencesProvider>(create: (context) => PreferencesProvider()),
+        ChangeNotifierProvider<PreferencesProvider>(
+            create: (context) => PreferencesProvider()),
         FutureProvider<RemoteConfigService>(
-          create: (context) => RemoteConfigService.getInstance().then((remoteConfig) {
+          create: (context) =>
+              RemoteConfigService.getInstance().then((remoteConfig) {
             remoteConfig.initialise();
             return remoteConfig;
           }),
+          lazy: false,
+        ),
+        FutureProvider<PackageInfo>(
+          create: (context) => PackageInfo.fromPlatform(),
           lazy: false,
         ),
       ],
@@ -81,11 +90,14 @@ class MyApp extends StatelessWidget {
               routes: {
                 // When navigating to the "/" route, build the FirstScreen widget.
                 'privacy_policy': (context) => PolicyPage(
-                    title: "privacy_policy", content: AppLocalizations.of(context).translate("privacy_policy_link")),
+                    title: "privacy_policy",
+                    content: AppLocalizations.of(context)
+                        .translate("privacy_policy_link")),
                 // When navigating to the "/second" route, build the SecondScreen widget.
                 'general_conditions': (context) => PolicyPage(
                     title: "general_conditions",
-                    content: AppLocalizations.of(context).translate("general_conditions_link")),
+                    content: AppLocalizations.of(context)
+                        .translate("general_conditions_link")),
               },
 
               /// Localization
@@ -98,7 +110,8 @@ class MyApp extends StatelessWidget {
               locale: preferences.locale,
               supportedLocales: supportedLocales.values,
               // Returns a locale which will be used by the app
-              localeResolutionCallback: (locale, supportedLocales) => localeResolution(locale, supportedLocales),
+              localeResolutionCallback: (locale, supportedLocales) =>
+                  localeResolution(locale, supportedLocales),
             );
           },
         ),
