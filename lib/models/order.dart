@@ -145,6 +145,7 @@ class Order {
   stripe.Source source;
   String image;
   File imageFile;
+  String rider;
 
   bool get today{
     return DateTime.now().isSameDate(this.deliveryDay);
@@ -164,6 +165,7 @@ class Order {
     this.deliveryCosts = 2,
     this.extraInfo = "",
     this.source,
+    this.rider,
   }) {
     this.state = OrderStateExtension.create(state);
     this.delivered = this.state == OrderState.Done;
@@ -194,6 +196,7 @@ class Order {
       'user': FirebaseAuth.instance.currentUser.uid,
       'state': state.toString(),
       'image': image,
+      'rider': rider,
     };
   }
 }
