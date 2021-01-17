@@ -162,7 +162,7 @@ class Order {
     this.deliveryLocation = "",
     this.pickUpLocation = "",
     this.estimatedPrice = 10,
-    this.deliveryCosts = 2,
+    this.deliveryCosts = 0,
     this.extraInfo = "",
     this.source,
     this.rider,
