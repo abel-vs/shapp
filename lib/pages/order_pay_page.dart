@@ -93,7 +93,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
                 title: Text(AppLocalizations.of(context).translate("delivery_costs"),
                     style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
-                  "€ " + order.estimatedPrice.toStringAsFixed(2),
+                  "€ " + order.deliveryCosts.toStringAsFixed(2),
                   style: TextStyle(fontSize: 20),
                 ),
               ),
