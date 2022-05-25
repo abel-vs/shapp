@@ -12,6 +12,8 @@ import 'package:stripe_payment/stripe_payment.dart' as stripe;
 import 'firestore_service.dart';
 
 abstract class Database {
+  makeUser();
+
   sendFeedback(String feedback);
 
   Future<void> placeOrder(Order order);
@@ -45,8 +47,20 @@ class FirestoreDatabase implements Database {
       source: stripe.Source(sourceId: data["stripeSource"]),
       state: data["state"],
       image: data["image"],
+      rider: data["rider"],
     );
   };
+
+  @override
+  makeUser() {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String phoneNumber = FirebaseAuth.instance.currentUser.phoneNumber;
+    Map<String, dynamic> data = {
+      'phoneNumber': phoneNumber,
+    };
+    _service.setData(path: FirebasePath.user(uid), data: data);
+  }
+
 
   @override
   sendFeedback(String feedback) {

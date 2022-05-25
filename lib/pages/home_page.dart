@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shapp/models/location_picker.dart';
 import 'package:shapp/pages/drawer_page.dart';
 import 'package:shapp/services/app_localizations.dart';
 import 'package:shapp/services/database.dart';

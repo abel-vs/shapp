@@ -11,7 +11,7 @@ class Payments {
 
     return StripePayment.createSourceWithParams(SourceParams(
       type: 'ideal',
-      amount: ((order.estimatedPrice + 2) * 100).toInt(),
+      amount: ((order.estimatedPrice + order.deliveryCosts) * 100).toInt(),
       statementDescriptor: "Shapp " + AppLocalizations.of(context).translate("order").toLowerCase() + ": " + order.description,
       currency: 'eur',
       returnURL: 'example://stripe-redirect',

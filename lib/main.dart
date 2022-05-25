@@ -1,28 +1,31 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 import 'package:shapp/navigation/landing_page.dart';
 import 'package:shapp/pages/error_page.dart';
 import 'package:shapp/pages/policy_page.dart';
 import 'package:shapp/services/auth.dart';
 import 'package:shapp/services/database.dart';
 import 'package:shapp/services/preferences_provider.dart';
+import 'package:shapp/services/remote_config.dart';
 import 'package:shapp/themes.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
-import 'services/app_localizations.dart';
-
 import 'package:stripe_payment/stripe_payment.dart';
+
+import 'services/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   StripePayment.setOptions(StripeOptions(
-      publishableKey:
-          // "pk_live_51HoqjPCn8fuy3fijbmvcV2VTTDOH87JjHj1coI6n9FsmVRGueXQkgdQgMvMRxvIUDQqwPAfjZL8j2un6e51w8v4P00YpVNZpIw",
-          "pk_test_51HoqjPCn8fuy3fijvWHsIaEjvVhPBvIkB4hTnavS9gSMFcFxS9HCXsLCvpMb9uaVMD9mAFCOIbfZXVVDKNSnvipI00WnlnLe5X",
+      publishableKey: kReleaseMode
+          ? "pk_live_51HoqjPCn8fuy3fijbmvcV2VTTDOH87JjHj1coI6n9FsmVRGueXQkgdQgMvMRxvIUDQqwPAfjZL8j2un6e51w8v4P00YpVNZpIw"
+          : "pk_test_51HoqjPCn8fuy3fijvWHsIaEjvVhPBvIkB4hTnavS9gSMFcFxS9HCXsLCvpMb9uaVMD9mAFCOIbfZXVVDKNSnvipI00WnlnLe5X",
       //YOUR_PUBLISHABLE_KEY
       merchantId: "Shapp", //YOUR_MERCHANT_ID
       androidPayMode: 'test'));
@@ -49,6 +52,18 @@ class MyApp extends StatelessWidget {
         Provider<FirebaseAnalytics>(create: (context) => analytics),
         ChangeNotifierProvider<PreferencesProvider>(
             create: (context) => PreferencesProvider()),
+        FutureProvider<RemoteConfigService>(
+          create: (context) =>
+              RemoteConfigService.getInstance().then((remoteConfig) {
+            remoteConfig.initialise();
+            return remoteConfig;
+          }),
+          lazy: false,
+        ),
+        FutureProvider<PackageInfo>(
+          create: (context) => PackageInfo.fromPlatform(),
+          lazy: false,
+        ),
       ],
       child: Builder(
         builder: (BuildContext context) => Consumer<PreferencesProvider>(

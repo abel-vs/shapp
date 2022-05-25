@@ -93,7 +93,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
                 title: Text(AppLocalizations.of(context).translate("delivery_costs"),
                     style: Theme.of(context).textTheme.headline5),
                 subtitle: Text(
-                  "€ 2,00",
+                  "€ " + order.deliveryCosts.toStringAsFixed(2),
                   style: TextStyle(fontSize: 20),
                 ),
               ),
@@ -107,7 +107,7 @@ class _OrderPayPageState extends State<OrderPayPage> {
         ListTile(
           title: Text(AppLocalizations.of(context).translate("total"), style: Theme.of(context).textTheme.headline2),
           subtitle: Text(
-            "€ " + (order.estimatedPrice + 2).toStringAsFixed(2),
+            "€ " + (order.estimatedPrice + order.deliveryCosts).toStringAsFixed(2),
             style: TextStyle(fontSize: 30),
           ),
         ),

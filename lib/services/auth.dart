@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:shapp/pages/verify_page.dart';
+import 'package:shapp/services/database.dart';
 
 abstract class AuthBase {
   Stream<User> get onAuthStateChanged;
@@ -44,17 +45,21 @@ class Auth implements AuthBase {
   }
 
   @override
-  Future<void> verifyPhone(PhoneNumber phoneNumber, BuildContext context) async {
+  Future<void> verifyPhone(
+      PhoneNumber phoneNumber, BuildContext context) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber.phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         // ANDROID ONLY!
         // Sign the user in (or link) with the auto-generated credential
-        await auth.signInWithCredential(credential);
+        await auth
+            .signInWithCredential(credential)
+            .whenComplete(() => FirestoreDatabase().makeUser());
+
         Navigator.of(context).popUntil((route) => route.isFirst);
       },
       verificationFailed: (FirebaseAuthException e) {
-        Scaffold.of(context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(exceptionText(e.code)),
             backgroundColor: Colors.redAccent,
@@ -78,10 +83,12 @@ class Auth implements AuthBase {
   @override
   Future<User> signIn(String otp) async {
     // Create a PhoneAuthCredential with the code
-    PhoneAuthCredential phoneAuthCredential =
-        PhoneAuthProvider.credential(verificationId: verificationId, smsCode: otp);
+    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: otp);
     // Sign the user in (or link) with the credential
-    final authResult = await auth.signInWithCredential(phoneAuthCredential);
+    final authResult = await auth
+        .signInWithCredential(phoneAuthCredential)
+        .whenComplete(() => FirestoreDatabase().makeUser()); // Return the user
     // Return the user
     return authResult.user;
   }
